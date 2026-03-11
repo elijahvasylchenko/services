@@ -264,8 +264,7 @@
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // ВАЖЛИВО: Замініть цей рядок на ваш Webhook URL (Production) з n8n
-            const WEBHOOK_URL = 'ВАШ_URL_З_N8N_СЮДИ'; 
+            const WEBHOOK_URL = 'https://elijah.thebeststore.website/webhook/leadtestform_mainsite'; 
 
             btn.disabled = true;
             btn.innerText = 'Відправлення даних...';
@@ -301,4 +300,5 @@
         });
     </script>
 </body>
+
 </html>
