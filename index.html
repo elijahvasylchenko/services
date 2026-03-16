@@ -4,6 +4,482 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Базові SEO Теги -->
+    <title>Автоматизація бізнес-процесів | Впровадження n8n Україна</title>
+    <meta name="description" content="Комплексна автоматизація бізнес-процесів. Впровадження n8n, розробка розумних Телеграм-ботів з AI, інтеграція CRM з календарем.">
+    <meta name="keywords" content="автоматизація бізнес-процесів, впровадження n8n Україна, розробка розумних телеграм ботів, інтеграція штучного інтелекту в бізнес, бази даних для бізнесу postgresql mongodb">
+    <meta name="author" content="SystemFlow" />
+
+    <!-- Open Graph (Теги для красивих прев'ю у Telegram, Facebook, LinkedIn) -->
+    <meta property="og:title" content="Автоматизація бізнес-процесів | SystemFlow" />
+    <meta property="og:description" content="Економимо сотні годин вашої команди. Впровадження n8n на власному сервері, AI-боти та CRM інтеграції під ключ." />
+    <meta property="og:type" content="website" />
+    <!-- ЗАМІНІТЬ ПОСИЛАННЯ НИЖЧЕ на реальне посилання на вашу картинку (розмір 1200x630) -->
+    <meta property="og:image" content="https://via.placeholder.com/1200x630/0f172a/ffffff?text=SystemFlow+Automation" />
+    
+    <!-- Twitter Card Теги -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Комплексна автоматизація бізнес-процесів" />
+    <meta name="twitter:description" content="Впровадження n8n, розробка розумних Телеграм-ботів з AI, інтеграція CRM з календарем." />
+    <!-- ЗАМІНІТЬ ПОСИЛАННЯ НИЖЧЕ на ту саму картинку -->
+    <meta name="twitter:image" content="https://via.placeholder.com/1200x630/0f172a/ffffff?text=SystemFlow+Automation" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #0f172a;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --text-light: #64748b;
+            --accent: #10b981;
+            --radius: 12px;
+            --shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; color: var(--text-main); background: var(--bg-light); line-height: 1.6; scroll-behavior: smooth; }
+
+        header { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a { margin-left: 25px; text-decoration: none; color: var(--text-main); font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-btn { background: var(--primary); color: var(--white) !important; padding: 10px 20px; border-radius: 8px; margin-left: 30px !important; }
+
+        .hero { margin-top: 80px; padding: 120px 20px 80px; text-align: center; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); }
+        .hero h1 { font-size: 3.5rem; color: var(--secondary); margin-bottom: 20px; max-width: 900px; margin: 0 auto 20px; line-height: 1.2; }
+        .hero p { font-size: 1.2rem; color: var(--text-light); margin-bottom: 40px; max-width: 800px; margin: 0 auto 40px; }
+        .btn-large { display: inline-block; background: var(--primary); color: var(--white); padding: 16px 40px; font-size: 1.1rem; font-weight: 600; text-decoration: none; border-radius: 8px; transition: background 0.3s; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
+        .btn-large:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+        /* Стек технологій */
+        .tech-stack-section { padding: 50px 20px; background: var(--white); text-align: center; border-bottom: 1px solid #e2e8f0; }
+        .tech-stack-title { font-size: 0.9rem; color: var(--text-light); margin-bottom: 25px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
+        .tech-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; align-items: center; max-width: 1000px; margin: 0 auto; }
+        .tech-logo { font-size: 1.2rem; font-weight: 600; color: #64748b; transition: all 0.3s ease; display: flex; align-items: center; gap: 10px; user-select: none; filter: grayscale(100%) opacity(70%); cursor: default; }
+        .tech-logo:hover { color: var(--secondary); filter: grayscale(0%) opacity(100%); transform: translateY(-2px); }
+        .tech-logo img, .tech-logo svg { width: 28px; height: 28px; }
+
+        .section-wrapper { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 15px; color: var(--secondary); }
+        .section-subtitle { text-align: center; color: var(--text-light); margin-bottom: 60px; font-size: 1.1rem; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+        /* Послуги */
+        .grid-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .service-card { background: var(--white); padding: 40px 30px; border-radius: var(--radius); box-shadow: var(--shadow); transition: transform 0.3s, box-shadow 0.3s; border-top: 4px solid transparent; display: flex; flex-direction: column;}
+        .service-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-top-color: var(--primary); }
+        .icon-wrap { font-size: 2.5rem; margin-bottom: 20px; display: inline-block; padding: 15px; background: #eff6ff; border-radius: 12px; align-self: flex-start;}
+        .service-card h3 { font-size: 1.4rem; margin-bottom: 15px; color: var(--secondary); line-height: 1.3; }
+        .service-card p { color: var(--text-light); margin-bottom: 25px; flex-grow: 1;}
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+        .tech-tag { background: #f1f5f9; color: #475569; font-size: 0.8rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; }
+
+        /* Процес роботи */
+        .process-section { background-color: var(--white); }
+        .grid-process { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; counter-reset: step-counter; }
+        .step-card { background: var(--bg-light); padding: 40px 30px; border-radius: var(--radius); position: relative; z-index: 1; text-align: left; overflow: hidden; border: 1px solid #e2e8f0; transition: transform 0.3s;}
+        .step-card:hover { transform: translateY(-5px); border-color: #cbd5e1; }
+        .step-number { font-size: 6rem; font-weight: 800; color: var(--white); position: absolute; top: -10px; right: 10px; z-index: -1; line-height: 1; opacity: 0.7;}
+        .step-card h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--secondary); }
+        .step-card h3::before { counter-increment: step-counter; content: "0" counter(step-counter) ". "; color: var(--primary); }
+        .step-card p { color: var(--text-light); font-size: 0.95rem; }
+
+        /* Кейси */
+        .cases-section { background-color: var(--bg-light); }
+        .grid-cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
+        .case-card { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: transform 0.3s; border: 1px solid #e2e8f0; }
+        .case-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .case-content { padding: 40px 30px; }
+        .case-content h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--secondary); line-height: 1.4;}
+        .case-content p { color: var(--text-light); }
+        .case-result { font-weight: 600; color: var(--accent); margin-top: 20px; margin-bottom: 20px; display: inline-block; background: #ecfdf5; padding: 8px 15px; border-radius: 8px;}
+
+        /* FAQ */
+        .faq-section { background-color: var(--white); }
+        .faq-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+        .faq-item { background: var(--bg-light); border-radius: var(--radius); border: 1px solid #e2e8f0; overflow: hidden; transition: all 0.3s ease; }
+        .faq-item summary { padding: 25px; font-weight: 600; font-size: 1.1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--secondary); transition: background 0.3s; }
+        .faq-item summary:hover { background: #f1f5f9; }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: '+'; font-size: 1.5rem; color: var(--primary); transition: transform 0.3s; font-weight: 400; }
+        .faq-item[open] summary::after { transform: rotate(45deg); }
+        .faq-item[open] summary { border-bottom: 1px solid #e2e8f0; }
+        .faq-content { padding: 25px; color: var(--text-light); background: var(--white); line-height: 1.7; }
+
+        /* Форма */
+        .contact-section { background: var(--secondary); color: var(--white); padding: 100px 20px; }
+        .contact-section .section-title, .contact-section .section-subtitle { color: var(--white); }
+        .contact-section .section-subtitle { opacity: 0.8; }
+        .form-container { max-width: 550px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: var(--radius); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        form { display: flex; flex-direction: column; gap: 20px; }
+        label { font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin-bottom: -10px; }
+        input, textarea { padding: 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 1rem; font-family: inherit; background: var(--bg-light); color: var(--secondary); transition: border-color 0.3s; }
+        input:focus, textarea:focus { outline: none; border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        textarea { resize: vertical; min-height: 120px; }
+        button[type="submit"] { background: var(--primary); color: var(--white); border: none; padding: 16px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 1.1rem; transition: all 0.3s; margin-top: 10px; }
+        button[type="submit"]:hover { background: var(--primary-hover); transform: translateY(-2px);}
+        button[type="submit"]:disabled { background: #94a3b8; cursor: not-allowed; transform: none;}
+
+        footer { text-align: center; padding: 30px; background: #020617; color: #64748b; font-size: 0.9rem;}
+
+        /* Плаваючий віджет Telegram (Заміна Lovable Badge) */
+        .floating-tg-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: #2AABEE; /* Telegram Blue */
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(42, 171, 238, 0.4);
+            z-index: 9999;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.32, 1);
+        }
+        .floating-tg-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(42, 171, 238, 0.5);
+            color: #ffffff;
+        }
+        .floating-tg-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        @media (max-width: 900px) {
+            .nav-links a:not(.nav-btn) { display: none; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .form-container { padding: 30px 20px; }
+            .tech-logos { gap: 20px; }
+            .tech-logo { font-size: 1.1rem; }
+            .floating-tg-btn { bottom: 15px; right: 15px; padding: 10px 16px; font-size: 0.85rem;}
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">SystemFlow</a>
+            <div class="nav-links">
+                <a href="#solutions">Рішення</a>
+                <a href="#process">Процес</a>
+                <a href="#cases">Кейси</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contact" class="nav-btn">Обговорити проект</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Комплексна автоматизація бізнес-процесів</h1>
+        <p>Інтеграція штучного інтелекту в бізнес та усунення рутини. Ми пропонуємо професійне впровадження n8n (Україна) та гарантуємо, що незалежна автоматизація на власному сервері (VPS, Docker) надійно захистить ваші корпоративні дані.</p>
+        <a href="#contact" class="btn-large">Замовити аудит процесів</a>
+    </section>
+
+    <section class="tech-stack-section">
+        <h2 class="tech-stack-title">Інтегруємо та працюємо з сучасними технологіями</h2>
+        <div class="tech-logos">
+            <div class="tech-logo"><img src="https://cdn.simpleicons.org/n8n" alt="n8n"> n8n</div>
+            <div class="tech-logo"><img src="https://cdn.simpleicons.org/openai" alt="OpenAI"> OpenAI</div>
+            <div class="tech-logo"><img src="https://cdn.simpleicons.org/anthropic" alt="Anthropic"> Anthropic</div>
+            <div class="tech-logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d97757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+                MCP
+            </div>
+            <div class="tech-logo"><img src="https://cdn.simpleicons.org/postgresql" alt="PostgreSQL"> PostgreSQL</div>
+            <div class="tech-logo"><img src="https://cdn.simpleicons.org/docker" alt="Docker"> Docker</div>
+            <div class="tech-logo"><img src="https://cdn.simpleicons.org/telegram" alt="Telegram API"> Telegram API</div>
+            <div class="tech-logo"><img src="https://cdn.simpleicons.org/openapiinitiative" alt="REST API"> REST API</div>
+        </div>
+    </section>
+
+    <section id="solutions" class="section-wrapper">
+        <h2 class="section-title">Ефективні рішення для вашого росту</h2>
+        <p class="section-subtitle">Оптимізація витрат на SaaS-сервіси та автоматизація рутини в бізнесі, які економлять сотні годин роботи вашої команди.</p>
+
+        <div class="grid-services">
+            
+            <div class="service-card">
+                <div class="icon-wrap">⚙️</div>
+                <h3>Впровадження n8n (Міграція з Zapier)</h3>
+                <p>Ефективна оптимізація витрат на SaaS. Проводимо безпечну міграцію з Zapier на n8n. Це незалежна автоматизація на власному сервері (VPS Docker), де процеси працюють без обмежень кількості операцій.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Впровадження n8n Україна</span>
+                    <span class="tech-tag">VPS/VDS</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="icon-wrap">🤖</div>
+                <h3>Розробка розумних телеграм ботів</h3>
+                <p>Професійна розробка розумних телеграм ботів. Глибока інтеграція OpenAI / Claude дозволяє створити ідеальний чат-бот для лідогенерації, який закриває заперечення. Це справжня автоматизація відділу продажів 24/7.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Telegram API</span>
+                    <span class="tech-tag">Інтеграція OpenAI</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="icon-wrap">🗄️</div>
+                <h3>Бази даних для бізнесу</h3>
+                <p>Проектуємо та розгортаємо бази даних для бізнесу (PostgreSQL, MongoDB). Відмовтеся від нестабільних таблиць. Надійна структура для збереження історії лідів та наскрізної аналітики.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">MongoDB</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="icon-wrap">📅</div>
+                <h3>Інтеграція CRM з календарем</h3>
+                <p>Налаштовуємо інтеграцію CRM з календарем (або Calendly / Cal.com). Забудьте про накладки в розкладі: зустрічі клієнтів автоматично фіксуються в системі з миттєвими нагадуваннями у месенджери.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Cal.com</span>
+                    <span class="tech-tag">CRM інтеграції</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="icon-wrap">💻</div>
+                <h3>Розробка веб-додатків на n8n</h3>
+                <p>Створюємо кастомні особисті кабінети та дашборди. Розробка веб-додатків на n8n у ролі потужного бекенду дозволяє значно здешевити та прискорити запуск ваших IT-продуктів.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Web Apps</span>
+                    <span class="tech-tag">n8n Backend</span>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="icon-wrap">📝</div>
+                <h3>Налаштування Webhook для сайту</h3>
+                <p>Автоматизація рутини в бізнесі починається зі збору заявок. Виконуємо налаштування Webhook для сайту та квізів. Дані миттєво потрапляють у вашу воронку без втрат на пошті.</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Lead Generation</span>
+                    <span class="tech-tag">Webhooks</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="process" class="section-wrapper process-section">
+        <h2 class="section-title">Як проходить інтеграція</h2>
+        <p class="section-subtitle">Прозорий та поетапний процес впровадження автоматизації у ваш бізнес.</p>
+        
+        <div class="grid-process">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Аудит та Аналітика</h3>
+                <p>Ми вивчаємо ваші поточні бізнес-процеси, виявляємо вузькі місця, де команда втрачає час, та складаємо технічне завдання на автоматизацію.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Проектування Архітектури</h3>
+                <p>Розробляємо логіку роботи n8n, підбираємо необхідні бази даних (PostgreSQL/MongoDB) та плануємо інтеграцію зі сторонніми API та AI.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Розробка та Тестування</h3>
+                <p>Налаштовуємо всі сценарії, підключаємо CRM, Telegram-ботів та Webhooks. Проводимо стрес-тестування системи на помилки.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3>Запуск та Підтримка</h3>
+                <p>Розгортаємо систему на вашому власному VPS-сервері (через Docker), навчаємо команду користуватися новим інструментарієм та надаємо підтримку.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cases" class="section-wrapper cases-section">
+        <h2 class="section-title">Реалізовані кейси</h2>
+        <p class="section-subtitle">Приклади того, як автоматизація бізнес-процесів приносить реальний прибуток нашим клієнтам.</p>
+
+        <div class="grid-cases">
+            <div class="case-card">
+                <div class="case-content">
+                    <h3>Чат-бот для лідогенерації в eCommerce</h3>
+                    <p>Інтеграція штучного інтелекту в бізнес. Бот розпізнає запити, консультує по товарах з PostgreSQL та переводить складні питання на оператора. Повна автоматизація відділу продажів першої лінії.</p>
+                    <span class="case-result">✓ Зниження навантаження на менеджерів на 45%</span>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Інтеграція OpenAI / Claude</span>
+                        <span class="tech-tag">n8n</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-card">
+                <div class="case-content">
+                    <h3>Інтеграція CRM з календарем для клініки</h3>
+                    <p>Віджет Cal.com на сайті клієнта. При бронюванні n8n автоматично створює картку пацієнта у внутрішній CRM та надсилає SMS-нагадування. Міграція з Zapier на n8n дозволила зекономити $200 щомісяця.</p>
+                    <span class="case-result">✓ Оптимізація витрат на SaaS та 0% втрачених лідів</span>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Cal.com</span>
+                        <span class="tech-tag">REST API</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-card">
+                <div class="case-content">
+                    <h3>Налаштування Webhook для сайту послуг</h3>
+                    <p>Незалежна автоматизація на власному сервері (VPS Docker). Дані з багатокрокового квіза миттєво обробляються через n8n та відправляються у Telegram-групу для швидкої реакції менеджерів.</p>
+                    <span class="case-result">✓ Швидкість обробки заявки скоротилася до 2 секунд</span>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Webhooks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="section-wrapper faq-section">
+        <h2 class="section-title">Часті запитання</h2>
+        <p class="section-subtitle">Відповіді на найпопулярніші питання щодо впровадження автоматизації та n8n.</p>
+        
+        <div class="faq-container">
+            <details class="faq-item" open>
+                <summary>Чи безпечно використовувати n8n на власному сервері?</summary>
+                <div class="faq-content">
+                    <p>Так, це найбезпечніший варіант для бізнесу. На відміну від хмарних рішень (Zapier, Make), де ваші конфіденційні дані проходять через сервери третіх компаній, при розгортанні n8n на вашому VPS через Docker, усі дані та процеси залишаються виключно у вашому контурі безпеки.</p>
+                </div>
+            </details>
+            
+            <details class="faq-item">
+                <summary>Як швидко окупляться інвестиції в автоматизацію?</summary>
+                <div class="faq-content">
+                    <p>Зазвичай система окупається за 2-4 місяці. Це відбувається завдяки повній відмові від щомісячних платежів за дорогі SaaS-підписки (оплата йде лише за оренду VPS сервера ~$5-10/міс, та використання AI моделей), а також за рахунок економії десятків годин роботи ваших менеджерів щотижня.</p>
+                </div>
+            </details>
+            
+            <details class="faq-item">
+                <summary>Які CRM та сервіси ви можете інтегрувати?</summary>
+                <div class="faq-content">
+                    <p>Платформа n8n дозволяє інтегрувати практично будь-які сучасні сервіси. Якщо система має відкритий REST API (наприклад: KeyCRM, HubSpot, Pipedrive, Telegram, Google Workspace, платіжні системи), ми зможемо зв'язати її з іншими інструментами у єдиний безперебійний процес.</p>
+                </div>
+            </details>
+            
+            <details class="faq-item">
+                <summary>Чи потрібно нам самостійно купувати сервер?</summary>
+                <div class="faq-content">
+                    <p>Ми надаємо повний супровід у цьому питанні. Ми допоможемо обрати надійного хостинг-провайдера (DigitalOcean, Hetzner, AWS тощо), зареєструвати акаунт на вашу компанію та виконаємо повне налаштування сервера з нуля під ключ.</p>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Почніть оптимізацію сьогодні</h2>
+        <p class="section-subtitle">Розкажіть про свої задачі, і ми розробимо план, як автоматизація рутини в бізнесі допоможе вам масштабуватися.</p>
+        
+        <div class="form-container">
+            <form id="webhookForm">
+                <label for="name">Ваше ім'я або назва компанії</label>
+                <input type="text" id="name" name="name" placeholder="Наприклад: Олександр, ТОВ 'Логістика'" required>
+                
+                <label for="tg_user_id">Ваш Telegram (username або ID)</label>
+                <input type="text" id="tg_user_id" name="tg_user_id" placeholder="@username або 12345678" required>
+                
+                <label for="question">Який процес хочете автоматизувати?</label>
+                <textarea id="question" name="question" placeholder="Наприклад: Потрібно щоб бот приймав заявки з сайту, записував їх у PostgreSQL та нагадував клієнтам про запис..." required></textarea>
+                
+                <button type="submit" id="submitBtn">Надіслати запит команді</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 SystemFlow. Автоматизація бізнес-процесів та впровадження n8n (Україна).</p>
+    </footer>
+
+    <!-- Плаваючий віджет Telegram -->
+    <!-- Вставте своє посилання на Telegram у атрибут href -->
+    <a href="https://t.me/ВАШ_USERNAME" target="_blank" class="floating-tg-btn" aria-label="Написати в Telegram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.26-5.61 3.71-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.48-.83-.27-1.49-.41-1.43-.87.03-.24.35-.49.96-.75 3.78-1.65 6.3-2.73 7.55-3.26 3.59-1.5 4.33-1.76 4.81-1.77.11 0 .35.03.5.15.13.1.17.24.19.37.01.07.02.22.01.37z"/>
+        </svg>
+        <span>Обговорити проект</span>
+    </a>
+
+    <script>
+        const form = document.getElementById('webhookForm');
+        const btn = document.getElementById('submitBtn');
+        
+        const detailsElements = document.querySelectorAll('details');
+        detailsElements.forEach(targetDetail => {
+            targetDetail.addEventListener('click', () => {
+                detailsElements.forEach(detail => {
+                    if (detail !== targetDetail) {
+                        detail.removeAttribute('open');
+                    }
+                });
+            });
+        });
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const WEBHOOK_URL = 'https://elijah.thebeststore.website/webhook/leadtestform_mainsite'; 
+
+            btn.disabled = true;
+            btn.innerText = 'Відправлення даних...';
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            if (data.tg_user_id) {
+                data.tg_user_id = data.tg_user_id.trim();
+            }
+
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': authHeader
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert('Запит успішно відправлено! Наш менеджер зв\'яжеться з вами найближчим часом для обговорення деталей.');
+                    form.reset();
+                } else {
+                    alert('Вибачте, сталася помилка сервера. Спробуйте пізніше.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Не вдалося з’єднатися з сервером. Перевірте підключення до інтернету.');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Надіслати запит команді';
+            }
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <!-- SEO Теги -->
     <title>Автоматизація бізнес-процесів | Впровадження n8n Україна</title>
     <meta name="description" content="Комплексна автоматизація бізнес-процесів. Впровадження n8n, розробка розумних Телеграм-ботів з AI, інтеграція CRM з календарем. Міграція з Zapier на n8n.">
