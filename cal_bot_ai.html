@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Асистент для Beauty-майстрів</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FDFBF7;
+            color: #2D2A26;
+        }
+        h1, h2, h3, .serif-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .bg-accent { background-color: #C8B6A6; }
+        .text-accent { color: #A68A71; }
+        .border-accent { border-color: #C8B6A6; }
+        .bg-secondary { background-color: #EAE3D9; }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        
+        .fade-transition {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .hidden-state {
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            position: absolute;
+        }
+        .active-state {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+        }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+    <nav class="fixed w-full z-50 bg-[#FDFBF7]/90 backdrop-blur-md border-b border-[#EAE3D9] py-4">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+            <div class="text-xl serif-font font-semibold tracking-wide">BeautyAI<span class="text-accent">.</span></div>
+            <div class="space-x-4 hidden md:block">
+                <a href="#solution" class="text-sm hover:text-accent transition">Рішення</a>
+                <a href="#roi" class="text-sm hover:text-accent transition">Окупність</a>
+                <a href="#trust" class="text-sm hover:text-accent transition">Про розробника</a>
+            </div>
+            <a href="#contact" class="bg-[#2D2A26] text-white px-5 py-2 rounded-full text-sm hover:bg-accent transition duration-300">Протестувати</a>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-20 px-4 max-w-6xl mx-auto flex flex-col items-center text-center min-h-[90vh] justify-center">
+        <h1 class="text-5xl md:text-6xl font-semibold mb-6 leading-tight max-w-4xl">
+            Ви створюєте красу.<br>
+            <span class="text-accent italic">А рутину беремо ми.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl font-light">
+            Поверніть собі вільні вечори. Інтелектуальна система спілкується з клієнтами вашим стилем, пропонує вільні вікна та приймає передоплату на Monobank 24/7. Повністю без вашої участі.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#contact" class="bg-[#2D2A26] text-white px-8 py-4 rounded-full text-lg hover:bg-accent hover:text-white transition duration-300 flex items-center justify-center gap-2">
+                <span>📱</span> Відчути магію — демо
+            </a>
+            <a href="#pain" class="px-8 py-4 rounded-full text-lg border border-[#2D2A26] hover:bg-secondary transition duration-300">
+                Дізнатися більше
+            </a>
+        </div>
+    </section>
+
+    <section id="pain" class="py-20 bg-secondary">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl serif-font font-semibold mb-4">Оберіть свій вечір</h2>
+                <div class="inline-flex bg-[#FDFBF7] rounded-full p-1 border border-accent/40">
+                    <button id="btn-pain" class="px-6 py-2 rounded-full bg-[#2D2A26] text-white transition-all duration-300">Без асистента</button>
+                    <button id="btn-solution" class="px-6 py-2 rounded-full text-[#2D2A26] hover:bg-accent/20 transition-all duration-300">З асистентом</button>
+                </div>
+            </div>
+
+            <div class="relative min-h-[400px]">
+                <div id="state-pain" class="active-state w-full grid md:grid-cols-2 gap-12 items-center bg-[#FDFBF7] p-8 md:p-12 rounded-3xl shadow-sm border border-accent/20">
+                    <div class="space-y-6">
+                        <h3 class="text-3xl serif-font font-semibold">Знайома "друга зміна"?</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Ви відпустили останню клієнтку, але робота не закінчилась. Попереду — розбір повідомлень у Direct. Комусь треба знайти віконце, комусь нагадати про візит, а десь — не забути перевірити передоплату.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed">
+                            Вивітрюється натхнення, вигорає енергія, а час, який мав належати сім'ї та відпочинку, розчиняється в екрані смартфона.
+                        </p>
+                    </div>
+                    <div class="bg-[#2D2A26] text-white p-8 rounded-2xl flex flex-col gap-4 font-mono text-sm relative overflow-hidden">
+                        <div class="opacity-50 absolute right-4 top-4 text-4xl">📝</div>
+                        <div class="bg-white/10 p-3 rounded-lg w-3/4">"А є на завтра на 18:00?"</div>
+                        <div class="bg-white/10 p-3 rounded-lg w-3/4 ml-auto">"Куди кидати гроші?"</div>
+                        <div class="bg-white/10 p-3 rounded-lg w-3/4">"Ой, я забула, можна перенести?"</div>
+                        <div class="mt-4 border-t border-white/20 pt-4 text-accent">Непрочитаних: 14</div>
+                    </div>
+                </div>
+
+                <div id="state-solution" class="hidden-state w-full grid md:grid-cols-2 gap-12 items-center bg-[#FDFBF7] p-8 md:p-12 rounded-3xl shadow-sm border border-accent/20" style="transition: all 0.5s ease;">
+                    <div class="space-y-6">
+                        <h3 class="text-3xl serif-font font-semibold">Очима ваших клієнтів</h3>
+                        <p class="text-gray-600 leading-relaxed">Система працює настільки природно, що клієнтки відчувають лише вашу турботу.</p>
+                        <ul class="space-y-4">
+                            <li class="flex gap-4 items-start">
+                                <span class="text-2xl">✨</span>
+                                <div>
+                                    <strong class="block text-gray-800">Миттєва відповідь</strong>
+                                    <span class="text-sm text-gray-600">Асистент вітається вашим стилем і показує реальні вільні години.</span>
+                                </div>
+                            </li>
+                            <li class="flex gap-4 items-start">
+                                <span class="text-2xl">💳</span>
+                                <div>
+                                    <strong class="block text-gray-800">Оплата без нагадувань</strong>
+                                    <span class="text-sm text-gray-600">Надсилає реквізити Monobank та сам фіксує передоплату.</span>
+                                </div>
+                            </li>
+                            <li class="flex gap-4 items-start">
+                                <span class="text-2xl">⏰</span>
+                                <div>
+                                    <strong class="block text-gray-800">Жодних запізнень</strong>
+                                    <span class="text-sm text-gray-600">Автоматичне підтвердження запису та нагадування за добу.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-[#FDFBF7] border-4 border-[#2D2A26] p-4 rounded-[3rem] h-[450px] w-[250px] mx-auto flex flex-col relative shadow-xl">
+                        <div class="w-32 h-6 bg-[#2D2A26] absolute top-0 left-1/2 -translate-x-1/2 rounded-b-2xl"></div>
+                        <div class="flex-1 mt-6 flex flex-col gap-3 text-xs overflow-hidden">
+                            <div class="bg-gray-200 p-2 rounded-xl rounded-bl-none w-5/6">Привіт! Хочу на брівки у п'ятницю.</div>
+                            <div class="bg-accent text-white p-2 rounded-xl rounded-br-none w-5/6 ml-auto">Привіт, красуне! 💖 З радістю. Є віконця на 14:00 та 16:30. Який час зручніше?</div>
+                            <div class="bg-gray-200 p-2 rounded-xl rounded-bl-none w-1/2">Давай на 16:30.</div>
+                            <div class="bg-accent text-white p-2 rounded-xl rounded-br-none w-5/6 ml-auto">Чудово! Забронювала. Для підтвердження запису, будь ласка, внеси передоплату 200 грн на банку: [Лінк].</div>
+                            <div class="text-center text-[10px] text-gray-400 my-1">Оплата отримана</div>
+                            <div class="bg-accent text-white p-2 rounded-xl rounded-br-none w-5/6 ml-auto">Гроші отримала! Чекаю тебе у п'ятницю о 16:30. Нагадаю за день до візиту ✨</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-[#FDFBF7]">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-4xl serif-font font-semibold text-center mb-12">"А що, якщо я не технічна людина?"</h2>
+            <div class="space-y-4">
+                <div class="border border-accent/40 rounded-2xl bg-white overflow-hidden transition-all duration-300">
+                    <button class="accordion-btn w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-semibold text-lg flex items-center gap-3"><span class="text-2xl">💖</span> Не буде "сухого бота"</span>
+                        <span class="text-2xl font-light transform transition-transform duration-300">+</span>
+                    </button>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-secondary/20">
+                        <p class="p-6 text-gray-600 leading-relaxed border-t border-accent/20">
+                            Ми знаємо, що ваш головний ресурс — це спокій. Ми навчимо систему спілкуватися саме вашим голосом, з вашими улюбленими смайлами та інтонацією. Ваші клієнтки залишаться в захваті, думаючи, що спілкуються особисто з вами.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border border-accent/40 rounded-2xl bg-white overflow-hidden transition-all duration-300">
+                    <button class="accordion-btn w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-semibold text-lg flex items-center gap-3"><span class="text-2xl">🪄</span> Все "під ключ"</span>
+                        <span class="text-2xl font-light transform transition-transform duration-300">+</span>
+                    </button>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-secondary/20">
+                        <p class="p-6 text-gray-600 leading-relaxed border-t border-accent/20">
+                            Вам не потрібно нічого налаштовувати. Ви не торкаєтесь коду чи складних систем. Ми самі підключаємо ваш Google Календар, систему оплати (Monobank) та прописуємо всю логіку роботи. Ви отримуєте готовий результат.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="border border-accent/40 rounded-2xl bg-white overflow-hidden transition-all duration-300">
+                    <button class="accordion-btn w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-semibold text-lg flex items-center gap-3"><span class="text-2xl">🛡️</span> Ви нічого не зламаєте</span>
+                        <span class="text-2xl font-light transform transition-transform duration-300">+</span>
+                    </button>
+                    <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-secondary/20">
+                        <p class="p-6 text-gray-600 leading-relaxed border-t border-accent/20">
+                            Ви завжди маєте повний контроль. Ви бачите кожну переписку у своєму звичайному Direct і можете втрутитися в діалог у будь-який момент. Ви просто продовжуєте працювати як раніше, а система непомітно робить рутину за вас.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="roi" class="py-20 bg-[#2D2A26] text-[#FDFBF7]">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl serif-font font-semibold mb-4 text-white">Інвестиція, яка окупається за 2-3 неявки</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Скільки коштує ваше порожнє вікно, коли клієнтка забула прийти, а передоплату ви взяти посоромилися? Давайте порахуємо.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-12 items-center">
+                <div class="lg:col-span-2 space-y-8 bg-white/5 p-8 rounded-3xl border border-white/10">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Середній чек послуги (ГРН)</label>
+                        <input type="range" id="price-slider" min="500" max="5000" step="100" value="1500" class="w-full accent-[#C8B6A6]">
+                        <div class="text-2xl font-semibold mt-2 text-accent" id="price-val">1500 ₴</div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">Неявок клієнтів на місяць (шт)</label>
+                        <input type="range" id="noshow-slider" min="1" max="15" step="1" value="3" class="w-full accent-[#C8B6A6]">
+                        <div class="text-2xl font-semibold mt-2 text-accent" id="noshow-val">3</div>
+                    </div>
+                    
+                    <div class="pt-6 border-t border-white/10">
+                        <p class="text-sm text-gray-400 mb-2">Втрати за рік без асистента:</p>
+                        <p class="text-4xl font-bold text-red-400" id="loss-val">54 000 ₴</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-400 mb-2">Вартість впровадження AI (разово):</p>
+                        <p class="text-2xl font-bold text-green-400">~ 16 000 ₴ <span class="text-sm font-normal text-gray-500">($400)</span></p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-3 bg-[#FDFBF7] p-6 rounded-3xl h-full flex items-center justify-center">
+                    <div class="chart-container">
+                        <canvas id="roiChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center">
+                <p class="text-accent italic mb-6">*Приємний бонус: перший місяць нашої повної підтримки та турботи — у подарунок.</p>
+                <a href="#contact" class="inline-block bg-[#FDFBF7] text-[#2D2A26] px-8 py-4 rounded-full text-lg hover:bg-accent hover:text-white transition duration-300 font-medium">
+                    Дізнатися точну вартість для мене
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="trust" class="py-20 bg-secondary">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="bg-[#FDFBF7] rounded-3xl p-8 md:p-12 shadow-sm border border-accent/20 flex flex-col md:flex-row gap-12 items-center">
+                <div class="w-48 h-48 md:w-64 md:h-64 rounded-full bg-accent/30 border-4 border-[#FDFBF7] shadow-lg flex items-center justify-center text-6xl text-[#2D2A26] shrink-0">
+                    👨‍💻
+                </div>
+                <div>
+                    <h2 class="text-4xl serif-font font-semibold mb-6">Хто стоїть за цією магією?</h2>
+                    <p class="text-gray-600 leading-relaxed mb-4 text-lg">
+                        Привіт, я Ілля. Я створюю не просто програми, а надійних цифрових помічників для преміум-сегменту beauty-сфери.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Я знаходжусь поруч, завжди на зв'язку і нікуди не зникаю після запуску проєкту. Моя головна мета — не просто продати вам послугу, а зробити так, щоб ви дійсно видихнули, повернули собі вільний час і кайфували від того, як легко і безперебійно працює ваш запис.
+                    </p>
+                    <a href="https://t.me/systemflow_ai" target="_blank" rel="noopener noreferrer" class="text-[#2D2A26] font-semibold border-b-2 border-accent pb-1 hover:text-accent transition duration-300">
+                        Познайомитися ближче →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="py-24 bg-[#FDFBF7] text-center px-4">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-5xl serif-font font-semibold mb-6">Відчуйте себе своєю ж клієнткою</h2>
+            <p class="text-xl text-gray-600 mb-10 font-light">
+                Найкращий спосіб зрозуміти, наскільки це зручно, красиво і просто — побути в ролі клієнтки. Натисніть кнопку нижче, щоб перейти в нашого тестового бота. Спробуйте "записатися", обрати час і подивитися, наскільки природно він веде діалог.
+            </p>
+            <a href="#contact" class="inline-flex items-center gap-3 bg-accent text-white px-10 py-5 rounded-full text-xl hover:bg-[#A68A71] transition duration-300 shadow-lg shadow-accent/30 animate-pulse hover:animate-none">
+                <span class="text-2xl">🪄</span> Запустити демо-бота
+            </a>
+        </div>
+    </section>
+
+    <footer id="contact" class="py-16 bg-[#2D2A26] text-center px-4 border-t border-white/10">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-6xl mb-6">✉️</div>
+            <h2 class="text-3xl serif-font font-semibold mb-4 text-white">Не любите заповнювати форми? Напишіть мені напряму.</h2>
+            <p class="text-gray-400 mb-10 leading-relaxed">
+                Якщо ви хочете просто задати питання, дізнатися деталі або скинути посилання на ваш Instagram для швидкого аудиту — я на зв'язку. Жодних нав'язливих продажів, лише спокійна і конструктивна розмова про ваш комфорт.
+            </p>
+            <a href="https://t.me/ilya_vasylchenko" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-[#0088cc] text-white px-8 py-4 rounded-full text-lg hover:bg-[#0077b3] transition duration-300">
+                Написати Іллі в Telegram
+            </a>
+            <p class="mt-12 text-sm text-gray-500">© 2026 BeautyAI. Створено з турботою про ваш час.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Interactive Toggle Logic (Pain vs Solution)
+        const btnPain = document.getElementById('btn-pain');
+        const btnSolution = document.getElementById('btn-solution');
+        const statePain = document.getElementById('state-pain');
+        const stateSolution = document.getElementById('state-solution');
+
+        function switchState(showPain) {
+            if (showPain) {
+                // UI Buttons
+                btnPain.classList.replace('text-[#2D2A26]', 'text-white');
+                btnPain.classList.replace('hover:bg-accent/20', 'bg-[#2D2A26]');
+                btnSolution.classList.replace('text-white', 'text-[#2D2A26]');
+                btnSolution.classList.replace('bg-[#2D2A26]', 'hover:bg-accent/20');
+                
+                // Content
+                statePain.classList.replace('hidden-state', 'active-state');
+                stateSolution.classList.replace('active-state', 'hidden-state');
+            } else {
+                // UI Buttons
+                btnSolution.classList.replace('text-[#2D2A26]', 'text-white');
+                btnSolution.classList.replace('hover:bg-accent/20', 'bg-[#2D2A26]');
+                btnPain.classList.replace('text-white', 'text-[#2D2A26]');
+                btnPain.classList.replace('bg-[#2D2A26]', 'hover:bg-accent/20');
+                
+                // Content
+                stateSolution.classList.replace('hidden-state', 'active-state');
+                statePain.classList.replace('active-state', 'hidden-state');
+            }
+        }
+
+        btnPain.addEventListener('click', () => switchState(true));
+        btnSolution.addEventListener('click', () => switchState(false));
+
+        // 2. Accordion Logic (Fears)
+        const accordionBtns = document.querySelectorAll('.accordion-btn');
+        
+        accordionBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('span:last-child');
+                const parent = this.parentElement;
+                
+                // Close others
+                accordionBtns.forEach(otherBtn => {
+                    if (otherBtn !== this) {
+                        otherBtn.nextElementSibling.style.maxHeight = null;
+                        otherBtn.querySelector('span:last-child').textContent = '+';
+                        otherBtn.querySelector('span:last-child').style.transform = 'rotate(0deg)';
+                        otherBtn.parentElement.classList.remove('border-accent');
+                        otherBtn.parentElement.classList.add('border-accent/40');
+                    }
+                });
+
+                // Toggle current
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    icon.textContent = '+';
+                    icon.style.transform = 'rotate(0deg)';
+                    parent.classList.remove('border-accent');
+                    parent.classList.add('border-accent/40');
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.textContent = '−';
+                    icon.style.transform = 'rotate(180deg)';
+                    parent.classList.remove('border-accent/40');
+                    parent.classList.add('border-accent');
+                }
+            });
+        });
+
+        // 3. Chart.js ROI Calculator Logic
+        const priceSlider = document.getElementById('price-slider');
+        const noshowSlider = document.getElementById('noshow-slider');
+        const priceVal = document.getElementById('price-val');
+        const noshowVal = document.getElementById('noshow-val');
+        const lossVal = document.getElementById('loss-val');
+        
+        const aiCost = 16000; // ~400 USD
+        const monthsInYear = 12;
+
+        const ctx = document.getElementById('roiChart').getContext('2d');
+        
+        // Custom formatting for chart labels
+        Chart.defaults.font.family = "'Montserrat', sans-serif";
+        Chart.defaults.color = '#2D2A26';
+
+        const roiChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Річні втрати (Неявки)', 'Вартість AI (Разово)'],
+                datasets: [{
+                    label: 'Сума (ГРН)',
+                    data: [0, aiCost],
+                    backgroundColor: [
+                        '#F87171', // Red for loss
+                        '#34D399'  // Green for AI cost
+                    ],
+                    borderRadius: 8,
+                    borderSkipped: false,
+                    barThickness: 60
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('uk-UA').format(context.parsed.y) + ' ₴';
+                                }
+                                return label;
+                            }
+                        },
+                        backgroundColor: 'rgba(45, 42, 38, 0.9)',
+                        titleFont: { size: 14, family: "'Montserrat', sans-serif" },
+                        bodyFont: { size: 14, family: "'Montserrat', sans-serif" },
+                        padding: 12,
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#EAE3D9', drawBorder: false },
+                        ticks: {
+                            callback: function(value) {
+                                return value / 1000 + 'k';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: { display: false, drawBorder: false },
+                        ticks: {
+                            font: { size: 12, weight: '600' }
+                        }
+                    }
+                }
+            }
+        });
+
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('uk-UA').format(num) + ' ₴';
+        }
+
+        function updateCalculator() {
+            const price = parseInt(priceSlider.value);
+            const noShows = parseInt(noshowSlider.value);
+            
+            priceVal.textContent = formatCurrency(price);
+            noshowVal.textContent = noShows;
+            
+            const yearlyLoss = price * noShows * monthsInYear;
+            lossVal.textContent = formatCurrency(yearlyLoss);
+            
+            // Update Chart
+            roiChart.data.datasets[0].data[0] = yearlyLoss;
+            
+            // Dynamically adjust scale if loss is huge
+            roiChart.options.scales.y.max = Math.max(yearlyLoss, aiCost) * 1.2;
+            
+            roiChart.update();
+        }
+
+        priceSlider.addEventListener('input', updateCalculator);
+        noshowSlider.addEventListener('input', updateCalculator);
+        
+        // Initial calculation
+        updateCalculator();
+    </script>
+</body>
+</html>
