@@ -5,1200 +5,1914 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Цифровий Адміністратор — SystemFlow</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
-/* ─── RESET & TOKENS ─── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#080706;
-  --s1:#0f0e0c;
-  --s2:#181614;
-  --s3:#221f1c;
-  --rose:#e8927c;
-  --rose-2:#c96b5a;
-  --rose-3:rgba(232,146,124,0.12);
-  --rose-4:rgba(232,146,124,0.06);
-  --text:#f0ebe4;
-  --text-2:#9c8f85;
-  --text-3:#5a5048;
-  --line:rgba(240,235,228,0.08);
-  --r:4px;
+  --bg:#07060A;
+  --s1:#0D0C11;
+  --s2:#131118;
+  --card:#18151E;
+  --card2:#1E1A26;
+  --rose:#E8829A;
+  --rose2:#F5A0B5;
+  --rose3:#C45A78;
+  --rose4:#A03055;
+  --gold:#E8C49A;
+  --gold2:#D4A870;
+  --cream:#FAF4EE;
+  --fog:#8A7880;
+  --dim:#4A4050;
+  --green:#6EE7A0;
+  --border:rgba(232,130,154,0.1);
+  --border2:rgba(255,255,255,0.055);
+  --border3:rgba(232,130,154,0.18);
 }
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+
+html{scroll-behavior:smooth}
 body{
   background:var(--bg);
-  color:var(--text);
+  color:var(--cream);
   font-family:'Inter',sans-serif;
-  font-size:16px;
-  line-height:1.6;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
-a{text-decoration:none;color:inherit}
-img{max-width:100%;display:block}
 
-/* ─── UTILITIES ─── */
-.container{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
-.container--wide{max-width:960px}
+/* CUSTOM CURSOR — desktop hover only */
+@media(hover:hover){
+  body{cursor:none}
+  #cursor{
+    position:fixed;
+    top:0;left:0;
+    width:10px;height:10px;
+    background:var(--rose);
+    border-radius:50%;
+    pointer-events:none;
+    z-index:9999;
+    transition:transform 0.15s ease, opacity 0.2s;
+    mix-blend-mode:screen;
+    will-change:transform;
+  }
+  #cursor-ring{
+    position:fixed;
+    top:0;left:0;
+    width:36px;height:36px;
+    border:1px solid rgba(232,130,154,0.4);
+    border-radius:50%;
+    pointer-events:none;
+    z-index:9998;
+    transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), width 0.3s, height 0.3s, border-color 0.3s;
+    will-change:transform;
+  }
+}
+@media(hover:none){
+  #cursor,#cursor-ring{display:none}
+}
 
-/* ─── ANNOUNCEMENT BAR ─── */
-.ann{
-  background:var(--rose-2);
+/* NOISE OVERLAY */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:1000;
+  opacity:.5;
+}
+
+/* GRADIENT MESH BG */
+.mesh{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  overflow:hidden;
+}
+.mesh-orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(100px);
+  opacity:0.5;
+}
+.mesh-orb-1{top:-20%;right:-10%;width:900px;height:900px;background:radial-gradient(circle,rgba(196,90,120,0.08),transparent 65%)}
+.mesh-orb-2{bottom:-30%;left:-15%;width:700px;height:700px;background:radial-gradient(circle,rgba(232,196,154,0.05),transparent 65%)}
+.mesh-orb-3{top:40%;left:30%;width:500px;height:500px;background:radial-gradient(circle,rgba(196,90,120,0.04),transparent 65%)}
+
+/* ── ANNOUNCEMENT BAR ── */
+.abar{
+  background:linear-gradient(90deg,var(--rose4),var(--rose3),var(--rose),var(--rose3),var(--rose4));
+  background-size:300% 100%;
+  animation:abar-shift 6s linear infinite;
   padding:10px 20px;
   text-align:center;
-  font-size:12px;
-  font-weight:500;
-  letter-spacing:0.04em;
+  font-family:'Syne',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
   color:rgba(255,255,255,0.95);
+  position:relative;
+  z-index:100;
 }
+@keyframes abar-shift{0%{background-position:0% 50%}100%{background-position:300% 50%}}
 
-/* ─── NAV ─── */
-.nav{
-  position:sticky;top:0;z-index:100;
-  padding:0 20px;
-  height:56px;
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(8,7,6,0.9);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--line);
-}
-.nav-logo{
-  font-family:'Instrument Serif',serif;
-  font-size:18px;
-  color:var(--rose);
-  letter-spacing:-0.01em;
-}
-.nav-cta{
-  height:36px;
-  padding:0 18px;
-  background:var(--rose);
-  color:#fff;
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:0.04em;
-  border:none;cursor:pointer;
-  border-radius:var(--r);
-  transition:opacity .2s;
-  display:flex;align-items:center;gap:6px;
-}
-.nav-cta:hover{opacity:.85}
-
-/* ─── TOGGLE ─── */
-.toggle{
-  background:var(--s1);
-  border-bottom:1px solid var(--line);
-  padding:12px 20px;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-}
-.toggle-label{font-size:12px;color:var(--text-3)}
-.toggle-pills{
+/* ── TOGGLE BAR ── */
+.toggle-bar{
+  background:rgba(13,12,17,0.85);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border2);
+  padding:12px 24px;
   display:flex;
-  background:var(--s2);
-  border:1px solid var(--line);
-  border-radius:100px;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  position:sticky;
+  top:56px;
+  z-index:190;
+}
+.toggle-label{font-size:11px;color:var(--dim);letter-spacing:0.14em;text-transform:uppercase;white-space:nowrap}
+.toggle-wrap{
+  display:flex;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border2);
+  border-radius:12px;
   padding:3px;
   gap:2px;
 }
-.t-pill{
-  padding:6px 16px;
-  font-size:12px;font-weight:500;
-  border:none;background:transparent;
-  color:var(--text-2);cursor:pointer;
-  border-radius:100px;
-  transition:all .2s;
+.toggle-btn{
+  padding:8px 22px;
+  font-size:11.5px;
+  font-weight:700;
+  font-family:'Syne',sans-serif;
+  border:none;
+  background:transparent;
+  color:var(--dim);
+  cursor:none;
+  transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  border-radius:9px;
   white-space:nowrap;
+  letter-spacing:0.04em;
 }
-.t-pill.on{background:var(--rose);color:#fff}
-.toggle-hint{font-size:11px;color:var(--text-3)}
+.toggle-btn.active{
+  background:linear-gradient(135deg,var(--rose4),var(--rose3),var(--rose));
+  color:white;
+  box-shadow:0 4px 20px rgba(196,90,120,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+  transform:scale(1.02);
+}
+.toggle-note{
+  font-size:11px;
+  color:var(--rose2);
+  font-weight:600;
+  white-space:nowrap;
+  opacity:0.8;
+}
 
-/* ─── HERO ─── */
-.hero{
-  padding:64px 20px 56px;
-  border-bottom:1px solid var(--line);
-  position:relative;overflow:hidden;
+/* ── TICKER ── */
+.ticker{
+  background:var(--s1);
+  border-bottom:1px solid var(--border2);
+  padding:9px 0;
+  overflow:hidden;
+  white-space:nowrap;
+  position:relative;
+  z-index:1;
 }
-.hero::before{
-  content:'';position:absolute;
-  top:-40%;right:-20%;
-  width:500px;height:500px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(232,146,124,0.08) 0%,transparent 65%);
-  pointer-events:none;
+.ticker::before,.ticker::after{
+  content:'';
+  position:absolute;
+  top:0;bottom:0;
+  width:80px;
+  z-index:2;
 }
-.hero-kicker{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:11px;font-weight:500;letter-spacing:0.08em;
+.ticker::before{left:0;background:linear-gradient(to right,var(--s1),transparent)}
+.ticker::after{right:0;background:linear-gradient(to left,var(--s1),transparent)}
+.ticker-inner{
+  display:inline-block;
+  animation:tick 36s linear infinite;
+  font-size:10px;
+  letter-spacing:0.24em;
   text-transform:uppercase;
-  color:var(--rose);
-  margin-bottom:20px;
+  color:var(--dim);
+  font-weight:500;
 }
-.hero-kicker-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:var(--rose);
-  animation:blink 2s ease infinite;
-}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.ticker-inner span{color:var(--rose3);margin:0 4px}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-.hero h1{
-  font-family:'Instrument Serif',serif;
-  font-size:clamp(40px,10vw,64px);
-  font-weight:400;
-  line-height:1.08;
-  letter-spacing:-0.02em;
-  margin-bottom:20px;
+/* ── NAV ── */
+.nav-wrap{
+  background:rgba(7,6,10,0.92);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border2);
+  position:sticky;
+  top:0;
+  z-index:300;
 }
-.hero h1 em{font-style:italic;color:var(--rose)}
-.hero h1 s{
-  color:var(--text-3);
+.nav{
+  padding:18px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  max-width:1240px;
+  margin:0 auto;
+}
+.nav-brand{
+  font-family:'Syne',sans-serif;
+  font-size:16px;
+  font-weight:800;
+  color:white;
+  letter-spacing:-0.03em;
+  display:flex;
+  align-items:center;
+  gap:2px;
+}
+.nav-brand .brand-accent{
+  background:linear-gradient(135deg,var(--rose2),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.nav-btn{
+  padding:10px 24px;
+  background:transparent;
+  border:1px solid rgba(232,130,154,0.3);
+  color:var(--rose2);
+  font-family:'Syne',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  cursor:none;
+  transition:all 0.25s;
   text-decoration:none;
+  display:inline-block;
+  border-radius:10px;
+  position:relative;
+  overflow:hidden;
+}
+.nav-btn::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,var(--rose4),var(--rose));
+  opacity:0;
+  transition:opacity 0.25s;
+}
+.nav-btn:hover{border-color:var(--rose);color:white}
+.nav-btn:hover::before{opacity:1}
+.nav-btn span{position:relative;z-index:1}
+
+/* ── HERO ── */
+.hero{
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:100px 40px 80px;
+  position:relative;
+  overflow:hidden;
+  z-index:1;
+}
+.hero-inner{
+  max-width:1200px;
+  margin:0 auto;
+  width:100%;
+  display:grid;
+  grid-template-columns:1fr 420px;
+  gap:80px;
+  align-items:center;
+  position:relative;
+  z-index:2;
+}
+
+/* CHIP */
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:7px 16px;
+  background:rgba(232,130,154,0.07);
+  border:1px solid rgba(232,130,154,0.18);
+  border-radius:100px;
+  font-size:11px;
+  font-weight:600;
+  color:rgba(245,160,181,0.85);
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  margin-bottom:32px;
+  backdrop-filter:blur(8px);
+}
+.chip-dot{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 8px rgba(110,231,160,0.8);
+  animation:blink 2s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.4;transform:scale(0.7)}}
+
+/* HEADLINE */
+.h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(48px,5.8vw,86px);
+  font-weight:900;
+  line-height:1.01;
+  letter-spacing:-0.03em;
+  margin-bottom:28px;
+  color:var(--cream);
+}
+.h1 em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--rose2) 0%,var(--gold) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.h1 .cross{
+  position:relative;
+  color:rgba(250,244,238,0.2);
+}
+.h1 .cross::after{
+  content:'';
+  position:absolute;
+  left:-3px;right:-3px;
+  top:54%;
+  height:3px;
+  background:linear-gradient(90deg,var(--rose4),var(--rose),var(--rose2));
+  border-radius:2px;
+  transform:rotate(-0.8deg);
+}
+
+.hero-lead{
+  font-size:17px;
+  font-weight:300;
+  color:rgba(250,244,238,0.5);
+  line-height:1.85;
+  max-width:540px;
+  margin-bottom:40px;
+}
+.hero-lead b{color:rgba(250,244,238,0.9);font-weight:500}
+
+.hero-actions{
+  display:flex;
+  gap:16px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.hero-note{font-size:12px;color:var(--dim);letter-spacing:0.02em}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:17px 38px;
+  background:linear-gradient(135deg,var(--rose4) 0%,var(--rose3) 50%,var(--rose) 100%);
+  color:white;
+  font-family:'Syne',sans-serif;
+  font-size:12.5px;
+  font-weight:800;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  border:none;
+  cursor:none;
+  transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  text-decoration:none;
+  border-radius:14px;
+  box-shadow:0 8px 32px rgba(196,90,120,0.35), inset 0 1px 0 rgba(255,255,255,0.2);
+  position:relative;
+  overflow:hidden;
+}
+.btn::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.btn:hover{
+  transform:translateY(-3px) scale(1.02);
+  box-shadow:0 16px 48px rgba(196,90,120,0.55), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn:hover::before{opacity:1}
+.btn:active{transform:translateY(-1px) scale(0.99)}
+
+/* ── PROOF CARD ── */
+.proof-card{
+  background:rgba(24,21,30,0.7);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(232,130,154,0.06);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
   position:relative;
 }
-.hero h1 s::after{
-  content:'';position:absolute;
-  left:0;right:0;top:52%;
-  height:2px;background:var(--rose-2);
-  transform:rotate(-1deg);
+.proof-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,130,154,0.4),transparent);
 }
-
-.hero-sub{
-  font-size:16px;font-weight:300;
-  color:var(--text-2);line-height:1.7;
-  max-width:500px;margin-bottom:32px;
+.proof-head{
+  padding:18px 22px;
+  border-bottom:1px solid rgba(255,255,255,0.055);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-.hero-sub strong{color:var(--text);font-weight:500}
-
-.hero-btns{display:flex;flex-direction:column;gap:10px;margin-bottom:40px}
-.btn{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  height:52px;border-radius:var(--r);
-  font-size:14px;font-weight:600;letter-spacing:0.02em;
-  border:none;cursor:pointer;transition:all .2s;
-}
-.btn-primary{background:var(--rose);color:#fff}
-.btn-primary:hover{background:#d4795f;transform:translateY(-1px);box-shadow:0 8px 24px rgba(232,146,124,.3)}
-.btn-ghost{background:transparent;color:var(--text-2);border:1px solid var(--line);font-size:13px}
-.btn-ghost:hover{border-color:var(--rose);color:var(--rose)}
-
-.hero-trust{
-  display:flex;align-items:center;gap:6px;
-  font-size:12px;color:var(--text-3);
-}
-.hero-trust::before{content:'✓';color:var(--rose)}
-
-/* ─── METRICS STRIP ─── */
-.metrics{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  border-bottom:1px solid var(--line);
-}
-.metric{
-  padding:28px 20px;
-  border-right:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-}
-.metric:nth-child(2n){border-right:none}
-.metric:nth-child(3),.metric:nth-child(4){border-bottom:none}
-.metric-num{
-  font-family:'Instrument Serif',serif;
-  font-size:40px;font-weight:400;
-  color:var(--rose);line-height:1;
-  margin-bottom:4px;
-}
-.metric-label{font-size:13px;color:var(--text-2);line-height:1.4}
-
-/* ─── SECTION ─── */
-.sec{padding:56px 0;border-bottom:1px solid var(--line)}
-.sec-kicker{
-  font-size:11px;font-weight:500;letter-spacing:0.1em;
-  text-transform:uppercase;color:var(--rose);
-  margin-bottom:12px;
-}
-.sec-title{
-  font-family:'Instrument Serif',serif;
-  font-size:clamp(28px,7vw,44px);
-  font-weight:400;line-height:1.1;
-  letter-spacing:-0.02em;
-  margin-bottom:32px;
-}
-.sec-title em{font-style:italic;color:var(--rose)}
-
-/* ─── PAIN CARDS ─── */
-.pain-list{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
-.pain-card{
-  padding:20px;
-  background:var(--s1);
-  border-left:2px solid transparent;
-  transition:all .25s;
-}
-.pain-card:hover{
-  border-left-color:var(--rose);
-  background:var(--rose-4);
-}
-.pain-card-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:8px}
-.pain-ico{font-size:20px;flex-shrink:0;margin-top:1px}
-.pain-title{font-size:15px;font-weight:500;color:var(--text)}
-.pain-desc{font-size:13px;color:var(--text-2);line-height:1.6;padding-left:34px}
-.pain-tag{
-  display:inline-block;margin-top:10px;margin-left:34px;
-  font-size:11px;font-weight:600;
-  color:var(--rose);
-  background:var(--rose-3);
-  padding:3px 10px;border-radius:100px;
-}
-
-/* ─── PULL QUOTE ─── */
-.pullquote{
-  padding:28px 20px 28px 24px;
-  border-left:3px solid var(--rose);
-  background:var(--s1);
-  margin:32px 0;
-}
-.pullquote p{
-  font-family:'Instrument Serif',serif;
-  font-size:clamp(18px,5vw,26px);
-  font-style:italic;
-  line-height:1.4;
-  color:var(--text);
-}
-.pullquote strong{font-style:normal;color:var(--rose)}
-
-/* ─── TESTIMONIAL ─── */
-.testi{
-  padding:24px;
-  background:var(--s2);
-  border:1px solid var(--line);
-  border-radius:var(--r);
-  margin-bottom:32px;
-}
-.testi-quote{
-  font-family:'Instrument Serif',serif;
-  font-size:18px;font-style:italic;
-  line-height:1.5;color:var(--text);
-  margin-bottom:14px;
-}
-.testi-author{
-  display:flex;align-items:center;gap:10px;
-  font-size:12px;color:var(--text-3);
-}
-.testi-author::before{
-  content:'';display:block;
-  width:28px;height:1px;
-  background:var(--text-3);
-  flex-shrink:0;
-}
-
-/* ─── FORMULA CARDS ─── */
-.formula-grid{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
-.formula-card{
-  padding:20px;
-  background:var(--s1);
-  display:flex;gap:16px;align-items:flex-start;
-}
-.formula-n{
-  font-family:'Instrument Serif',serif;
-  font-size:28px;color:var(--text-3);
-  line-height:1;flex-shrink:0;
-  width:28px;
-}
-.formula-body{}
-.formula-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
-.formula-desc{font-size:13px;color:var(--text-2);line-height:1.55}
-.formula-highlight{color:var(--rose)}
-
-/* ─── FEATURES LIST ─── */
-.features{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
-.feature{
-  display:flex;gap:14px;align-items:flex-start;
-  padding:16px 20px;
-  background:var(--s1);
-  transition:background .2s;
-}
-.feature:hover{background:var(--rose-4)}
-.feature-ico{font-size:18px;flex-shrink:0;margin-top:1px}
-.feature-body{}
-.feature-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
-.feature-desc{font-size:12px;color:var(--text-2);line-height:1.55}
-
-/* ─── VALUE STACK ─── */
-.stack{background:var(--s1);overflow:hidden;margin-bottom:24px}
-.stack-row{
-  display:flex;align-items:center;
-  padding:16px 20px;
-  border-bottom:1px solid var(--line);
-  gap:12px;
-}
-.stack-row:last-child{border-bottom:none}
-.stack-n{
-  font-size:10px;font-weight:600;letter-spacing:0.08em;
-  color:var(--text-3);min-width:20px;flex-shrink:0;
-}
-.stack-text{flex:1}
-.stack-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:2px}
-.stack-desc{font-size:12px;color:var(--text-2)}
-.stack-price{text-align:right;flex-shrink:0}
-.stack-original{font-size:11px;color:var(--text-3);text-decoration:line-through}
-.stack-you{font-size:14px;font-weight:700;color:var(--rose)}
-.stack-foot{
-  padding:16px 20px;
-  background:var(--rose);
-  display:flex;align-items:center;justify-content:space-between;
-}
-.stack-foot-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.9)}
-.stack-foot-prices{text-align:right}
-.stack-foot-old{font-size:12px;color:rgba(255,255,255,.5);text-decoration:line-through}
-.stack-foot-new{font-size:20px;font-weight:700;color:#fff}
-
-/* ─── MATH BOX ─── */
-.math{
-  padding:20px;
-  background:var(--s2);
-  border:1px solid var(--line);
-  margin-bottom:32px;
-}
-.math-title{
-  font-size:11px;font-weight:600;letter-spacing:0.08em;
-  text-transform:uppercase;color:var(--text-3);
-  margin-bottom:16px;padding-bottom:12px;
-  border-bottom:1px solid var(--line);
-}
-.math-row{
-  display:flex;justify-content:space-between;align-items:baseline;
-  padding:10px 0;border-bottom:1px solid var(--line);
-  font-size:14px;
-}
-.math-row:last-child{
-  border-bottom:none;padding-top:16px;
+.proof-head-label{
+  font-size:10px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--dim);
   font-weight:600;
 }
-.math-row-label{color:var(--text-2)}
-.math-row-val{color:var(--text);font-weight:500}
-.math-row:last-child .math-row-val{color:var(--rose);font-size:16px}
+.proof-live{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:10px;
+  color:var(--green);
+  font-weight:600;
+  letter-spacing:0.08em;
+}
+.proof-live-dot{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 8px rgba(110,231,160,0.7);
+  animation:blink 2s ease-in-out infinite;
+}
+.proof-row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  padding:14px 22px;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+  gap:12px;
+  transition:background 0.2s;
+}
+.proof-row:last-child{border-bottom:none}
+.proof-row:hover{background:rgba(232,130,154,0.03)}
+.pr-lbl{font-size:10px;color:var(--dim);margin-bottom:3px;letter-spacing:0.06em}
+.pr-before{font-size:13px;color:rgba(250,244,238,0.18);text-decoration:line-through}
+.pr-after{
+  font-size:12px;
+  font-weight:700;
+  color:var(--green);
+  text-align:right;
+  font-family:'Syne',sans-serif;
+  letter-spacing:0.04em;
+  white-space:nowrap;
+}
 
-/* ─── BONUSES ─── */
-.bonuses{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
-.bonus{
-  display:flex;gap:14px;align-items:flex-start;
-  padding:18px 20px;
-  background:var(--s1);
-  position:relative;overflow:hidden;
-}
-.bonus::after{
-  content:'БОНУС';
-  position:absolute;top:0;right:0;
-  background:var(--rose-2);
-  color:#fff;font-size:8px;font-weight:700;letter-spacing:0.12em;
-  padding:3px 8px;
-}
-.bonus-ico{font-size:20px;flex-shrink:0}
-.bonus-body{}
-.bonus-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
-.bonus-desc{font-size:12px;color:var(--text-2);line-height:1.55;margin-bottom:6px}
-.bonus-val{font-size:11px;font-weight:600;color:var(--rose)}
-
-/* ─── PRICE CARDS ─── */
-.price-cards{display:flex;flex-direction:column;gap:2px;margin-bottom:24px}
-.price-card{padding:24px 20px;background:var(--s1)}
-.price-card.featured{background:var(--rose)}
-.pc-badge{
-  font-size:10px;font-weight:600;letter-spacing:0.1em;
-  text-transform:uppercase;
-  color:var(--text-3);margin-bottom:16px;
-}
-.featured .pc-badge{color:rgba(255,255,255,.7)}
-.pc-old{
-  font-size:14px;color:var(--text-3);
-  text-decoration:line-through;margin-bottom:4px;
-}
-.featured .pc-old{color:rgba(255,255,255,.45)}
-.pc-price{
-  font-family:'Instrument Serif',serif;
-  font-size:56px;font-weight:400;
-  color:var(--text);line-height:1;margin-bottom:4px;
-}
-.featured .pc-price{color:#fff}
-.pc-period{font-size:13px;color:var(--text-2);margin-bottom:24px}
-.featured .pc-period{color:rgba(255,255,255,.65)}
-.pc-list{display:flex;flex-direction:column;gap:8px}
-.pc-item{font-size:13px;color:var(--text-2);display:flex;gap:8px;align-items:flex-start}
-.pc-item::before{content:'✓';color:var(--rose);flex-shrink:0;font-weight:700}
-.featured .pc-item{color:rgba(255,255,255,.8)}
-.featured .pc-item::before{color:rgba(255,255,255,.6)}
-
-/* STUDIO CALCULATOR */
-.studio-calc-wrap{
-  margin-top:20px;padding-top:18px;
-  border-top:1px solid rgba(255,255,255,.2);
-}
-.calc-label{font-size:11px;font-weight:500;letter-spacing:0.06em;color:rgba(255,255,255,.6);margin-bottom:10px}
-.calc-row{display:flex;align-items:center;gap:12px}
-.calc-btn{
-  width:36px;height:36px;
-  border:1px solid rgba(255,255,255,.3);
-  background:transparent;color:#fff;
-  font-size:20px;cursor:pointer;
-  border-radius:var(--r);
-  display:flex;align-items:center;justify-content:center;
-  transition:all .2s;
-}
-.calc-btn:hover{background:rgba(255,255,255,.15)}
-.calc-count{
-  font-family:'Instrument Serif',serif;
-  font-size:28px;color:#fff;
-  min-width:24px;text-align:center;
-}
-.calc-total{
-  margin-left:auto;text-align:right;
-}
-.calc-total-price{
-  font-family:'Instrument Serif',serif;
-  font-size:22px;color:#fff;
-}
-.calc-total-note{font-size:11px;color:rgba(255,255,255,.5)}
-
-/* ─── GUARANTEE ─── */
-.guarantee{
-  border:1px solid var(--line);
-  padding:24px 20px;
+/* ── STATS ── */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border2);
+  border-bottom:1px solid var(--border2);
   position:relative;
-  margin-bottom:24px;
-}
-.guarantee-badge{
-  position:absolute;top:-11px;left:16px;
-  background:var(--rose-2);color:#fff;
-  font-size:10px;font-weight:700;letter-spacing:0.1em;
-  padding:3px 12px;text-transform:uppercase;
-}
-.guarantee h3{
-  font-family:'Instrument Serif',serif;
-  font-size:22px;font-weight:400;
-  color:var(--text);margin-bottom:10px;margin-top:6px;
-}
-.guarantee p{font-size:14px;color:var(--text-2);line-height:1.65}
-.guarantee strong{color:var(--text)}
-
-/* ─── SCARCITY ─── */
-.scarcity{
-  padding:24px 20px;
-  background:var(--rose-3);
-  border:1px solid rgba(232,146,124,.2);
-  text-align:center;margin-bottom:32px;
-}
-.sc-number{
-  font-family:'Instrument Serif',serif;
-  font-size:64px;font-weight:400;
-  color:var(--rose);line-height:1;
-  margin-bottom:8px;
-}
-.sc-dots{display:flex;gap:8px;justify-content:center;margin-bottom:10px}
-.sc-dot{width:10px;height:10px;border-radius:50%}
-.sc-dot.taken{background:rgba(232,146,124,.2)}
-.sc-dot.open{background:var(--rose)}
-.sc-text{font-size:14px;color:var(--text-2)}
-.sc-text strong{color:var(--rose)}
-
-/* ─── STUDIO PREMIUM ─── */
-.studio-premium{
-  background:var(--s2);
-  border:1px solid var(--line);
-  overflow:hidden;
-  margin-bottom:32px;
-}
-.sp-header{
-  padding:16px 20px;
-  border-bottom:1px solid var(--line);
-  font-size:11px;font-weight:600;letter-spacing:0.08em;
-  text-transform:uppercase;color:var(--text-3);
-}
-.sp-grid{display:flex;flex-direction:column;gap:0}
-.sp-item{
-  display:flex;gap:12px;align-items:flex-start;
-  padding:16px 20px;border-bottom:1px solid var(--line);
-}
-.sp-item:last-child{border-bottom:none}
-.sp-ico{font-size:16px;flex-shrink:0;margin-top:2px}
-.sp-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
-.sp-desc{font-size:12px;color:var(--text-2);line-height:1.55}
-
-/* ─── FAQ ─── */
-.faq{display:flex;flex-direction:column}
-.faq-item{border-bottom:1px solid var(--line)}
-.faq-q{
-  width:100%;padding:18px 0;
-  background:none;border:none;
-  text-align:left;
-  font-size:14px;font-weight:500;color:var(--text);
-  cursor:pointer;
-  display:flex;justify-content:space-between;align-items:center;gap:12px;
-  font-family:'Inter',sans-serif;
-}
-.faq-icon{
-  width:24px;height:24px;flex-shrink:0;
-  border:1px solid var(--line);border-radius:100px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;color:var(--rose);
-  transition:transform .3s,background .2s;
-}
-.faq-icon.open{transform:rotate(45deg);background:var(--rose-3)}
-.faq-a{
-  font-size:13px;color:var(--text-2);
-  line-height:1.65;
-  max-height:0;overflow:hidden;
-  transition:max-height .35s ease,padding .25s;
-}
-.faq-a.open{max-height:300px;padding-bottom:18px}
-
-/* ─── FINAL CTA ─── */
-.final-cta{
-  padding:56px 20px;
-  text-align:center;
+  z-index:1;
   background:var(--s1);
-  border-bottom:1px solid var(--line);
 }
-.final-cta h2{
-  font-family:'Instrument Serif',serif;
-  font-size:clamp(32px,8vw,52px);
-  font-weight:400;line-height:1.1;
-  margin-bottom:12px;
+.stat{
+  padding:48px 32px;
+  text-align:center;
+  border-right:1px solid var(--border2);
+  position:relative;
+  overflow:hidden;
+  transition:background 0.3s;
 }
-.final-cta h2 em{font-style:italic;color:var(--rose)}
-.final-cta p{font-size:14px;color:var(--text-2);margin-bottom:28px;line-height:1.6}
-.final-cta .btn{max-width:340px;margin:0 auto 12px}
-.final-note{font-size:12px;color:var(--text-3)}
+.stat::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(232,130,154,0.04),transparent);
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.stat:hover::before{opacity:1}
+.stat:last-child{border-right:none}
+.stat-n{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(32px,4vw,54px);
+  font-weight:800;
+  background:linear-gradient(135deg,var(--rose2),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;
+  margin-bottom:10px;
+  letter-spacing:-0.02em;
+}
+.stat-l{font-size:12px;color:var(--fog);line-height:1.5;max-width:120px;margin:0 auto}
 
-/* ─── FOOTER ─── */
-.footer{
-  padding:24px 20px;
-  display:flex;justify-content:space-between;align-items:center;
-  flex-wrap:wrap;gap:8px;
+/* ── SECTIONS ── */
+.sec{
+  padding:110px 40px;
+  border-bottom:1px solid var(--border2);
+  position:relative;
+  z-index:1;
 }
-.footer-brand{
-  font-family:'Instrument Serif',serif;
-  font-size:16px;color:var(--rose);
-}
-.footer-copy{font-size:12px;color:var(--text-3)}
+.sec-inner{max-width:1200px;margin:0 auto}
 
-/* ─── MOBILE STICKY ─── */
-.mob-bar{
+.tag{
+  font-size:10px;
+  letter-spacing:0.36em;
+  text-transform:uppercase;
+  color:var(--rose);
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:600;
+}
+.tag::before{content:'';width:28px;height:1px;background:linear-gradient(to right,var(--rose),transparent);opacity:0.6}
+
+.h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,4.2vw,60px);
+  font-weight:900;
+  line-height:1.08;
+  margin-bottom:56px;
+  color:var(--cream);
+  letter-spacing:-0.02em;
+}
+.h2 em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--rose2),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* ── REVEAL ANIMATION ── */
+.reveal{
+  opacity:0;
+  transform:translateY(32px);
+  transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-4{transition-delay:0.4s}
+.reveal-delay-5{transition-delay:0.5s}
+
+/* ── PAIN GRID ── */
+.pain-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2px;
+  margin-bottom:48px;
+  border-radius:20px;
+  overflow:hidden;
+}
+.pain-card{
+  background:var(--card);
+  padding:40px 36px;
+  transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+  position:relative;
+  overflow:hidden;
+}
+.pain-card::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(196,90,120,0.07),transparent);
+  opacity:0;
+  transition:opacity 0.35s;
+}
+.pain-card::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--rose4),var(--rose));
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);
+}
+.pain-card:hover{transform:translateY(-3px) scale(1.005);box-shadow:0 24px 60px rgba(0,0,0,0.4)}
+.pain-card:hover::before{opacity:1}
+.pain-card:hover::after{transform:scaleX(1)}
+.p-ico{
+  font-size:28px;
+  margin-bottom:20px;
+  display:block;
+  filter:saturate(0.7);
+}
+.p-title{font-size:16px;font-weight:700;color:var(--cream);margin-bottom:12px;font-family:'Syne',sans-serif;letter-spacing:-0.01em}
+.p-body{font-size:13.5px;color:var(--fog);line-height:1.7;margin-bottom:18px}
+.p-tag{
+  font-size:11px;
+  font-weight:700;
+  color:var(--rose2);
+  padding:6px 14px;
+  background:rgba(196,90,120,0.1);
+  border:1px solid rgba(196,90,120,0.15);
+  border-radius:100px;
+  display:inline-block;
+  letter-spacing:0.02em;
+}
+
+/* ── CALLOUT ── */
+.callout{
+  background:linear-gradient(135deg,rgba(196,90,120,0.08),rgba(232,196,154,0.04));
+  border:1px solid rgba(232,130,154,0.15);
+  padding:56px 60px;
+  border-radius:24px;
+  position:relative;
+  overflow:hidden;
+}
+.callout::before{
+  content:'❝';
+  position:absolute;
+  top:-30px;left:40px;
+  font-size:140px;
+  color:rgba(232,130,154,0.06);
+  font-family:'Playfair Display',serif;
+  line-height:1;
+  pointer-events:none;
+}
+.callout-t{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,2.6vw,36px);
+  font-style:italic;
+  line-height:1.5;
+  color:var(--cream);
+  position:relative;
+}
+.callout-t b{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--rose2),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* ── TESTIMONIAL ── */
+.testi{
+  background:var(--s2);
+  border-radius:24px;
+  padding:52px 56px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--border2);
+}
+.testi::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--rose3),var(--rose2),transparent);
+}
+.testi::after{
+  content:'';
+  position:absolute;
+  bottom:-60px;right:-60px;
+  width:220px;height:220px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(196,90,120,0.06),transparent);
+}
+.testi-t{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(20px,2.4vw,30px);
+  font-style:italic;
+  line-height:1.55;
+  color:var(--cream);
+  margin-bottom:28px;
+  position:relative;
+}
+.testi-a{
+  font-size:11px;
+  color:var(--fog);
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.testi-a::before{content:'';width:36px;height:1px;background:linear-gradient(to right,var(--rose3),transparent)}
+
+/* ── FORMULA GRID ── */
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fcard{
+  background:var(--card);
+  padding:36px;
+  border-radius:18px;
+  border:1px solid var(--border2);
+  transition:all 0.35s cubic-bezier(0.16,1,0.3,1);
+  position:relative;
+  overflow:hidden;
+}
+.fcard:hover{
+  border-color:rgba(232,130,154,0.2);
+  transform:translateY(-3px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+.fcard::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,var(--rose4),var(--rose2));
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);
+}
+.fcard:hover::after{transform:scaleX(1)}
+.f-num{
+  font-family:'Syne',sans-serif;
+  font-size:42px;
+  font-weight:800;
+  color:rgba(232,130,154,0.1);
+  line-height:1;
+  margin-bottom:20px;
+  letter-spacing:-0.03em;
+}
+.f-title{font-size:15px;font-weight:700;color:var(--cream);margin-bottom:10px;font-family:'Syne',sans-serif;letter-spacing:-0.01em}
+.f-desc{font-size:13.5px;color:var(--fog);line-height:1.7}
+.f-desc em{color:var(--rose2);font-style:normal;font-weight:500}
+
+/* ── BOT GRID ── */
+.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.bcard{
+  background:var(--card);
+  padding:32px 28px;
+  border-radius:16px;
+  border:1px solid var(--border2);
+  transition:all 0.3s cubic-bezier(0.16,1,0.3,1);
+  position:relative;
+  overflow:hidden;
+}
+.bcard::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--rose3),transparent);
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.bcard:hover{
+  background:var(--card2);
+  border-color:rgba(232,130,154,0.18);
+  transform:translateY(-3px);
+  box-shadow:0 16px 48px rgba(0,0,0,0.4);
+}
+.bcard:hover::before{opacity:1}
+.b-ico{font-size:22px;margin-bottom:16px;display:block;filter:saturate(0.7)}
+.b-title{font-size:13.5px;font-weight:700;color:var(--cream);margin-bottom:8px;font-family:'Syne',sans-serif}
+.b-desc{font-size:12px;color:var(--fog);line-height:1.65}
+
+/* ── STACK TABLE ── */
+.stack{
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid var(--border2);
+  margin-bottom:40px;
+}
+.stack-head{
+  display:grid;
+  grid-template-columns:1fr 130px 120px;
+  padding:14px 28px;
+  background:rgba(255,255,255,0.025);
+  font-size:10px;
+  letter-spacing:0.24em;
+  text-transform:uppercase;
+  color:var(--dim);
+  font-weight:600;
+}
+.stack-row{
+  display:grid;
+  grid-template-columns:1fr 130px 120px;
+  padding:22px 28px;
+  border-top:1px solid var(--border2);
+  align-items:center;
+  transition:background 0.2s;
+  gap:8px;
+}
+.stack-row:hover{background:rgba(232,130,154,0.025)}
+.s-idx{
+  font-family:'Syne',sans-serif;
+  font-size:9px;
+  color:rgba(232,130,154,0.2);
+  margin-bottom:3px;
+  font-weight:800;
+  letter-spacing:0.1em;
+}
+.s-title{font-size:14px;font-weight:500;color:var(--cream);margin-bottom:3px}
+.s-desc{font-size:11.5px;color:var(--dim)}
+.s-market{text-align:right}
+.s-mp{font-size:13px;color:rgba(250,244,238,0.15);text-decoration:line-through}
+.s-ml{font-size:10px;color:var(--dim)}
+.s-free{
+  font-family:'Syne',sans-serif;
+  font-size:12px;
+  font-weight:800;
+  color:var(--rose2);
+  text-align:right;
+  letter-spacing:0.04em;
+}
+.stack-foot{
+  display:grid;
+  grid-template-columns:1fr 130px 120px;
+  padding:22px 28px;
+  background:linear-gradient(135deg,var(--rose4),var(--rose3),var(--rose));
+  align-items:center;
+  position:relative;
+}
+.stack-foot::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.08),transparent);
+}
+.sf-lbl{font-size:14px;font-weight:700;color:white;font-family:'Syne',sans-serif;position:relative}
+.sf-mkt{
+  text-align:right;
+  font-family:'Playfair Display',serif;
+  font-size:19px;
+  color:rgba(255,255,255,0.25);
+  text-decoration:line-through;
+  position:relative;
+}
+.sf-you{
+  text-align:right;
+  font-family:'Syne',sans-serif;
+  font-size:20px;
+  font-weight:800;
+  color:white;
+  position:relative;
+}
+
+/* ── MATH BLOCK ── */
+.math{
+  background:var(--s2);
+  border:1px solid var(--border2);
+  border-radius:20px;
+  padding:44px 48px;
+  margin-bottom:40px;
+  position:relative;
+  overflow:hidden;
+}
+.math::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.math::after{
+  content:'';
+  position:absolute;
+  top:-80px;right:-80px;
+  width:250px;height:250px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(232,196,154,0.04),transparent);
+}
+.math-title{
+  font-size:10px;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:28px;
+  font-weight:700;
+}
+.math-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  position:relative;
+}
+.math-row:last-child{border-bottom:none;padding-top:22px}
+.math-lbl{font-size:14px;color:var(--fog)}
+.math-val{
+  font-family:'Playfair Display',serif;
+  font-size:20px;
+  color:var(--cream);
+}
+.math-row.hl .math-lbl{color:var(--cream);font-weight:500;font-size:15px}
+.math-row.hl .math-val{
+  font-family:'Syne',sans-serif;
+  font-size:22px;
+  font-weight:800;
+  background:linear-gradient(135deg,var(--rose2),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* ── BONUS GRID ── */
+.bonus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.bonus-card{
+  background:var(--card);
+  padding:36px 32px;
+  border-radius:18px;
+  border:1px solid var(--border2);
+  position:relative;
+  overflow:hidden;
+  transition:all 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.bonus-card:hover{
+  border-color:rgba(232,130,154,0.2);
+  transform:translateY(-4px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+.b-ribbon{
+  position:absolute;
+  top:20px;right:-20px;
+  background:linear-gradient(135deg,var(--rose4),var(--rose));
+  color:white;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:0.22em;
+  padding:5px 32px;
+  transform:rotate(45deg);
+  text-transform:uppercase;
+  font-family:'Syne',sans-serif;
+  box-shadow:0 4px 12px rgba(196,90,120,0.4);
+}
+.bon-ico{font-size:26px;margin-bottom:16px;display:block;margin-top:8px;filter:saturate(0.7)}
+.bon-t{font-size:14px;font-weight:700;color:var(--cream);margin-bottom:10px;font-family:'Syne',sans-serif}
+.bon-b{font-size:12.5px;color:var(--fog);line-height:1.65;margin-bottom:14px}
+.bon-v{font-size:11px;font-weight:700;color:var(--rose2);letter-spacing:0.04em}
+
+/* ── PRICE GRID ── */
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+.price-card{
+  padding:44px 40px;
+  border-radius:22px;
+  background:var(--card);
+  border:1px solid var(--border2);
+  transition:all 0.3s;
+}
+.price-card.hot{
+  background:linear-gradient(155deg,rgba(20,10,16,1),rgba(30,12,22,1));
+  border:1px solid rgba(232,130,154,0.2);
+  position:relative;
+  overflow:hidden;
+}
+.price-card.hot::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--rose3),var(--rose2),transparent);
+}
+.price-card.hot::after{
+  content:'';
+  position:absolute;
+  bottom:-80px;right:-80px;
+  width:280px;height:280px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(196,90,120,0.07),transparent);
+}
+.pc-badge{
+  font-size:10px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--dim);
+  margin-bottom:24px;
+  font-weight:600;
+}
+.hot .pc-badge{color:rgba(232,130,154,0.45)}
+.pc-old{
+  font-family:'Playfair Display',serif;
+  font-size:18px;
+  color:rgba(250,244,238,0.15);
+  text-decoration:line-through;
+  margin-bottom:4px;
+}
+.hot .pc-old{color:rgba(232,130,154,0.2)}
+.pc-price{
+  font-family:'Syne',sans-serif;
+  font-size:68px;
+  font-weight:800;
+  color:var(--cream);
+  line-height:1;
+  margin-bottom:4px;
+  letter-spacing:-0.04em;
+  position:relative;
+}
+.hot .pc-price{
+  background:linear-gradient(135deg,var(--rose2),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.pc-per{font-size:13px;color:var(--fog);margin-bottom:32px}
+.hot .pc-per{color:rgba(232,130,154,0.45)}
+.studio-per{font-size:13px;color:rgba(232,130,154,0.5);margin-bottom:4px}
+.studio-calc{font-size:12px;color:rgba(232,130,154,0.3);margin-bottom:32px}
+.pc-items{display:flex;flex-direction:column;gap:11px}
+.pc-item{
+  font-size:13.5px;
+  color:rgba(250,244,238,0.45);
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  line-height:1.4;
+}
+.hot .pc-item{color:rgba(250,244,238,0.7)}
+.pc-check{
+  color:var(--rose);
+  flex-shrink:0;
+  font-weight:800;
+  margin-top:1px;
+}
+.hot .pc-check{color:var(--rose2)}
+.masters-ctrl{margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,0.06)}
+.masters-lbl{font-size:10px;color:rgba(232,130,154,0.35);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:14px}
+.masters-row{display:flex;align-items:center;gap:16px}
+.mbtn{
+  width:40px;height:40px;
+  border:1px solid rgba(232,130,154,0.25);
+  background:rgba(232,130,154,0.07);
+  color:var(--rose2);
+  font-size:22px;
+  cursor:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  transition:all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+  font-family:'Inter',sans-serif;
+  line-height:1;
+}
+.mbtn:hover{
+  background:rgba(232,130,154,0.18);
+  border-color:var(--rose);
+  transform:scale(1.1);
+}
+.mcount{
+  font-family:'Syne',sans-serif;
+  font-size:28px;
+  font-weight:800;
+  color:var(--rose2);
+  min-width:36px;
+  text-align:center;
+  letter-spacing:-0.02em;
+}
+
+/* ── GUARANTEE ── */
+.guarantee{
+  border:1px solid rgba(232,130,154,0.15);
+  padding:52px 56px;
+  border-radius:22px;
+  position:relative;
+  margin-bottom:32px;
+  background:linear-gradient(135deg,rgba(196,90,120,0.04),rgba(232,196,154,0.02));
+  overflow:hidden;
+}
+.guarantee::before{
+  content:'';
+  position:absolute;
+  bottom:-50px;right:-50px;
+  width:200px;height:200px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(196,90,120,0.07),transparent);
+}
+.guarantee::after{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(232,130,154,0.3),transparent);
+}
+.g-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:linear-gradient(135deg,var(--rose4),var(--rose3));
+  color:white;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:0.2em;
+  padding:6px 18px;
+  border-radius:100px;
+  margin-bottom:20px;
+  text-transform:uppercase;
+  font-family:'Syne',sans-serif;
+  box-shadow:0 4px 16px rgba(196,90,120,0.3);
+}
+.g-h{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--cream);margin-bottom:16px}
+.g-t{font-size:15px;color:var(--fog);line-height:1.8}
+.g-t b{color:var(--cream);font-weight:500}
+
+/* ── STUDIO PREMIUM ── */
+.sp-wrap{
+  border:1px solid var(--border2);
+  border-radius:22px;
+  padding:44px;
+  margin-bottom:32px;
+  background:var(--s1);
+}
+.sp-tag{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--rose);margin-bottom:28px;font-weight:700}
+.sp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sp-card{
+  padding:26px;
+  background:var(--card);
+  border-radius:14px;
+  border:1px solid var(--border2);
+  transition:all 0.25s;
+}
+.sp-card:hover{border-color:rgba(232,130,154,0.15);background:var(--card2)}
+.sp-title{font-size:13px;font-weight:700;color:var(--cream);margin-bottom:8px;font-family:'Syne',sans-serif}
+.sp-desc{font-size:12px;color:var(--fog);line-height:1.65}
+
+/* ── SCARCITY ── */
+.scarcity{
+  text-align:center;
+  padding:56px;
+  background:var(--s2);
+  border:1px solid var(--border2);
+  border-radius:22px;
+  position:relative;
+  overflow:hidden;
+}
+.scarcity::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at center,rgba(196,90,120,0.06),transparent 65%);
+}
+.sc-n{
+  font-family:'Syne',sans-serif;
+  font-size:96px;
+  font-weight:800;
+  background:linear-gradient(135deg,var(--rose2),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;
+  letter-spacing:-0.04em;
+  position:relative;
+}
+.sc-dots{display:flex;justify-content:center;gap:12px;margin:20px 0;position:relative}
+.sc-dot{width:16px;height:16px;border-radius:50%;transition:all 0.3s}
+.sc-dot.gone{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.08)}
+.sc-dot.open{
+  background:var(--rose2);
+  box-shadow:0 0 16px rgba(232,130,154,0.6), 0 0 32px rgba(232,130,154,0.3);
+  animation:pulse-sc 2s ease-in-out infinite;
+}
+@keyframes pulse-sc{0%,100%{box-shadow:0 0 16px rgba(232,130,154,0.6), 0 0 32px rgba(232,130,154,0.3)}50%{box-shadow:0 0 24px rgba(232,130,154,0.8), 0 0 48px rgba(232,130,154,0.4)}}
+.sc-t{font-size:15px;color:var(--fog);line-height:1.5;position:relative}
+.sc-t b{color:var(--rose2)}
+
+/* ── FINAL ── */
+.final{
+  padding:120px 40px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  z-index:1;
+}
+.final::before{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:700px;height:700px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(196,90,120,0.07),transparent 60%);
+}
+.final-inner{position:relative;max-width:640px;margin:0 auto}
+.final-h{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(40px,5.5vw,68px);
+  font-weight:900;
+  line-height:1.08;
+  color:var(--cream);
+  margin-bottom:18px;
+  letter-spacing:-0.025em;
+}
+.final-h em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--rose2),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.final-sub{font-size:17px;color:var(--fog);margin-bottom:44px;line-height:1.65}
+.btn-final{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  padding:22px 56px;
+  background:linear-gradient(135deg,var(--rose4) 0%,var(--rose3) 50%,var(--rose) 100%);
+  color:white;
+  font-family:'Syne',sans-serif;
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  border:none;
+  cursor:none;
+  border-radius:16px;
+  text-decoration:none;
+  transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow:0 12px 48px rgba(196,90,120,0.45), inset 0 1px 0 rgba(255,255,255,0.2);
+  position:relative;
+  overflow:hidden;
+}
+.btn-final::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.18),transparent);
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.btn-final:hover{
+  transform:translateY(-4px) scale(1.03);
+  box-shadow:0 24px 64px rgba(196,90,120,0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn-final:hover::before{opacity:1}
+.final-note{font-size:12px;color:var(--dim);margin-top:18px;letter-spacing:0.04em}
+
+/* ── FAQ ── */
+.faq-sec{
+  padding:110px 40px;
+  border-top:1px solid var(--border2);
+  position:relative;
+  z-index:1;
+}
+.faq-wrap{max-width:720px;margin:0 auto}
+.faq-item{
+  border-bottom:1px solid var(--border2);
+  overflow:hidden;
+}
+.faq-btn{
+  width:100%;
+  padding:24px 0;
+  background:none;
+  border:none;
+  text-align:left;
+  font-size:15.5px;
+  font-weight:500;
+  color:var(--cream);
+  cursor:none;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  font-family:'Inter',sans-serif;
+  transition:color 0.2s;
+  letter-spacing:-0.01em;
+}
+.faq-btn:hover{color:var(--rose2)}
+.faq-ico{
+  width:30px;height:30px;
+  border-radius:50%;
+  border:1px solid rgba(232,130,154,0.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--rose);
+  font-size:20px;
+  flex-shrink:0;
+  transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  font-weight:300;
+}
+.faq-ans{
+  font-size:14px;
+  color:var(--fog);
+  line-height:1.8;
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.45s ease, padding 0.35s ease;
+}
+.faq-ans.open{max-height:300px;padding-bottom:24px}
+
+/* ── FOOTER ── */
+.foot-wrap{
+  border-top:1px solid var(--border2);
+  position:relative;
+  z-index:1;
+}
+.foot{
+  padding:32px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  max-width:1240px;
+  margin:0 auto;
+}
+.foot-brand{
+  font-family:'Syne',sans-serif;
+  font-size:15px;
+  font-weight:800;
+  color:white;
+  letter-spacing:-0.02em;
+}
+.foot-brand .brand-accent{
+  background:linear-gradient(135deg,var(--rose2),var(--gold));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.foot-copy{font-size:12px;color:var(--dim);letter-spacing:0.06em}
+
+/* ── MOBILE STICKY ── */
+.mob-cta{
   display:none;
-  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  position:fixed;
+  bottom:0;left:0;right:0;
+  z-index:300;
   padding:10px 16px;
-  background:rgba(8,7,6,.96);
-  border-top:1px solid var(--line);
-  backdrop-filter:blur(20px);
+  padding-bottom:max(16px,env(safe-area-inset-bottom));
+  background:linear-gradient(to top,rgba(7,6,10,1) 60%,transparent);
 }
-.mob-bar a{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  height:50px;background:var(--rose);
-  color:#fff;font-size:14px;font-weight:600;
-  border-radius:var(--r);
-  letter-spacing:.02em;
+.mob-cta a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  width:100%;
+  padding:18px;
+  background:linear-gradient(135deg,var(--rose4),var(--rose3),var(--rose));
+  color:white;
+  font-family:'Syne',sans-serif;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:0.08em;
+  text-decoration:none;
+  border-radius:14px;
+  box-shadow:0 8px 32px rgba(196,90,120,0.45), inset 0 1px 0 rgba(255,255,255,0.2);
 }
 
-/* ─── HIDDEN ─── */
-.solo-show{display:block}
-.studio-show{display:none}
-.studio-flex{display:none}
+/* ── TOGGLE STATE ── */
+.solo-content{display:block}
+.studio-content{display:none}
 
-/* ─── DESKTOP ─── */
-@media(min-width:640px){
-  .container{padding:0 32px}
-  .hero{padding:80px 32px}
-  .hero-btns{flex-direction:row;gap:12px}
-  .btn{height:48px}
-  .metrics{grid-template-columns:repeat(4,1fr)}
-  .metric{border-bottom:none}
-  .metric:nth-child(3),.metric:nth-child(4){border-bottom:none}
-  .metric:nth-child(2n){border-right:1px solid var(--line)}
-  .metric:last-child{border-right:none}
-  .sec{padding:72px 0}
-  .price-cards{flex-direction:row}
-  .price-card,.price-card.featured{flex:1}
-  .pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-  .pain-list{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+/* ── DIVIDER ── */
+.divider{
+  height:1px;
+  background:linear-gradient(to right,transparent,rgba(232,130,154,0.15),transparent);
+  margin:0;
 }
-@media(max-width:639px){
-  .mob-bar{display:block}
-  body{padding-bottom:70px}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .mob-cta{display:block}
+  body{padding-bottom:88px}
+  #cursor,#cursor-ring{display:none}
+  .ticker{display:none}
+  .abar{font-size:9px;letter-spacing:0.1em;padding:9px 12px}
+  .toggle-bar{top:52px;padding:10px 12px;gap:8px;flex-wrap:wrap;justify-content:center}
+  .toggle-label{display:none}
+  .toggle-btn{padding:7px 14px;font-size:10.5px}
+  .toggle-note{font-size:10px;width:100%;text-align:center}
+  .nav{padding:14px 16px}
+  .hero{padding:60px 16px 48px;min-height:auto}
+  .hero-inner{grid-template-columns:1fr}
+  .proof-card{display:none}
+  .h1{font-size:clamp(38px,10vw,52px)}
+  .hero-lead{font-size:15px;line-height:1.7}
+  .hero-actions{flex-direction:column;align-items:stretch;gap:12px}
+  .btn{justify-content:center;padding:17px 24px;width:100%;border-radius:12px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat{padding:28px 14px}
+  .stat:nth-child(2){border-right:none}
+  .stat:nth-child(3){border-right:1px solid var(--border2);border-top:1px solid var(--border2)}
+  .stat:nth-child(4){border-right:none;border-top:1px solid var(--border2)}
+  .sec{padding:56px 16px}
+  .h2{margin-bottom:32px;font-size:clamp(28px,8vw,40px)}
+  .pain-grid{grid-template-columns:1fr}
+  .callout{padding:28px 20px;border-radius:16px}
+  .callout-t{font-size:18px}
+  .testi{padding:32px 22px;border-radius:16px}
+  .testi-t{font-size:18px}
+  .fgrid{grid-template-columns:1fr}
+  .fcard{padding:28px 22px;border-radius:14px}
+  .bgrid{grid-template-columns:1fr 1fr}
+  .bcard{padding:18px 14px;border-radius:12px}
+  .b-title{font-size:12.5px}
+  .b-desc{font-size:11px}
+  .stack-head{display:none}
+  .stack-row{grid-template-columns:1fr auto;gap:10px;padding:16px 16px}
+  .s-market{display:none}
+  .stack-foot{grid-template-columns:1fr auto;padding:16px 16px}
+  .sf-mkt{display:none}
+  .math{padding:24px 18px;border-radius:14px}
+  .bonus-grid{grid-template-columns:1fr}
+  .bonus-card{padding:28px 20px;border-radius:14px}
+  .price-grid{grid-template-columns:1fr;gap:12px}
+  .price-card{padding:32px 22px;border-radius:18px}
+  .pc-price{font-size:52px}
+  .guarantee{padding:32px 20px;border-radius:18px}
+  .g-h{font-size:22px}
+  .g-t{font-size:14px}
+  .sp-wrap{padding:24px 16px;border-radius:16px}
+  .sp-grid{grid-template-columns:1fr}
+  .scarcity{padding:36px 18px;border-radius:18px}
+  .sc-n{font-size:72px}
+  .final{padding:64px 16px}
+  .final-h{font-size:clamp(32px,8vw,48px)}
+  .final-sub{font-size:15px;margin-bottom:32px}
+  .btn-final{width:100%;justify-content:center;padding:18px 24px;font-size:13px}
+  .faq-sec{padding:56px 16px}
+  .faq-btn{font-size:14px;padding:20px 0}
+  .faq-ans{font-size:13px}
+  .foot{padding:24px 16px;flex-direction:column;gap:8px;text-align:center}
+}
+@media(max-width:380px){
+  .h1{font-size:36px}
+  .bgrid{grid-template-columns:1fr}
+  .toggle-btn{padding:7px 10px;font-size:10px}
 }
 </style>
 </head>
 <body>
 
-<!-- MOBILE STICKY -->
-<div class="mob-bar">
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- MESH BG -->
+<div class="mesh">
+  <div class="mesh-orb mesh-orb-1"></div>
+  <div class="mesh-orb mesh-orb-2"></div>
+  <div class="mesh-orb mesh-orb-3"></div>
+</div>
+
+<!-- MOBILE CTA -->
+<div class="mob-cta">
   <a href="https://t.me/ilya_vasylchenko">📲 Перший місяць безкоштовно — написати</a>
 </div>
 
-<!-- ANN -->
-<div class="ann">🌸 Лише 1 місце цього місяця · 2 з 3 вже зайнято</div>
+<!-- ANNOUNCEMENT -->
+<div class="abar">🌸 Цифровий Адміністратор для Майстрів Краси &nbsp;·&nbsp; манікюр &nbsp;·&nbsp; брови &nbsp;·&nbsp; вії &nbsp;·&nbsp; косметологія</div>
 
 <!-- NAV -->
-<nav class="nav">
-  <div class="nav-logo">SystemFlow</div>
-  <a href="https://t.me/ilya_vasylchenko" class="nav-cta">
-    Написати →
-  </a>
-</nav>
+<div class="nav-wrap">
+  <nav class="nav">
+    <div class="nav-brand">System<span class="brand-accent">Flow</span></div>
+    <a href="#cta" class="nav-btn"><span>Спробувати безкоштовно</span></a>
+  </nav>
+</div>
 
 <!-- TOGGLE -->
-<div class="toggle">
-  <span class="toggle-label">Оберіть:</span>
-  <div class="toggle-pills">
-    <button class="t-pill on" onclick="setMode('solo')">👩 Майстер</button>
-    <button class="t-pill" onclick="setMode('studio')">💅 Студія 2+</button>
+<div class="toggle-bar">
+  <span class="toggle-label">Оберіть формат:</span>
+  <div class="toggle-wrap">
+    <button class="toggle-btn active" onclick="setMode('solo')">👩 Приватний майстер</button>
+    <button class="toggle-btn" onclick="setMode('studio')">💅 Студія 2+ майстри</button>
   </div>
-  <span class="toggle-hint" id="toggle-hint">1 майстер · $50/міс</span>
+  <span class="toggle-note" id="toggle-hint">1 майстер · $50/міс</span>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <span class="ticker-inner">
+    <span>✦</span> Відповідає за 30 секунд <span>✦</span> Записує поки ти з клієнтом <span>✦</span> Запуск за 48 годин <span>✦</span> Перший місяць безкоштовно <span>✦</span> Без договорів <span>✦</span> Налаштування під ключ <span>✦</span> Ти тільки даєш список послуг <span>✦</span> Відповідає за 30 секунд <span>✦</span> Записує поки ти з клієнтом <span>✦</span> Запуск за 48 годин <span>✦</span> Перший місяць безкоштовно <span>✦</span> Без договорів <span>✦</span> Налаштування під ключ <span>✦</span> Ти тільки даєш список послуг <span>✦</span> &nbsp;
+  </span>
 </div>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="container">
-    <div class="hero-kicker">
-      <span class="hero-kicker-dot"></span>
-      Цифровий адміністратор · Telegram
+  <div class="hero-inner">
+    <div class="reveal">
+      <div class="chip"><span class="chip-dot"></span>Цифровий адміністратор · активний зараз</div>
+      <h1 class="h1">
+        Набридло бути<br/>
+        <span class="cross">адміністратором</span><br/>
+        <em>безкоштовно?</em>
+      </h1>
+      <p class="hero-lead">
+        Я впроваджую <b>Цифрового Адміністратора</b> у Telegram — він миттєво відповідає клієнтам цілодобово, консультує та самостійно веде до вільного часу в твоєму календарі.<br/><br/>
+        <b>Запуск за 48 годин. Перший місяць — безкоштовно.</b> Від тебе потрібен лише список послуг і цін.
+      </p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn">Хочу спробувати →</a>
+        <span class="hero-note">Без договорів · Зупиняєш коли захочеш</span>
+      </div>
     </div>
-    <h1>
-      Більше жодного<br/>
-      <s>пропущеного</s><br/>
-      <em>клієнта</em>
-    </h1>
-    <p class="hero-sub">
-      Я налаштовую цифрового адміністратора який відповідає клієнтам,
-      записує у твій календар та нагадує — <strong>цілодобово, без тебе.</strong>
-      Від тебе потрібен лише список послуг і цін.
-    </p>
-    <div class="hero-btns">
-      <a href="https://t.me/ilya_vasylchenko" class="btn btn-primary" style="min-width:220px">
-        Спробувати безкоштовно →
-      </a>
-      <a href="#cta" class="btn btn-ghost" style="min-width:160px">
-        Дивитись умови
-      </a>
+
+    <div class="proof-card reveal reveal-delay-2">
+      <div class="proof-head">
+        <span class="proof-head-label">Що змінюється</span>
+        <span class="proof-live"><span class="proof-live-dot"></span>Система активна</span>
+      </div>
+      <div class="proof-row">
+        <div><div class="pr-lbl">Нічні запити</div><div class="pr-before">губляться</div></div>
+        <div class="pr-after">✓ 100% оброблено</div>
+      </div>
+      <div class="proof-row">
+        <div><div class="pr-lbl">Клієнти що не прийшли</div><div class="pr-before">1–3 на тиждень</div></div>
+        <div class="pr-after">✓ −70%</div>
+      </div>
+      <div class="proof-row">
+        <div><div class="pr-lbl">Переписка вручну</div><div class="pr-before">1–2 год/день</div></div>
+        <div class="pr-after">✓ ≈ 0 хвилин</div>
+      </div>
+      <div class="proof-row">
+        <div><div class="pr-lbl">Час відповіді</div><div class="pr-before">години / ніколи</div></div>
+        <div class="pr-after">✓ 30 секунд</div>
+      </div>
+      <div class="proof-row">
+        <div><div class="pr-lbl">Твій вечір</div><div class="pr-before">у телефоні</div></div>
+        <div class="pr-after">✓ вільний</div>
+      </div>
     </div>
-    <div class="hero-trust">Перший місяць $0 · Запуск за 48 годин · Без договорів</div>
   </div>
 </section>
 
-<!-- METRICS -->
-<div class="metrics">
-  <div class="metric">
-    <div class="metric-num">30с</div>
-    <div class="metric-label">час відповіді замість годин</div>
+<!-- STATS -->
+<div class="stats">
+  <div class="stat reveal">
+    <div class="stat-n" data-count="30" data-suffix="с">30с</div>
+    <div class="stat-l">час відповіді замість годин очікування</div>
   </div>
-  <div class="metric">
-    <div class="metric-num">−70%</div>
-    <div class="metric-label">клієнтів що не прийшли</div>
+  <div class="stat reveal reveal-delay-1">
+    <div class="stat-n">−70%</div>
+    <div class="stat-l">клієнтів що не прийшли після нагадувань</div>
   </div>
-  <div class="metric">
-    <div class="metric-num">48г</div>
-    <div class="metric-label">і система вже працює</div>
+  <div class="stat reveal reveal-delay-2">
+    <div class="stat-n">48г</div>
+    <div class="stat-l">і система вже працює замість тебе</div>
   </div>
-  <div class="metric">
-    <div class="metric-num">$0</div>
-    <div class="metric-label">перший місяць роботи</div>
+  <div class="stat reveal reveal-delay-3">
+    <div class="stat-n">$0</div>
+    <div class="stat-l">перший місяць без будь-яких зобов'язань</div>
   </div>
 </div>
 
-<!-- PAIN -->
+<!-- PAIN SECTION -->
 <section class="sec">
-  <div class="container">
-    <div class="sec-kicker">Проблема</div>
-    <h2 class="sec-title">Ти щодня<br/><em>платиш невидиму ціну</em></h2>
-
-    <div class="pain-list">
-      <div class="pain-card">
-        <div class="pain-card-top">
-          <div class="pain-ico">🌙</div>
-          <div class="pain-title">Клієнт пише о 22:00 — ти спиш</div>
-        </div>
-        <div class="pain-desc">Зранку вона вже записалась до іншої майстрині. Ти навіть не знаєш що це сталось.</div>
-        <div class="pain-tag">8–15 клієнтів / місяць = 3,200–10,500 грн</div>
+  <div class="sec-inner">
+    <div class="tag reveal">Реальна проблема</div>
+    <h2 class="h2 reveal">Ти щодня<br/><em>платиш невидиму ціну</em></h2>
+    <div class="pain-grid">
+      <div class="pain-card reveal">
+        <span class="p-ico">🌙</span>
+        <div class="p-title">Клієнт пише о 22:00 — ти спиш</div>
+        <div class="p-body">Клієнт пише коли ти спиш або зайнята. Зранку вона вже записалась до іншої майстрині. Ти навіть не знаєш що це сталось.</div>
+        <div class="p-tag">⚡ 8–15 нових клієнтів губиться на місяць = 3,200–10,500 грн</div>
       </div>
-      <div class="pain-card">
-        <div class="pain-card-top">
-          <div class="pain-ico">😤</div>
-          <div class="pain-title">Клієнт не прийшов без попередження</div>
-        </div>
-        <div class="pain-desc">Час зайнятий. Матеріали підготовлені. Інший клієнт міг бути на цьому місці.</div>
-        <div class="pain-tag">до 8,400 грн на місяць</div>
+      <div class="pain-card reveal reveal-delay-1">
+        <span class="p-ico">😤</span>
+        <div class="p-title">Клієнт не прийшов без попередження</div>
+        <div class="p-body">Час зайнятий. Матеріали підготовлені. Інший клієнт міг бути на цьому місці. 1–3 рази на тиждень — це норма без нагадувань.</div>
+        <div class="p-tag">⚡ до 8,400 грн на місяць втрат</div>
       </div>
-      <div class="pain-card">
-        <div class="pain-card-top">
-          <div class="pain-ico">💬</div>
-          <div class="pain-title">Переписка між сеансами</div>
-        </div>
-        <div class="pain-desc">Між клієнтами — погодження часу, питання про ціну, нагадування. Це не твоя робота.</div>
-        <div class="pain-tag">40+ годин на місяць</div>
+      <div class="pain-card reveal reveal-delay-2">
+        <span class="p-ico">💬</span>
+        <div class="p-title">Переписка між сеансами</div>
+        <div class="p-body">Між клієнтами — директ. Після роботи — директ. Погодження часу, питання про ціну, нагадування вручну. Це не твоя робота.</div>
+        <div class="p-tag">⚡ 40+ годин уваги на місяць</div>
       </div>
-      <div class="pain-card">
-        <div class="pain-card-top">
-          <div class="pain-ico">📓</div>
-          <div class="pain-title">Записи в блокноті або голові</div>
-        </div>
-        <div class="pain-desc">Накладки, забуті клієнти, подвійний запис — без системи немає контролю.</div>
-        <div class="pain-tag">Помилки + стрес + репутація</div>
+      <div class="pain-card reveal reveal-delay-3">
+        <span class="p-ico">📓</span>
+        <div class="p-title">Записи в голові або блокноті</div>
+        <div class="p-body">Накладки, подвійний запис, забуті клієнти. Без системи — без контролю. Репутація і нерви під ризиком.</div>
+        <div class="p-tag">⚡ Помилки + стрес + репутація</div>
       </div>
     </div>
-
-    <div class="pullquote">
-      <p>Один клієнт що не прийшов — це <strong>400–700 грн.</strong> За місяць ти губиш більше ніж коштує рішення <strong>за весь рік.</strong></p>
+    <div class="callout reveal">
+      <div class="callout-t">Один клієнт що не прийшов — це <b>400–700 грн.</b> За місяць на пропущених записах та нічних запитах ти губиш <b>більше ніж коштує рішення за весь рік.</b></div>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIAL -->
 <section class="sec" style="background:var(--s1)">
-  <div class="container">
-    <div class="sec-kicker">Перший відгук</div>
-    <div class="testi">
-      <div class="testi-quote">"Я перестала боятись пропущених дзвінків. Зранку відкриваю телефон — а там вже 2 нових записи. Навіть не знаю хто писав і коли."</div>
-      <div class="testi-author">Майстер манікюру · Київ · після першого місяця</div>
+  <div class="sec-inner">
+    <div class="tag reveal">Перший відгук</div>
+    <div class="testi reveal">
+      <div class="testi-t">"Я перестала боятись пропущених дзвінків. Зранку відкриваю телефон — а там вже 2 нових записи. Навіть не знаю хто писав і коли."</div>
+      <div class="testi-a">Майстер манікюру · Київ · після першого місяця роботи</div>
     </div>
-    <a href="https://t.me/ilya_vasylchenko" class="btn btn-primary" style="max-width:280px">Хочу так само →</a>
+    <div style="margin-top:40px" class="reveal reveal-delay-1">
+      <a href="https://t.me/ilya_vasylchenko" class="btn" style="display:inline-flex">Хочу так само →</a>
+    </div>
   </div>
 </section>
 
-<!-- FORMULA (Hormozi) -->
+<!-- FORMULA -->
 <section class="sec">
-  <div class="container">
-    <div class="sec-kicker">Чому це працює</div>
-    <h2 class="sec-title">Чому від цього<br/><em>важко відмовитись</em></h2>
-    <div class="formula-grid">
-      <div class="formula-card">
-        <div class="formula-n">1</div>
-        <div class="formula-body">
-          <div class="formula-title">Омріяний результат</div>
-          <div class="formula-desc">Спокійні вечори без телефону. Повний запис. Статус <span class="formula-highlight">майстра з крутим сервісом</span> — без жодної хвилини переписки.</div>
-        </div>
-      </div>
-      <div class="formula-card">
-        <div class="formula-n">2</div>
-        <div class="formula-body">
-          <div class="formula-title">Все під ключ — ти нічого не робиш</div>
-          <div class="formula-desc">Не треба розбиратись в технологіях. <span class="formula-highlight">Один дзвінок 30 хвилин</span> — решту я беру на себе.</div>
-        </div>
-      </div>
-      <div class="formula-card">
-        <div class="formula-n">3</div>
-        <div class="formula-body">
-          <div class="formula-title">Результат вже завтра</div>
-          <div class="formula-desc">Запуск за 48 годин. <span class="formula-highlight">Перший звільнений вечір — вже завтра.</span> Зранку відкриваєш — бачиш нові записи.</div>
-        </div>
-      </div>
-      <div class="formula-card">
-        <div class="formula-n">4</div>
-        <div class="formula-body">
-          <div class="formula-title">Нульовий ризик</div>
-          <div class="formula-desc">Перший місяць безкоштовно. <span class="formula-highlight">Якщо не сподобається — просто виходиш.</span> Жодних договорів.</div>
-        </div>
-      </div>
+  <div class="sec-inner">
+    <div class="tag reveal">Формула цінності</div>
+    <h2 class="h2 reveal">Чому від цього<br/><em>неможливо відмовитись</em></h2>
+    <div class="fgrid">
+      <div class="fcard reveal"><div class="f-num">01</div><div class="f-title">Омріяний результат</div><div class="f-desc">Спокійні вечори без телефону. Повний запис, статус <em>«преміум-майстра»</em> — без жодної зайвої хвилини переписки.</div></div>
+      <div class="fcard reveal reveal-delay-1"><div class="f-num">02</div><div class="f-title">Я роблю все під ключ</div><div class="f-desc">Не треба розбиратися в технічних налаштуваннях. <em>Від тебе — тільки список послуг і розклад.</em> Решту я беру на себе.</div></div>
+      <div class="fcard reveal reveal-delay-2"><div class="f-num">03</div><div class="f-title">Запуск за 48 годин</div><div class="f-desc">Перший звільнений вечір — <em>вже завтра.</em> Зранку відкриваєш календар і бачиш нові записи без жодної переписки.</div></div>
+      <div class="fcard reveal reveal-delay-3"><div class="f-num">04</div><div class="f-title">Ти взагалі нічого не робиш</div><div class="f-desc">Жодних нових додатків. Жодного навчання. <em>Один дзвінок 30 хвилин</em> — і система вже працює замість тебе.</div></div>
     </div>
   </div>
 </section>
 
-<!-- WHAT IT DOES -->
+<!-- BOT FEATURES -->
 <section class="sec" style="background:var(--s1)">
-  <div class="container">
-    <div class="sec-kicker">Що робить адміністратор</div>
-    <h2 class="sec-title">100% рутини —<br/><em>без твоєї участі</em></h2>
-    <div class="features">
-      <div class="feature">
-        <div class="feature-ico">💬</div>
-        <div class="feature-body">
-          <div class="feature-title">Відповідає на питання цілодобово</div>
-          <div class="feature-desc">Ціна послуг, тривалість, адреса, паркування — миттєво і в твоєму стилі.</div>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feature-ico">📅</div>
-        <div class="feature-body">
-          <div class="feature-title">Записує у твій календар</div>
-          <div class="feature-desc">Клієнт сам обирає вільний час. Ніяких накладок. Ти отримуєш підтвердження.</div>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feature-ico">🔔</div>
-        <div class="feature-body">
-          <div class="feature-title">Нагадування за добу і за 2 години</div>
-          <div class="feature-desc">Клієнт підтверджує або сам переносить. Кількість тих хто не прийшов падає на 60–80%.</div>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feature-ico">✨</div>
-        <div class="feature-body">
-          <div class="feature-title">Консультує по процедурах</div>
-          <div class="feature-desc">Як підготуватись, протипоказання, догляд після — без тебе.</div>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feature-ico">🔄</div>
-        <div class="feature-body">
-          <div class="feature-title">Перенос і скасування</div>
-          <div class="feature-desc">Клієнт сам переносить через адміністратора. Ти отримуєш сповіщення одразу.</div>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feature-ico">🆘</div>
-        <div class="feature-body">
-          <div class="feature-title">Складне питання — передає тобі</div>
-          <div class="feature-desc">Нестандартна ситуація → адміністратор передає тобі з повним текстом розмови.</div>
-        </div>
-      </div>
+  <div class="sec-inner">
+    <div class="tag reveal">Що робить Цифровий Адміністратор</div>
+    <h2 class="h2 reveal">100% рутини —<br/><em>без твоєї участі</em></h2>
+    <div class="bgrid">
+      <div class="bcard reveal"><span class="b-ico">💬</span><div class="b-title">Відповідає цілодобово</div><div class="b-desc">Ціна послуг, тривалість, адреса, паркування — миттєво і в твоєму стилі.</div></div>
+      <div class="bcard reveal reveal-delay-1"><span class="b-ico">📅</span><div class="b-title">Онлайн-запис у календар</div><div class="b-desc">Клієнт сам обирає вільний час. Ніяких накладок. Ти отримуєш підтвердження.</div></div>
+      <div class="bcard reveal reveal-delay-2"><span class="b-ico">🔔</span><div class="b-title">Нагадування за добу і 2 год</div><div class="b-desc">Клієнт підтверджує або переносить. Кількість тих хто не прийшов падає на 60–80%.</div></div>
+      <div class="bcard reveal reveal-delay-3"><span class="b-ico">✨</span><div class="b-title">Консультує по процедурах</div><div class="b-desc">Як підготуватись, протипоказання, що взяти — без тебе.</div></div>
+      <div class="bcard reveal reveal-delay-4"><span class="b-ico">🌙</span><div class="b-title">Догляд після процедури</div><div class="b-desc">Автоматично надсилає рекомендації після сеансу. Клієнт задоволений.</div></div>
+      <div class="bcard reveal reveal-delay-5"><span class="b-ico">🔄</span><div class="b-title">Перенос і скасування</div><div class="b-desc">Клієнт сам переносить. Ти отримуєш сповіщення і вільний час одразу.</div></div>
+      <div class="bcard reveal"><span class="b-ico">💰</span><div class="b-title">Відповідає про ціни і акції</div><div class="b-desc">Актуальний перелік, знижки — Адміністратор знає і відповідає правильно.</div></div>
+      <div class="bcard reveal reveal-delay-1"><span class="b-ico">🆘</span><div class="b-title">Складне питання — передає тобі</div><div class="b-desc">Нестандартна ситуація → одразу передає тобі з повним текстом розмови.</div></div>
+      <div class="bcard reveal reveal-delay-2"><span class="b-ico">📍</span><div class="b-title">Адреса і навігація</div><div class="b-desc">Як доїхати, де вхід, де паркування — надсилає при підтвердженні запису.</div></div>
     </div>
   </div>
 </section>
 
-<!-- VALUE STACK -->
+<!-- STACK + PRICE -->
 <section class="sec">
-  <div class="container">
-    <div class="sec-kicker">Що ти отримуєш</div>
-    <h2 class="sec-title">Повний пакет —<br/><em>дешевше одного пропущеного запису</em></h2>
+  <div class="sec-inner">
+    <div class="tag reveal">Що ти отримуєш</div>
+    <h2 class="h2 reveal">Повний пакет —<br/><em>дешевше одного пропущеного запису</em></h2>
 
-    <div class="stack">
-      <div class="stack-row">
-        <div class="stack-n">01</div>
-        <div class="stack-text">
-          <div class="stack-title">Цифровий адміністратор у Telegram</div>
-          <div class="stack-desc">Відповідає за 30 секунд, цілодобово. Твій тон і стиль.</div>
-        </div>
-        <div class="stack-price">
-          <div class="stack-original">8,500 грн</div>
-          <div class="stack-you">Безкоштовно</div>
-        </div>
+    <div class="stack reveal">
+      <div class="stack-head">
+        <span>Що входить</span>
+        <span style="text-align:right">Ринок</span>
+        <span style="text-align:right">Місяць 1</span>
       </div>
-      <div class="stack-row">
-        <div class="stack-n">02</div>
-        <div class="stack-text">
-          <div class="stack-title">Онлайн-запис у твій календар</div>
-          <div class="stack-desc">Клієнт обирає час сам. Жодних накладок.</div>
-        </div>
-        <div class="stack-price">
-          <div class="stack-original">1,500 грн</div>
-          <div class="stack-you">Безкоштовно</div>
-        </div>
-      </div>
-      <div class="stack-row">
-        <div class="stack-n">03</div>
-        <div class="stack-text">
-          <div class="stack-title">Автоматичні нагадування</div>
-          <div class="stack-desc">За добу і за 2 години до запису.</div>
-        </div>
-        <div class="stack-price">
-          <div class="stack-original">800 грн</div>
-          <div class="stack-you">Безкоштовно</div>
-        </div>
-      </div>
-      <div class="stack-row">
-        <div class="stack-n">04</div>
-        <div class="stack-text">
-          <div class="stack-title">База відповідей по послугах</div>
-          <div class="stack-desc">Ціна, підготовка, протипоказання, догляд.</div>
-        </div>
-        <div class="stack-price">
-          <div class="stack-original">600 грн</div>
-          <div class="stack-you">Безкоштовно</div>
-        </div>
-      </div>
-      <div class="stack-row">
-        <div class="stack-n">05</div>
-        <div class="stack-text">
-          <div class="stack-title">Налаштування під ключ за 48 годин</div>
-          <div class="stack-desc">Один дзвінок 30 хвилин — решта за мне.</div>
-        </div>
-        <div class="stack-price">
-          <div class="stack-original">12,000 грн</div>
-          <div class="stack-you">Безкоштовно</div>
-        </div>
-      </div>
-      <div class="stack-row">
-        <div class="stack-n">06</div>
-        <div class="stack-text">
-          <div class="stack-title">Власне технічне забезпечення</div>
-          <div class="stack-desc">Система на моєму обладнанні — нічого не встановлюєш.</div>
-        </div>
-        <div class="stack-price">
-          <div class="stack-original">3,000 грн</div>
-          <div class="stack-you">Безкоштовно</div>
-        </div>
-      </div>
-      <div class="stack-foot">
-        <div class="stack-foot-label">Ринкова вартість пакету</div>
-        <div class="stack-foot-prices">
-          <div class="stack-foot-old">26,400 грн</div>
-          <div class="stack-foot-new">$0</div>
-        </div>
-      </div>
+      <div class="stack-row"><div><div class="s-idx">01</div><div class="s-title">Цифровий Адміністратор у Telegram</div><div class="s-desc">Відповідає за 30 секунд, цілодобово. Твій тон і слова.</div></div><div class="s-market"><div class="s-mp">8,500 грн</div><div class="s-ml">ринок/міс</div></div><div class="s-free">Безкоштовно</div></div>
+      <div class="stack-row"><div><div class="s-idx">02</div><div class="s-title">Онлайн-запис у твій календар</div><div class="s-desc">Клієнт сам обирає вільний час. Ніяких накладок.</div></div><div class="s-market"><div class="s-mp">1,500 грн</div><div class="s-ml">ринок/міс</div></div><div class="s-free">Безкоштовно</div></div>
+      <div class="stack-row"><div><div class="s-idx">03</div><div class="s-title">Нагадування за добу і 2 години</div><div class="s-desc">Кількість тих хто не прийшов падає на 60–80%.</div></div><div class="s-market"><div class="s-mp">800 грн</div><div class="s-ml">ринок/міс</div></div><div class="s-free">Безкоштовно</div></div>
+      <div class="stack-row"><div><div class="s-idx">04</div><div class="s-title">База відповідей по всіх послугах</div><div class="s-desc">Ціна, підготовка, протипоказання, догляд — без тебе.</div></div><div class="s-market"><div class="s-mp">600 грн</div><div class="s-ml">ринок/міс</div></div><div class="s-free">Безкоштовно</div></div>
+      <div class="stack-row"><div><div class="s-idx">05</div><div class="s-title">Налаштування під ключ за 48 годин</div><div class="s-desc">Один дзвінок 30 хв — і завтра система вже працює.</div></div><div class="s-market"><div class="s-mp">12,000 грн</div><div class="s-ml">разово</div></div><div class="s-free">Безкоштовно</div></div>
+      <div class="stack-row"><div><div class="s-idx">06</div><div class="s-title">Власне технічне забезпечення</div><div class="s-desc">Система на моєму обладнанні. Нічого не треба встановлювати.</div></div><div class="s-market"><div class="s-mp">3,000 грн</div><div class="s-ml">ринок/міс</div></div><div class="s-free">Безкоштовно</div></div>
+      <div class="stack-foot"><div class="sf-lbl">Загальна ринкова вартість</div><div class="sf-mkt">26,400 грн</div><div class="sf-you">$0</div></div>
     </div>
 
-    <!-- MATH -->
-    <div class="math">
+    <div class="math reveal">
       <div class="math-title">Математика яка розриває мозок</div>
-      <div class="math-row">
-        <div class="math-row-label">Середній чек на процедуру</div>
-        <div class="math-row-val">500–700 грн</div>
-      </div>
-      <div class="math-row">
-        <div class="math-row-label">Щомісячна оплата</div>
-        <div class="math-row-val solo-show">$50 (~2,000 грн)</div>
-        <div class="math-row-val studio-show" id="math-studio">$130 (~5,200 грн)</div>
-      </div>
-      <div class="math-row">
-        <div class="math-row-label">Окупається після</div>
-        <div class="math-row-val">2–3 записи</div>
-      </div>
-      <div class="math-row">
-        <div class="math-row-label">Решта місяця</div>
-        <div class="math-row-val">→ чистий прибуток</div>
-      </div>
+      <div class="math-row"><div class="math-lbl">Середній чек на процедуру</div><div class="math-val">500–700 грн</div></div>
+      <div class="math-row"><div class="math-lbl">Вартість щомісячної оплати</div><div class="math-val">~2,000 грн ($50)</div></div>
+      <div class="math-row"><div class="math-lbl">Окупається після</div><div class="math-val">2–3 записи</div></div>
+      <div class="math-row hl"><div class="math-lbl">Решта місяця — твій чистий прибуток</div><div class="math-val">✓ Очевидна вигода</div></div>
     </div>
 
-    <!-- BONUSES -->
-    <div class="sec-kicker" style="margin-bottom:16px">Бонуси зверху</div>
-    <div class="bonuses">
-      <div class="bonus">
-        <div class="bonus-ico">✍️</div>
-        <div class="bonus-body">
-          <div class="bonus-title">Відповіді в твоєму стилі</div>
-          <div class="bonus-desc">Налаштую тон під тебе — клієнти не відчують що пишуть не тобі.</div>
-          <div class="bonus-val">800 грн → безкоштовно</div>
-        </div>
-      </div>
-      <div class="bonus">
-        <div class="bonus-ico">📊</div>
-        <div class="bonus-body">
-          <div class="bonus-title">Звіт після першого місяця</div>
-          <div class="bonus-desc">Скільки клієнтів оброблено, скільки пропущених записів попереджено — у цифрах.</div>
-          <div class="bonus-val">500 грн → безкоштовно</div>
-        </div>
-      </div>
-      <div class="bonus">
-        <div class="bonus-ico">🔄</div>
-        <div class="bonus-body">
-          <div class="bonus-title">Оновлення цін і розкладу</div>
-          <div class="bonus-desc">Змінила ціну або розклад — пишеш мені, оновлюю за 24 години.</div>
-          <div class="bonus-val">Включено завжди</div>
-        </div>
-      </div>
+    <div class="tag reveal" style="margin-top:52px">Бонуси зверху</div>
+    <h2 class="h2 reveal" style="font-size:clamp(28px,3.2vw,44px);margin-bottom:28px">Три подарунки —<br/><em>просто тому що можу</em></h2>
+    <div class="bonus-grid">
+      <div class="bonus-card reveal"><div class="b-ribbon">Бонус 1</div><span class="bon-ico">✍️</span><div class="bon-t">Відповіді в твоєму стилі</div><div class="bon-b">Налаштую тон під тебе — клієнти не відчують що пишуть не тобі особисто.</div><div class="bon-v">800 грн → безкоштовно</div></div>
+      <div class="bonus-card reveal reveal-delay-1"><div class="b-ribbon">Бонус 2</div><span class="bon-ico">📊</span><div class="bon-t">Звіт після першого місяця</div><div class="bon-b">Скільки нових клієнтів оброблено, скільки пропущених попереджено — у цифрах.</div><div class="bon-v">500 грн → безкоштовно</div></div>
+      <div class="bonus-card reveal reveal-delay-2"><div class="b-ribbon">Бонус 3</div><span class="bon-ico">🔄</span><div class="bon-t">Оновлення цін і розкладу</div><div class="bon-b">Змінила ціну або розклад — пишеш мені, оновлюю за 24 години. Завжди актуально.</div><div class="bon-v">Включено завжди</div></div>
     </div>
   </div>
 </section>
 
-<!-- PRICE -->
+<!-- PRICE / CTA -->
 <section class="sec" id="cta" style="background:var(--s1)">
-  <div class="container">
-    <div class="sec-kicker">Ціна і умови</div>
-    <h2 class="sec-title">Пропозиція яку<br/><em>важко відхилити</em></h2>
+  <div class="sec-inner">
+    <div class="tag reveal">Ціна і умови</div>
+    <h2 class="h2 reveal">Пропозиція яку<br/><em>складно відхилити</em></h2>
 
-    <div class="price-cards">
+    <div class="price-grid reveal">
       <div class="price-card">
         <div class="pc-badge">Місяць 1 — стартовий</div>
         <div class="pc-price">$0</div>
-        <div class="pc-period">повністю безкоштовно</div>
-        <div class="pc-list">
-          <div class="pc-item">Цифровий адміністратор 24/7</div>
-          <div class="pc-item">Онлайн-запис підключено</div>
-          <div class="pc-item">Нагадування налаштовано</div>
-          <div class="pc-item">Звіт після місяця</div>
-          <div class="pc-item">Вихід в будь-який момент</div>
+        <div class="pc-per">повністю безкоштовно</div>
+        <div class="pc-items">
+          <div class="pc-item"><span class="pc-check">✓</span>Цифровий Адміністратор цілодобово</div>
+          <div class="pc-item"><span class="pc-check">✓</span>Онлайн-запис підключено</div>
+          <div class="pc-item"><span class="pc-check">✓</span>Нагадування налаштовано</div>
+          <div class="pc-item"><span class="pc-check">✓</span>Звіт після місяця</div>
+          <div class="pc-item"><span class="pc-check">✓</span>Вихід в будь-який момент</div>
         </div>
       </div>
 
-      <!-- SOLO -->
-      <div class="price-card featured solo-show" id="price-solo">
-        <div class="pc-badge">Місяці 2+ — оплата</div>
+      <div class="price-card hot solo-content" id="price-solo">
+        <div class="pc-badge">Місяці 2+ — щомісячна оплата</div>
         <div class="pc-old">$129/міс</div>
         <div class="pc-price">$50</div>
-        <div class="pc-period">на місяць · ~2,000 грн</div>
-        <div class="pc-list">
-          <div class="pc-item">Все що в місяці 1</div>
-          <div class="pc-item">Підтримка і оновлення</div>
-          <div class="pc-item">Зміна цін або розкладу</div>
-          <div class="pc-item">= вартість однієї процедури</div>
-          <div class="pc-item">Зупиняєш коли захочеш</div>
+        <div class="pc-per">на місяць · ~2,000 грн</div>
+        <div class="pc-items">
+          <div class="pc-item"><span class="pc-check">✓</span>Все те саме що в місяці 1</div>
+          <div class="pc-item"><span class="pc-check">✓</span>Підтримка і оновлення</div>
+          <div class="pc-item"><span class="pc-check">✓</span>Зміна цін або розкладу</div>
+          <div class="pc-item"><span class="pc-check">✓</span>= вартість однієї процедури</div>
+          <div class="pc-item"><span class="pc-check">✓</span>Зупиняєш коли захочеш</div>
         </div>
       </div>
 
-      <!-- STUDIO -->
-      <div class="price-card featured studio-show" id="price-studio">
-        <div class="pc-badge">Місяці 2+ — оплата за студію</div>
+      <div class="price-card hot studio-content" id="price-studio">
+        <div class="pc-badge">Місяці 2+ — щомісячна оплата</div>
         <div class="pc-old">$199/міс</div>
         <div class="pc-price" id="studio-price">$130</div>
-        <div class="pc-period">$65 × <span id="studio-n">2</span> майстри</div>
-        <div class="pc-list">
-          <div class="pc-item">Окремий календар для кожного майстра</div>
-          <div class="pc-item">Адміністратор розподіляє клієнтів</div>
-          <div class="pc-item">Щотижневий звіт власнику</div>
-          <div class="pc-item">Підтримка і оновлення</div>
-          <div class="pc-item">Зупиняєш коли захочеш</div>
+        <div class="studio-per">$65 за кожного майстра</div>
+        <div class="studio-calc" id="studio-calc">2 майстри × $65 = $130/міс</div>
+        <div class="pc-items">
+          <div class="pc-item"><span class="pc-check">✓</span>Окремий календар для кожного майстра</div>
+          <div class="pc-item"><span class="pc-check">✓</span>Адміністратор розподіляє клієнтів</div>
+          <div class="pc-item"><span class="pc-check">✓</span>Щотижневий звіт власнику</div>
+          <div class="pc-item"><span class="pc-check">✓</span>Підтримка і оновлення</div>
+          <div class="pc-item"><span class="pc-check">✓</span>Зупиняєш коли захочеш</div>
         </div>
-        <div class="studio-calc-wrap">
-          <div class="calc-label">КІЛЬКІСТЬ МАЙСТРІВ:</div>
-          <div class="calc-row">
-            <button class="calc-btn" onclick="chM(-1)">−</button>
-            <div class="calc-count" id="calc-count">2</div>
-            <button class="calc-btn" onclick="chM(1)">+</button>
-            <div class="calc-total">
-              <div class="calc-total-price" id="calc-price">$130</div>
-              <div class="calc-total-note">на місяць</div>
-            </div>
+        <div class="masters-ctrl">
+          <div class="masters-lbl">Скільки майстрів:</div>
+          <div class="masters-row">
+            <button class="mbtn" onclick="changeMasters(-1)">−</button>
+            <span class="mcount" id="masters-count">2</span>
+            <button class="mbtn" onclick="changeMasters(1)">+</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- STUDIO PREMIUM -->
-    <div class="studio-premium studio-show" id="studio-premium">
-      <div class="sp-header">Чому студія платить більше</div>
+    <div class="guarantee reveal">
+      <div class="g-badge">🛡 Гарантія</div>
+      <div class="g-h">Нульовий ризик з твого боку</div>
+      <div class="g-t">Оскільки я зараз збираю перші реальні результати роботи — <b>прибираю плату за розробку і налаштування</b> (яка стандартно коштує $300). Ти платиш лише щомісячну оплату. <b>І якщо за перший тиждень вирішиш що тобі комфортніше писати вручну — ми просто вимикаємо систему без жодних зобов'язань.</b></div>
+    </div>
+
+    <div class="studio-content sp-wrap reveal" id="studio-premium">
+      <div class="sp-tag">Чому студія платить більше</div>
       <div class="sp-grid">
-        <div class="sp-item">
-          <div class="sp-ico">📊</div>
-          <div>
-            <div class="sp-title">Щотижневий звіт власнику</div>
-            <div class="sp-desc">Кожного понеділка — хто завантажений, скільки записів, скільки переносів. Керуєш з цифрами а не на відчуттях.</div>
-          </div>
-        </div>
-        <div class="sp-item">
-          <div class="sp-ico">👥</div>
-          <div>
-            <div class="sp-title">Розподіл між майстрами</div>
-            <div class="sp-desc">Клієнт обирає майстра або система записує до вільного — залежно від налаштувань.</div>
-          </div>
-        </div>
-        <div class="sp-item">
-          <div class="sp-ico">💰</div>
-          <div>
-            <div class="sp-title">Захищає більший дохід</div>
-            <div class="sp-desc">Студія з 3 майстрами робить 300–600к грн/міс. $195 — це менше 0.1% доходу.</div>
-          </div>
-        </div>
+        <div class="sp-card"><div class="sp-title">📊 Щотижневий звіт власнику</div><div class="sp-desc">Кожного понеділка — хто завантажений, скільки записів, скільки перенесено. Керуєш студією з цифрами а не на відчуттях.</div></div>
+        <div class="sp-card"><div class="sp-title">👥 Розподіл між майстрами</div><div class="sp-desc">Клієнт обирає майстра або система записує до вільного. Жодної плутанини хто до кого записаний.</div></div>
+        <div class="sp-card"><div class="sp-title">⚙️ Складніше налаштування</div><div class="sp-desc">Кілька календарів, різні графіки майстрів — більше роботи при запуску і підтримці. Ціна відповідає складності.</div></div>
+        <div class="sp-card"><div class="sp-title">💰 Захищає більший дохід</div><div class="sp-desc">Студія з 3 майстрами робить 300–600к грн/міс. $195 на місяць — менше 0.1% доходу. Один повернений клієнт окупає все.</div></div>
       </div>
     </div>
 
-    <!-- GUARANTEE -->
-    <div class="guarantee">
-      <div class="guarantee-badge">Гарантія</div>
-      <h3>Нульовий ризик з твого боку</h3>
-      <p>Я зараз збираю перші реальні результати — тому <strong>прибираю плату за розробку і налаштування</strong> (яка стандартно коштує $300). Ти платиш лише щомісячну оплату. <strong>Якщо за перший тиждень вирішиш що не підходить — вимикаємо без жодних зобов'язань.</strong></p>
-    </div>
-
-    <!-- SCARCITY -->
-    <div class="scarcity">
-      <div class="sc-number">1</div>
+    <div class="scarcity reveal">
+      <div class="sc-n">1</div>
       <div class="sc-dots">
-        <div class="sc-dot taken"></div>
-        <div class="sc-dot taken"></div>
+        <div class="sc-dot gone"></div>
+        <div class="sc-dot gone"></div>
         <div class="sc-dot open"></div>
       </div>
-      <div class="sc-text">3 місця на старті · 2 вже зайнято · залишилось <strong>1 місце цього місяця</strong></div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="sec">
-  <div class="container">
-    <div class="sec-kicker">Питання</div>
-    <h2 class="sec-title" style="margin-bottom:24px">Що тебе може<br/><em>зупиняти</em></h2>
-    <div class="faq">
-      <div class="faq-item">
-        <button class="faq-q" onclick="faq(this)">
-          А якщо адміністратор відповість щось не те?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Відповідає тільки на те що ти задала — твої послуги, ціни, розклад. На нестандартні питання одразу перемикає на тебе. Ти завжди бачиш всю переписку.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="faq(this)">
-          Мої клієнти звикли писати в месенджери — чи це зміниться?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Ні. Система підключається прямо до Telegram. Клієнт пише туди де звик — адміністратор відповідає замість тебе. Нічого нового вчити нікому.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="faq(this)">
-          Чому налаштування безкоштовне — в чому підвох?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Я збираю перші реальні результати з цифрами. Для цього потрібні перші клієнти. Тому прибираю вартість розробки ($300) і беру лише щомісячну оплату. Чесна угода.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="faq(this)">
-          Що якщо мені не сподобається?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Якщо за перший тиждень вирішиш що не підходить — просто кажеш. Вимикаємо без зобов'язань, штрафів і неприємних розмов. Весь ризик на мені.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="faq(this)">
-          Скільки часу займе налаштування з мого боку?
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Один дзвінок 30 хвилин. Ти розповідаєш про послуги, ціни та розклад. Далі все роблю сам. Через 48 годин система вже відповідає твоїм клієнтам.</div>
-      </div>
+      <div class="sc-t">3 місця на старті · 2 вже зайнято · залишилось <b>1 місце цього місяця</b></div>
     </div>
   </div>
 </section>
 
 <!-- FINAL CTA -->
-<section class="final-cta">
-  <div class="container">
-    <h2>Спробуй <em>безкоштовно</em><br/>цього місяця</h2>
-    <p>Один дзвінок 30 хвилин → завтра зранку бачиш нові записи в календарі</p>
-    <a href="https://t.me/ilya_vasylchenko" class="btn btn-primary">Написати в Telegram →</a>
+<section class="final">
+  <div class="final-inner reveal">
+    <h2 class="final-h">Спробуй <em>безкоштовно</em><br/>цього місяця</h2>
+    <div class="final-sub">Один дзвінок 30 хвилин → завтра зранку бачиш нові записи в календарі</div>
+    <a href="https://t.me/ilya_vasylchenko" class="btn-final">Написати в Telegram →</a>
     <div class="final-note">@ilya_vasylchenko · відповідаю протягом години</div>
   </div>
 </section>
 
+<!-- FAQ -->
+<section class="faq-sec">
+  <div class="faq-wrap">
+    <div class="tag reveal">Питання</div>
+    <h2 class="h2 reveal" style="font-size:clamp(30px,3.8vw,48px);margin-bottom:40px">Що тебе може<br/><em>зупиняти</em></h2>
+    <div class="faq-item reveal">
+      <button class="faq-btn" onclick="toggleFaq(this)">Якщо система відповість щось не те клієнту?<span class="faq-ico">+</span></button>
+      <div class="faq-ans">Адміністратор відповідає тільки на те що ти йому задала — послуги, ціни, розклад. На нестандартні питання він одразу перемикає на тебе. Ти завжди бачиш всю переписку і можеш втрутитись.</div>
+    </div>
+    <div class="faq-item reveal reveal-delay-1">
+      <button class="faq-btn" onclick="toggleFaq(this)">Мої клієнти звикли писати в месенджери — чи це зміниться?<span class="faq-ico">+</span></button>
+      <div class="faq-ans">Ні. Система підключається прямо до Telegram. Клієнт пише туди де звик — Цифровий Адміністратор відповідає замість тебе. Нічого нового вчити нікому не треба.</div>
+    </div>
+    <div class="faq-item reveal reveal-delay-2">
+      <button class="faq-btn" onclick="toggleFaq(this)">Чому налаштування безкоштовне — в чому підвох?<span class="faq-ico">+</span></button>
+      <div class="faq-ans">Я зараз збираю перші реальні результати роботи з цифрами — скільки нових клієнтів збережено, наскільки менше людей не приходить. Тому прибираю вартість розробки ($300) і беру лише щомісячну оплату. Чесна угода.</div>
+    </div>
+    <div class="faq-item reveal reveal-delay-3">
+      <button class="faq-btn" onclick="toggleFaq(this)">Що якщо мені не сподобається?<span class="faq-ico">+</span></button>
+      <div class="faq-ans">Якщо за перший тиждень вирішиш що тобі комфортніше вести все вручну — просто кажеш. Ми вимикаємо систему без жодних зобов'язань, штрафів і неприємних розмов. Весь ризик на мені.</div>
+    </div>
+    <div class="faq-item reveal reveal-delay-4">
+      <button class="faq-btn" onclick="toggleFaq(this)">Скільки часу займе налаштування з мого боку?<span class="faq-ico">+</span></button>
+      <div class="faq-ans">Один дзвінок 30 хвилин. Ти розповідаєш про послуги, ціни та розклад — я записую. Далі все роблю сам. Через 48 годин система вже відповідає твоїм клієнтам.</div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
-<footer class="footer container">
-  <div class="footer-brand">SystemFlow</div>
-  <div class="footer-copy">AI-автоматизація · Україна 2025</div>
-</footer>
+<div class="foot-wrap">
+  <div class="foot">
+    <div class="foot-brand">System<span class="brand-accent">Flow</span></div>
+    <div class="foot-copy">AI-автоматизація для малого бізнесу · Україна 2025</div>
+  </div>
+</div>
 
 <script>
+var isTouch = !window.matchMedia('(hover:hover)').matches;
+
+/* ── CUSTOM CURSOR — desktop only ── */
+if (!isTouch) {
+  var cur = document.getElementById('cursor');
+  var curRing = document.getElementById('cursor-ring');
+  var mx = -100, my = -100, rx = -100, ry = -100;
+
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX; my = e.clientY;
+    cur.style.transform = 'translate(' + (mx - 5) + 'px, ' + (my - 5) + 'px)';
+  });
+
+  (function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    curRing.style.transform = 'translate(' + (rx - 18) + 'px, ' + (ry - 18) + 'px)';
+    requestAnimationFrame(animRing);
+  })();
+
+  document.querySelectorAll('a,button,.pain-card,.fcard,.bcard,.bonus-card,.sp-card,.stat').forEach(function(el) {
+    el.addEventListener('mouseenter', function() {
+      curRing.style.width = '56px';
+      curRing.style.height = '56px';
+      curRing.style.borderColor = 'rgba(232,130,154,0.7)';
+    });
+    el.addEventListener('mouseleave', function() {
+      curRing.style.width = '36px';
+      curRing.style.height = '36px';
+      curRing.style.borderColor = 'rgba(232,130,154,0.4)';
+    });
+  });
+
+  /* ── PARALLAX ORBS — desktop only ── */
+  document.addEventListener('mousemove', function(e) {
+    var x = (e.clientX / window.innerWidth - 0.5) * 20;
+    var y = (e.clientY / window.innerHeight - 0.5) * 20;
+    var orbs = document.querySelectorAll('.mesh-orb');
+    if (orbs[0]) orbs[0].style.transform = 'translate(' + x * 0.2 + 'px, ' + y * 0.2 + 'px)';
+    if (orbs[1]) orbs[1].style.transform = 'translate(' + (-x * 0.15) + 'px, ' + (-y * 0.15) + 'px)';
+    if (orbs[2]) orbs[2].style.transform = 'translate(' + x * 0.1 + 'px, ' + y * 0.1 + 'px)';
+  });
+}
+
+/* ── SCROLL REVEAL ── */
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(function(el) {
+  observer.observe(el);
+});
+
+/* ── TOGGLE ── */
 var masters = 2;
 
 function setMode(m) {
-  var pills = document.querySelectorAll('.t-pill');
-  var soloEls = document.querySelectorAll('.solo-show');
-  var studioEls = document.querySelectorAll('.studio-show');
-  var hint = document.getElementById('toggle-hint');
-
+  var btns = document.querySelectorAll('.toggle-btn');
+  var solo = document.querySelectorAll('.solo-content');
+  var studio = document.querySelectorAll('.studio-content');
   if (m === 'solo') {
-    pills[0].classList.add('on'); pills[1].classList.remove('on');
-    soloEls.forEach(function(e){e.style.display='block'});
-    studioEls.forEach(function(e){e.style.display='none'});
-    hint.textContent = '1 майстер · $50/міс';
+    btns[0].classList.add('active'); btns[1].classList.remove('active');
+    solo.forEach(function(e) { e.style.display = 'block'; });
+    studio.forEach(function(e) { e.style.display = 'none'; });
+    document.getElementById('toggle-hint').textContent = '1 майстер · $50/міс';
   } else {
-    pills[1].classList.add('on'); pills[0].classList.remove('on');
-    soloEls.forEach(function(e){e.style.display='none'});
-    studioEls.forEach(function(e){e.style.display='block'});
-    updStudio();
+    btns[1].classList.add('active'); btns[0].classList.remove('active');
+    solo.forEach(function(e) { e.style.display = 'none'; });
+    studio.forEach(function(e) { e.style.display = 'block'; });
+    updateStudio();
   }
 }
 
-function chM(d) {
+function changeMasters(d) {
   masters = Math.max(2, Math.min(10, masters + d));
-  updStudio();
+  updateStudio();
 }
 
-function updStudio() {
+function updateStudio() {
   var t = masters * 65;
+  document.getElementById('masters-count').textContent = masters;
   document.getElementById('studio-price').textContent = '$' + t;
-  document.getElementById('studio-n').textContent = masters;
-  document.getElementById('calc-count').textContent = masters;
-  document.getElementById('calc-price').textContent = '$' + t;
-  document.getElementById('math-studio').textContent = '$' + t + ' (~' + Math.round(t * 40) + ' грн)';
-  document.getElementById('toggle-hint').textContent = masters + ' майстри · $' + t + '/міс';
+  var suffix = masters === 1 ? 'майстер' : (masters < 5 ? 'майстри' : 'майстрів');
+  document.getElementById('studio-calc').textContent = masters + ' ' + suffix + ' × $65 = $' + t + '/міс';
+  document.getElementById('toggle-hint').textContent = masters + ' ' + suffix + ' · $' + t + '/міс';
 }
 
-function faq(btn) {
+/* ── FAQ ── */
+function toggleFaq(btn) {
   var ans = btn.nextElementSibling;
-  var ico = btn.querySelector('.faq-icon');
-  var isOpen = ans.classList.contains('open');
-  document.querySelectorAll('.faq-a').forEach(function(a){a.classList.remove('open')});
-  document.querySelectorAll('.faq-icon').forEach(function(i){i.classList.remove('open')});
-  if (!isOpen) { ans.classList.add('open'); ico.classList.add('open'); }
+  var ico = btn.querySelector('.faq-ico');
+  var open = ans.classList.contains('open');
+  document.querySelectorAll('.faq-ans').forEach(function(a) { a.classList.remove('open'); });
+  document.querySelectorAll('.faq-ico').forEach(function(i) {
+    i.style.transform = '';
+    i.style.background = '';
+    i.style.borderColor = 'rgba(232,130,154,0.2)';
+    i.style.color = 'var(--rose)';
+  });
+  if (!open) {
+    ans.classList.add('open');
+    ico.style.transform = 'rotate(45deg)';
+    ico.style.background = 'rgba(232,130,154,0.1)';
+    ico.style.borderColor = 'var(--rose)';
+  }
 }
 </script>
 </body>
