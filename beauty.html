@@ -3,669 +3,1202 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Цифровий Адміністратор для Майстрів Краси — SystemFlow</title>
+<title>Цифровий Адміністратор — SystemFlow</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Unbounded:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
+/* ─── RESET & TOKENS ─── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0f0d0c;
-  --surface:#181412;
-  --card:#1f1b19;
-  --pink:#f0a0b0;
-  --pink-deep:#c05570;
-  --pink-pale:rgba(240,160,176,0.09);
-  --cream:#faf0e8;
-  --muted:#6b5a54;
-  --border:rgba(240,160,176,0.15);
+  --bg:#080706;
+  --s1:#0f0e0c;
+  --s2:#181614;
+  --s3:#221f1c;
+  --rose:#e8927c;
+  --rose-2:#c96b5a;
+  --rose-3:rgba(232,146,124,0.12);
+  --rose-4:rgba(232,146,124,0.06);
+  --text:#f0ebe4;
+  --text-2:#9c8f85;
+  --text-3:#5a5048;
+  --line:rgba(240,235,228,0.08);
+  --r:4px;
 }
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden;line-height:1.6}
- 
-/* BANNER */
-.banner{background:var(--pink-deep);padding:10px 20px;text-align:center;font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:white}
- 
-/* TICKER */
-.ticker{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 0;overflow:hidden;white-space:nowrap}
-.ticker-inner{display:inline-block;animation:tick 28s linear infinite;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)}
-@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
- 
-/* NAV */
-.nav{padding:18px 48px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(15,13,12,0.96);backdrop-filter:blur(16px);z-index:100}
-.nav-brand{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;color:var(--pink);letter-spacing:0.05em}
-.nav-btn{padding:10px 24px;border:1px solid var(--pink);color:var(--pink);background:transparent;font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.25s;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block}
-.nav-btn:hover{background:var(--pink);color:var(--bg)}
- 
-/* HERO */
-.hero{padding:100px 48px 80px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(240,160,176,0.07) 0%,transparent 65%);pointer-events:none}
-.hero-grid{display:grid;grid-template-columns:1fr 400px;gap:60px;align-items:start;max-width:1060px;margin:0 auto}
- 
-.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border:1px solid var(--border);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--pink);background:var(--pink-pale);margin-bottom:32px}
-.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pulse 2s infinite;flex-shrink:0}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
- 
-.hero-h1{font-family:'DM Serif Display',serif;font-size:clamp(48px,5vw,80px);line-height:1.04;letter-spacing:-0.02em;margin-bottom:28px}
-.hero-h1 em{font-style:italic;color:var(--pink)}
-.hero-h1 .cross{position:relative;color:var(--muted)}
-.hero-h1 .cross::after{content:'';position:absolute;left:-4px;right:-4px;top:50%;height:2px;background:var(--pink-deep);transform:rotate(-1.5deg)}
- 
-.hero-lead{font-size:17px;font-weight:300;color:rgba(250,240,232,0.62);line-height:1.78;max-width:500px;margin-bottom:40px}
-.hero-lead b{color:var(--cream);font-weight:500}
- 
-.hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-.btn-main{padding:17px 40px;background:var(--pink);color:var(--bg);font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.3s;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block}
-.btn-main:hover{background:#f5b8c6;transform:translateY(-2px);box-shadow:0 12px 36px rgba(240,160,176,0.3)}
-.hero-micro{font-size:12px;color:var(--muted)}
- 
-/* PROOF CARD */
-.proof-card{background:var(--card);border:1px solid var(--border);overflow:hidden}
-.proof-header{padding:16px 22px;border-bottom:1px solid var(--border);font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
-.proof-live{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--pink)}
-.proof-live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--pink);animation:pulse 2s infinite}
-.proof-row{display:grid;grid-template-columns:1fr 1fr;padding:15px 22px;border-bottom:1px solid rgba(255,255,255,0.04)}
-.proof-row:last-child{border-bottom:none}
-.pr-label{font-size:11px;color:var(--muted);margin-bottom:3px}
-.pr-before{font-size:13px;color:rgba(250,240,232,0.3);text-decoration:line-through}
-.pr-after{font-size:13px;font-weight:500;color:var(--pink);text-align:right}
- 
-/* NUMBERS */
-.numbers{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border)}
-.num-block{padding:40px 28px;border-right:1px solid var(--border);text-align:center}
-.num-block:last-child{border-right:none}
-.num-big{font-family:'Unbounded',sans-serif;font-size:clamp(26px,3vw,46px);font-weight:900;color:var(--pink);line-height:1;margin-bottom:8px}
-.num-label{font-size:12px;color:var(--muted);line-height:1.4}
- 
-/* SECTION */
-.sec{padding:80px 48px;border-bottom:1px solid var(--border)}
-.sec-inner{max-width:1020px;margin:0 auto}
-.sec-eyebrow{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--pink);margin-bottom:20px;display:flex;align-items:center;gap:12px}
-.sec-eyebrow::after{content:'';height:1px;width:40px;background:var(--pink);opacity:0.4}
-.sec-h{font-family:'DM Serif Display',serif;font-size:clamp(30px,3.5vw,52px);line-height:1.1;margin-bottom:48px}
-.sec-h em{font-style:italic;color:var(--pink)}
- 
-/* PAIN */
-.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:48px}
-.pain-card{background:var(--card);padding:36px 30px;border-left:3px solid transparent;transition:all 0.3s}
-.pain-card:hover{border-left-color:var(--pink);background:rgba(240,160,176,0.05)}
-.pain-ico{font-size:28px;margin-bottom:16px}
-.pain-t{font-size:16px;font-weight:500;color:var(--cream);margin-bottom:8px}
-.pain-b{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
-.pain-cost{font-size:12px;font-weight:600;color:var(--pink);padding:7px 14px;background:rgba(240,160,176,0.08);display:inline-block}
- 
-/* BIG QUOTE */
-.bq{padding:52px;background:var(--surface);border-left:4px solid var(--pink);margin-bottom:0}
-.bq-text{font-family:'DM Serif Display',serif;font-size:clamp(20px,2.5vw,34px);font-style:italic;line-height:1.45;color:var(--cream)}
-.bq-text b{font-style:normal;color:var(--pink)}
- 
-/* HORMOZI FORMULA */
-.formula-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:48px}
-.formula-card{background:var(--card);padding:32px 28px}
-.formula-num{font-family:'Unbounded',sans-serif;font-size:10px;color:rgba(240,160,176,0.4);margin-bottom:10px;letter-spacing:0.15em}
-.formula-title{font-size:15px;font-weight:600;color:var(--cream);margin-bottom:8px}
-.formula-desc{font-size:13px;color:var(--muted);line-height:1.6}
-.formula-highlight{color:var(--pink);font-style:italic}
- 
-/* WHAT BOT DOES */
-.bot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:48px}
-.bot-card{background:var(--card);padding:28px 24px;transition:all 0.3s}
-.bot-card:hover{background:rgba(240,160,176,0.05)}
-.bot-ico{font-size:22px;margin-bottom:12px}
-.bot-t{font-size:14px;font-weight:500;color:var(--cream);margin-bottom:6px}
-.bot-b{font-size:12px;color:var(--muted);line-height:1.55}
- 
-/* STACK */
-.stack-wrap{background:var(--surface);overflow:hidden;margin-bottom:40px}
-.stack-thead{display:grid;grid-template-columns:1fr 130px 110px;padding:14px 28px;border-bottom:1px solid var(--border);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)}
-.stack-tr{display:grid;grid-template-columns:1fr 130px 110px;padding:22px 28px;border-bottom:1px solid rgba(255,255,255,0.04);transition:all 0.25s;align-items:center}
-.stack-tr:last-child{border-bottom:none}
-.stack-tr:hover{background:rgba(240,160,176,0.04)}
-.st-n{font-family:'Unbounded',sans-serif;font-size:10px;color:rgba(240,160,176,0.3);margin-bottom:4px}
-.st-title{font-size:14px;font-weight:500;color:var(--cream);margin-bottom:3px}
-.st-desc{font-size:12px;color:var(--muted)}
-.st-market{text-align:right}
-.st-mprice{font-size:15px;color:rgba(250,240,232,0.25);text-decoration:line-through}
-.st-mlabel{font-size:10px;color:var(--muted);letter-spacing:0.1em}
-.st-yours{text-align:right}
-.st-free{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;color:var(--pink)}
-.stack-foot{display:grid;grid-template-columns:1fr 130px 110px;padding:22px 28px;background:var(--pink);align-items:center}
-.sf-label{font-size:14px;font-weight:700;color:var(--bg)}
-.sf-market{text-align:right;font-family:'DM Serif Display',serif;font-size:22px;color:rgba(15,13,12,0.4);text-decoration:line-through}
-.sf-yours{text-align:right;font-family:'Unbounded',sans-serif;font-size:18px;font-weight:900;color:var(--bg)}
- 
-/* BONUSES */
-.bonus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:40px}
-.bonus-card{background:var(--card);padding:32px;position:relative;overflow:hidden}
-.bonus-ribbon{position:absolute;top:18px;right:-22px;background:var(--pink-deep);color:white;font-size:9px;font-weight:700;letter-spacing:0.18em;padding:4px 32px;transform:rotate(45deg);text-transform:uppercase}
-.bonus-ico{font-size:28px;margin-bottom:14px;margin-top:6px}
-.bonus-t{font-size:14px;font-weight:600;color:var(--cream);margin-bottom:7px}
-.bonus-b{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:10px}
-.bonus-v{font-size:12px;font-weight:600;color:var(--pink)}
- 
-/* PRICE */
-.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:32px}
-.price-side{padding:44px 40px;background:var(--card)}
-.price-side.hot{background:var(--pink)}
-.ps-badge{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
-.hot .ps-badge{color:rgba(15,13,12,0.55)}
-.ps-amount{font-family:'Unbounded',sans-serif;font-size:68px;font-weight:900;color:var(--cream);line-height:1;margin-bottom:4px}
-.hot .ps-amount{color:var(--bg)}
-.ps-per{font-size:14px;color:var(--muted);margin-bottom:28px}
-.hot .ps-per{color:rgba(15,13,12,0.5)}
-.ps-items{display:flex;flex-direction:column;gap:10px}
-.ps-item{font-size:13px;color:rgba(250,240,232,0.65);display:flex;gap:10px;align-items:flex-start}
-.hot .ps-item{color:rgba(15,13,12,0.75)}
-.ps-item::before{content:'✓';color:var(--pink);flex-shrink:0;font-weight:700}
-.hot .ps-item::before{color:rgba(15,13,12,0.5)}
- 
-/* MATH BOX */
-.math-box{background:var(--surface);border:1px solid var(--border);padding:40px;margin-bottom:32px}
-.math-title{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--pink);margin-bottom:24px}
-.math-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
-.math-row:last-child{border-bottom:none;padding-top:20px}
-.math-label{font-size:14px;color:var(--muted)}
-.math-val{font-family:'DM Serif Display',serif;font-size:22px;color:var(--cream)}
-.math-row.highlight .math-label{color:var(--cream);font-weight:500}
-.math-row.highlight .math-val{color:var(--pink);font-size:28px;font-weight:900;font-family:'Unbounded',sans-serif}
- 
-/* GUARANTEE */
-.guarantee{border:1px solid var(--border);padding:44px;position:relative;margin-bottom:32px}
-.g-tag{position:absolute;top:-13px;left:32px;background:var(--pink-deep);color:white;font-size:10px;font-weight:600;letter-spacing:0.18em;padding:5px 18px;text-transform:uppercase}
-.g-h{font-family:'DM Serif Display',serif;font-size:28px;color:var(--cream);margin-bottom:12px;margin-top:6px}
-.g-t{font-size:15px;color:var(--muted);line-height:1.7}
-.g-t b{color:var(--cream)}
- 
-/* SCARCITY */
-.scarcity{text-align:center;padding:40px;background:rgba(240,160,176,0.06);border:1px solid var(--border);margin-bottom:40px}
-.sc-num{font-family:'Unbounded',sans-serif;font-size:72px;font-weight:900;color:var(--pink);line-height:1}
-.sc-dots{display:flex;justify-content:center;gap:10px;margin:14px 0}
-.sc-dot{width:14px;height:14px;border-radius:50%}
-.sc-dot.gone{background:rgba(240,160,176,0.15)}
-.sc-dot.open{background:var(--pink)}
-.sc-text{font-size:14px;color:var(--muted)}
-.sc-text b{color:var(--pink)}
- 
-/* FINAL CTA */
-.final{text-align:center;padding:80px 48px;background:var(--surface);border-bottom:1px solid var(--border)}
-.final-h{font-family:'DM Serif Display',serif;font-size:clamp(30px,3.5vw,52px);color:var(--cream);margin-bottom:14px;line-height:1.2}
-.final-h em{font-style:italic;color:var(--pink)}
-.final-sub{font-size:15px;color:var(--muted);margin-bottom:36px}
-.btn-final{padding:20px 56px;background:var(--pink);color:var(--bg);font-size:14px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;display:inline-block;transition:all 0.25s;font-family:'DM Sans',sans-serif;text-decoration:none}
-.btn-final:hover{background:#f5b8c6;transform:translateY(-2px);box-shadow:0 12px 40px rgba(240,160,176,0.35)}
-.final-note{font-size:12px;color:rgba(107,90,84,0.6);margin-top:14px}
- 
-/* FAQ */
-.faq-sec{padding:80px 48px}
-.faq-wrap{max-width:680px;margin:0 auto}
-.faq-item{border-bottom:1px solid var(--border)}
-.faq-btn{width:100%;padding:22px 0;background:none;border:none;text-align:left;font-size:15px;font-weight:400;color:var(--cream);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'DM Sans',sans-serif}
-.faq-icon{color:var(--pink);font-size:22px;flex-shrink:0;transition:transform 0.3s;line-height:1}
-.faq-ans{font-size:13px;color:var(--muted);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.4s ease}
-.faq-ans.open{max-height:240px;padding-bottom:22px}
- 
-/* FOOTER */
-.foot{padding:28px 48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.foot-brand{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;color:var(--pink)}
-.foot-copy{font-size:12px;color:var(--muted)}
- 
-/* MOBILE */
-@media(max-width:768px){
-  .hero-grid{grid-template-columns:1fr}
-  .proof-card{display:none}
-  .numbers{grid-template-columns:1fr 1fr}
-  .num-block{border-bottom:1px solid var(--border)}
-  .pain-grid,.formula-grid,.price-grid,.bonus-grid{grid-template-columns:1fr}
-  .bot-grid{grid-template-columns:1fr 1fr}
-  .stack-thead{display:none}
-  .stack-tr{grid-template-columns:1fr auto}
-  .st-market{display:none}
-  .stack-foot{grid-template-columns:1fr auto}
-  .sf-market{display:none}
-  .sec,.hero,.faq-sec,.final,.foot{padding:60px 20px}
-  .nav{padding:16px 20px}
-  .bq{padding:32px 20px}
-  .math-box{padding:28px 20px}
-  .guarantee{padding:36px 24px}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+
+/* ─── UTILITIES ─── */
+.container{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
+.container--wide{max-width:960px}
+
+/* ─── ANNOUNCEMENT BAR ─── */
+.ann{
+  background:var(--rose-2);
+  padding:10px 20px;
+  text-align:center;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.04em;
+  color:rgba(255,255,255,0.95);
+}
+
+/* ─── NAV ─── */
+.nav{
+  position:sticky;top:0;z-index:100;
+  padding:0 20px;
+  height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(8,7,6,0.9);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+}
+.nav-logo{
+  font-family:'Instrument Serif',serif;
+  font-size:18px;
+  color:var(--rose);
+  letter-spacing:-0.01em;
+}
+.nav-cta{
+  height:36px;
+  padding:0 18px;
+  background:var(--rose);
+  color:#fff;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.04em;
+  border:none;cursor:pointer;
+  border-radius:var(--r);
+  transition:opacity .2s;
+  display:flex;align-items:center;gap:6px;
+}
+.nav-cta:hover{opacity:.85}
+
+/* ─── TOGGLE ─── */
+.toggle{
+  background:var(--s1);
+  border-bottom:1px solid var(--line);
+  padding:12px 20px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.toggle-label{font-size:12px;color:var(--text-3)}
+.toggle-pills{
+  display:flex;
+  background:var(--s2);
+  border:1px solid var(--line);
+  border-radius:100px;
+  padding:3px;
+  gap:2px;
+}
+.t-pill{
+  padding:6px 16px;
+  font-size:12px;font-weight:500;
+  border:none;background:transparent;
+  color:var(--text-2);cursor:pointer;
+  border-radius:100px;
+  transition:all .2s;
+  white-space:nowrap;
+}
+.t-pill.on{background:var(--rose);color:#fff}
+.toggle-hint{font-size:11px;color:var(--text-3)}
+
+/* ─── HERO ─── */
+.hero{
+  padding:64px 20px 56px;
+  border-bottom:1px solid var(--line);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  top:-40%;right:-20%;
+  width:500px;height:500px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(232,146,124,0.08) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:500;letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--rose);
+  margin-bottom:20px;
+}
+.hero-kicker-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--rose);
+  animation:blink 2s ease infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.hero h1{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(40px,10vw,64px);
+  font-weight:400;
+  line-height:1.08;
+  letter-spacing:-0.02em;
+  margin-bottom:20px;
+}
+.hero h1 em{font-style:italic;color:var(--rose)}
+.hero h1 s{
+  color:var(--text-3);
+  text-decoration:none;
+  position:relative;
+}
+.hero h1 s::after{
+  content:'';position:absolute;
+  left:0;right:0;top:52%;
+  height:2px;background:var(--rose-2);
+  transform:rotate(-1deg);
+}
+
+.hero-sub{
+  font-size:16px;font-weight:300;
+  color:var(--text-2);line-height:1.7;
+  max-width:500px;margin-bottom:32px;
+}
+.hero-sub strong{color:var(--text);font-weight:500}
+
+.hero-btns{display:flex;flex-direction:column;gap:10px;margin-bottom:40px}
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  height:52px;border-radius:var(--r);
+  font-size:14px;font-weight:600;letter-spacing:0.02em;
+  border:none;cursor:pointer;transition:all .2s;
+}
+.btn-primary{background:var(--rose);color:#fff}
+.btn-primary:hover{background:#d4795f;transform:translateY(-1px);box-shadow:0 8px 24px rgba(232,146,124,.3)}
+.btn-ghost{background:transparent;color:var(--text-2);border:1px solid var(--line);font-size:13px}
+.btn-ghost:hover{border-color:var(--rose);color:var(--rose)}
+
+.hero-trust{
+  display:flex;align-items:center;gap:6px;
+  font-size:12px;color:var(--text-3);
+}
+.hero-trust::before{content:'✓';color:var(--rose)}
+
+/* ─── METRICS STRIP ─── */
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  border-bottom:1px solid var(--line);
+}
+.metric{
+  padding:28px 20px;
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.metric:nth-child(2n){border-right:none}
+.metric:nth-child(3),.metric:nth-child(4){border-bottom:none}
+.metric-num{
+  font-family:'Instrument Serif',serif;
+  font-size:40px;font-weight:400;
+  color:var(--rose);line-height:1;
+  margin-bottom:4px;
+}
+.metric-label{font-size:13px;color:var(--text-2);line-height:1.4}
+
+/* ─── SECTION ─── */
+.sec{padding:56px 0;border-bottom:1px solid var(--line)}
+.sec-kicker{
+  font-size:11px;font-weight:500;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--rose);
+  margin-bottom:12px;
+}
+.sec-title{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(28px,7vw,44px);
+  font-weight:400;line-height:1.1;
+  letter-spacing:-0.02em;
+  margin-bottom:32px;
+}
+.sec-title em{font-style:italic;color:var(--rose)}
+
+/* ─── PAIN CARDS ─── */
+.pain-list{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
+.pain-card{
+  padding:20px;
+  background:var(--s1);
+  border-left:2px solid transparent;
+  transition:all .25s;
+}
+.pain-card:hover{
+  border-left-color:var(--rose);
+  background:var(--rose-4);
+}
+.pain-card-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:8px}
+.pain-ico{font-size:20px;flex-shrink:0;margin-top:1px}
+.pain-title{font-size:15px;font-weight:500;color:var(--text)}
+.pain-desc{font-size:13px;color:var(--text-2);line-height:1.6;padding-left:34px}
+.pain-tag{
+  display:inline-block;margin-top:10px;margin-left:34px;
+  font-size:11px;font-weight:600;
+  color:var(--rose);
+  background:var(--rose-3);
+  padding:3px 10px;border-radius:100px;
+}
+
+/* ─── PULL QUOTE ─── */
+.pullquote{
+  padding:28px 20px 28px 24px;
+  border-left:3px solid var(--rose);
+  background:var(--s1);
+  margin:32px 0;
+}
+.pullquote p{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(18px,5vw,26px);
+  font-style:italic;
+  line-height:1.4;
+  color:var(--text);
+}
+.pullquote strong{font-style:normal;color:var(--rose)}
+
+/* ─── TESTIMONIAL ─── */
+.testi{
+  padding:24px;
+  background:var(--s2);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  margin-bottom:32px;
+}
+.testi-quote{
+  font-family:'Instrument Serif',serif;
+  font-size:18px;font-style:italic;
+  line-height:1.5;color:var(--text);
+  margin-bottom:14px;
+}
+.testi-author{
+  display:flex;align-items:center;gap:10px;
+  font-size:12px;color:var(--text-3);
+}
+.testi-author::before{
+  content:'';display:block;
+  width:28px;height:1px;
+  background:var(--text-3);
+  flex-shrink:0;
+}
+
+/* ─── FORMULA CARDS ─── */
+.formula-grid{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
+.formula-card{
+  padding:20px;
+  background:var(--s1);
+  display:flex;gap:16px;align-items:flex-start;
+}
+.formula-n{
+  font-family:'Instrument Serif',serif;
+  font-size:28px;color:var(--text-3);
+  line-height:1;flex-shrink:0;
+  width:28px;
+}
+.formula-body{}
+.formula-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.formula-desc{font-size:13px;color:var(--text-2);line-height:1.55}
+.formula-highlight{color:var(--rose)}
+
+/* ─── FEATURES LIST ─── */
+.features{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
+.feature{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:16px 20px;
+  background:var(--s1);
+  transition:background .2s;
+}
+.feature:hover{background:var(--rose-4)}
+.feature-ico{font-size:18px;flex-shrink:0;margin-top:1px}
+.feature-body{}
+.feature-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.feature-desc{font-size:12px;color:var(--text-2);line-height:1.55}
+
+/* ─── VALUE STACK ─── */
+.stack{background:var(--s1);overflow:hidden;margin-bottom:24px}
+.stack-row{
+  display:flex;align-items:center;
+  padding:16px 20px;
+  border-bottom:1px solid var(--line);
+  gap:12px;
+}
+.stack-row:last-child{border-bottom:none}
+.stack-n{
+  font-size:10px;font-weight:600;letter-spacing:0.08em;
+  color:var(--text-3);min-width:20px;flex-shrink:0;
+}
+.stack-text{flex:1}
+.stack-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:2px}
+.stack-desc{font-size:12px;color:var(--text-2)}
+.stack-price{text-align:right;flex-shrink:0}
+.stack-original{font-size:11px;color:var(--text-3);text-decoration:line-through}
+.stack-you{font-size:14px;font-weight:700;color:var(--rose)}
+.stack-foot{
+  padding:16px 20px;
+  background:var(--rose);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.stack-foot-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.9)}
+.stack-foot-prices{text-align:right}
+.stack-foot-old{font-size:12px;color:rgba(255,255,255,.5);text-decoration:line-through}
+.stack-foot-new{font-size:20px;font-weight:700;color:#fff}
+
+/* ─── MATH BOX ─── */
+.math{
+  padding:20px;
+  background:var(--s2);
+  border:1px solid var(--line);
+  margin-bottom:32px;
+}
+.math-title{
+  font-size:11px;font-weight:600;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--text-3);
+  margin-bottom:16px;padding-bottom:12px;
+  border-bottom:1px solid var(--line);
+}
+.math-row{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:10px 0;border-bottom:1px solid var(--line);
+  font-size:14px;
+}
+.math-row:last-child{
+  border-bottom:none;padding-top:16px;
+  font-weight:600;
+}
+.math-row-label{color:var(--text-2)}
+.math-row-val{color:var(--text);font-weight:500}
+.math-row:last-child .math-row-val{color:var(--rose);font-size:16px}
+
+/* ─── BONUSES ─── */
+.bonuses{display:flex;flex-direction:column;gap:2px;margin-bottom:32px}
+.bonus{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:18px 20px;
+  background:var(--s1);
+  position:relative;overflow:hidden;
+}
+.bonus::after{
+  content:'БОНУС';
+  position:absolute;top:0;right:0;
+  background:var(--rose-2);
+  color:#fff;font-size:8px;font-weight:700;letter-spacing:0.12em;
+  padding:3px 8px;
+}
+.bonus-ico{font-size:20px;flex-shrink:0}
+.bonus-body{}
+.bonus-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.bonus-desc{font-size:12px;color:var(--text-2);line-height:1.55;margin-bottom:6px}
+.bonus-val{font-size:11px;font-weight:600;color:var(--rose)}
+
+/* ─── PRICE CARDS ─── */
+.price-cards{display:flex;flex-direction:column;gap:2px;margin-bottom:24px}
+.price-card{padding:24px 20px;background:var(--s1)}
+.price-card.featured{background:var(--rose)}
+.pc-badge{
+  font-size:10px;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--text-3);margin-bottom:16px;
+}
+.featured .pc-badge{color:rgba(255,255,255,.7)}
+.pc-old{
+  font-size:14px;color:var(--text-3);
+  text-decoration:line-through;margin-bottom:4px;
+}
+.featured .pc-old{color:rgba(255,255,255,.45)}
+.pc-price{
+  font-family:'Instrument Serif',serif;
+  font-size:56px;font-weight:400;
+  color:var(--text);line-height:1;margin-bottom:4px;
+}
+.featured .pc-price{color:#fff}
+.pc-period{font-size:13px;color:var(--text-2);margin-bottom:24px}
+.featured .pc-period{color:rgba(255,255,255,.65)}
+.pc-list{display:flex;flex-direction:column;gap:8px}
+.pc-item{font-size:13px;color:var(--text-2);display:flex;gap:8px;align-items:flex-start}
+.pc-item::before{content:'✓';color:var(--rose);flex-shrink:0;font-weight:700}
+.featured .pc-item{color:rgba(255,255,255,.8)}
+.featured .pc-item::before{color:rgba(255,255,255,.6)}
+
+/* STUDIO CALCULATOR */
+.studio-calc-wrap{
+  margin-top:20px;padding-top:18px;
+  border-top:1px solid rgba(255,255,255,.2);
+}
+.calc-label{font-size:11px;font-weight:500;letter-spacing:0.06em;color:rgba(255,255,255,.6);margin-bottom:10px}
+.calc-row{display:flex;align-items:center;gap:12px}
+.calc-btn{
+  width:36px;height:36px;
+  border:1px solid rgba(255,255,255,.3);
+  background:transparent;color:#fff;
+  font-size:20px;cursor:pointer;
+  border-radius:var(--r);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.calc-btn:hover{background:rgba(255,255,255,.15)}
+.calc-count{
+  font-family:'Instrument Serif',serif;
+  font-size:28px;color:#fff;
+  min-width:24px;text-align:center;
+}
+.calc-total{
+  margin-left:auto;text-align:right;
+}
+.calc-total-price{
+  font-family:'Instrument Serif',serif;
+  font-size:22px;color:#fff;
+}
+.calc-total-note{font-size:11px;color:rgba(255,255,255,.5)}
+
+/* ─── GUARANTEE ─── */
+.guarantee{
+  border:1px solid var(--line);
+  padding:24px 20px;
+  position:relative;
+  margin-bottom:24px;
+}
+.guarantee-badge{
+  position:absolute;top:-11px;left:16px;
+  background:var(--rose-2);color:#fff;
+  font-size:10px;font-weight:700;letter-spacing:0.1em;
+  padding:3px 12px;text-transform:uppercase;
+}
+.guarantee h3{
+  font-family:'Instrument Serif',serif;
+  font-size:22px;font-weight:400;
+  color:var(--text);margin-bottom:10px;margin-top:6px;
+}
+.guarantee p{font-size:14px;color:var(--text-2);line-height:1.65}
+.guarantee strong{color:var(--text)}
+
+/* ─── SCARCITY ─── */
+.scarcity{
+  padding:24px 20px;
+  background:var(--rose-3);
+  border:1px solid rgba(232,146,124,.2);
+  text-align:center;margin-bottom:32px;
+}
+.sc-number{
+  font-family:'Instrument Serif',serif;
+  font-size:64px;font-weight:400;
+  color:var(--rose);line-height:1;
+  margin-bottom:8px;
+}
+.sc-dots{display:flex;gap:8px;justify-content:center;margin-bottom:10px}
+.sc-dot{width:10px;height:10px;border-radius:50%}
+.sc-dot.taken{background:rgba(232,146,124,.2)}
+.sc-dot.open{background:var(--rose)}
+.sc-text{font-size:14px;color:var(--text-2)}
+.sc-text strong{color:var(--rose)}
+
+/* ─── STUDIO PREMIUM ─── */
+.studio-premium{
+  background:var(--s2);
+  border:1px solid var(--line);
+  overflow:hidden;
+  margin-bottom:32px;
+}
+.sp-header{
+  padding:16px 20px;
+  border-bottom:1px solid var(--line);
+  font-size:11px;font-weight:600;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--text-3);
+}
+.sp-grid{display:flex;flex-direction:column;gap:0}
+.sp-item{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:16px 20px;border-bottom:1px solid var(--line);
+}
+.sp-item:last-child{border-bottom:none}
+.sp-ico{font-size:16px;flex-shrink:0;margin-top:2px}
+.sp-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.sp-desc{font-size:12px;color:var(--text-2);line-height:1.55}
+
+/* ─── FAQ ─── */
+.faq{display:flex;flex-direction:column}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-q{
+  width:100%;padding:18px 0;
+  background:none;border:none;
+  text-align:left;
+  font-size:14px;font-weight:500;color:var(--text);
+  cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  font-family:'Inter',sans-serif;
+}
+.faq-icon{
+  width:24px;height:24px;flex-shrink:0;
+  border:1px solid var(--line);border-radius:100px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--rose);
+  transition:transform .3s,background .2s;
+}
+.faq-icon.open{transform:rotate(45deg);background:var(--rose-3)}
+.faq-a{
+  font-size:13px;color:var(--text-2);
+  line-height:1.65;
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease,padding .25s;
+}
+.faq-a.open{max-height:300px;padding-bottom:18px}
+
+/* ─── FINAL CTA ─── */
+.final-cta{
+  padding:56px 20px;
+  text-align:center;
+  background:var(--s1);
+  border-bottom:1px solid var(--line);
+}
+.final-cta h2{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(32px,8vw,52px);
+  font-weight:400;line-height:1.1;
+  margin-bottom:12px;
+}
+.final-cta h2 em{font-style:italic;color:var(--rose)}
+.final-cta p{font-size:14px;color:var(--text-2);margin-bottom:28px;line-height:1.6}
+.final-cta .btn{max-width:340px;margin:0 auto 12px}
+.final-note{font-size:12px;color:var(--text-3)}
+
+/* ─── FOOTER ─── */
+.footer{
+  padding:24px 20px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:8px;
+}
+.footer-brand{
+  font-family:'Instrument Serif',serif;
+  font-size:16px;color:var(--rose);
+}
+.footer-copy{font-size:12px;color:var(--text-3)}
+
+/* ─── MOBILE STICKY ─── */
+.mob-bar{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  padding:10px 16px;
+  background:rgba(8,7,6,.96);
+  border-top:1px solid var(--line);
+  backdrop-filter:blur(20px);
+}
+.mob-bar a{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  height:50px;background:var(--rose);
+  color:#fff;font-size:14px;font-weight:600;
+  border-radius:var(--r);
+  letter-spacing:.02em;
+}
+
+/* ─── HIDDEN ─── */
+.solo-show{display:block}
+.studio-show{display:none}
+.studio-flex{display:none}
+
+/* ─── DESKTOP ─── */
+@media(min-width:640px){
+  .container{padding:0 32px}
+  .hero{padding:80px 32px}
+  .hero-btns{flex-direction:row;gap:12px}
+  .btn{height:48px}
+  .metrics{grid-template-columns:repeat(4,1fr)}
+  .metric{border-bottom:none}
+  .metric:nth-child(3),.metric:nth-child(4){border-bottom:none}
+  .metric:nth-child(2n){border-right:1px solid var(--line)}
+  .metric:last-child{border-right:none}
+  .sec{padding:72px 0}
+  .price-cards{flex-direction:row}
+  .price-card,.price-card.featured{flex:1}
+  .pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+  .pain-list{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+}
+@media(max-width:639px){
+  .mob-bar{display:block}
+  body{padding-bottom:70px}
 }
 </style>
 </head>
 <body>
- 
-<!-- BANNER -->
-<div class="banner">🌸 Цифровий Адміністратор для Майстрів Краси — манікюр · брови · вії · косметологія</div>
- 
-<!-- TICKER -->
-<div class="ticker">
-  <span class="ticker-inner">
-    ✦ Відповідає за 30 секунд ✦ Записує поки ти з клієнтом ✦ Запуск за 48 годин ✦ Перший місяць безкоштовно ✦ Без договорів ✦ Налаштування під ключ ✦ Ти тільки даєш список послуг ✦ Відповідає за 30 секунд ✦ Записує поки ти з клієнтом ✦ Запуск за 48 годин ✦ Перший місяць безкоштовно ✦ Без договорів ✦ Налаштування під ключ ✦ Ти тільки даєш список послуг ✦
-  </span>
+
+<!-- MOBILE STICKY -->
+<div class="mob-bar">
+  <a href="https://t.me/ilya_vasylchenko">📲 Перший місяць безкоштовно — написати</a>
 </div>
- 
+
+<!-- ANN -->
+<div class="ann">🌸 Лише 1 місце цього місяця · 2 з 3 вже зайнято</div>
+
 <!-- NAV -->
 <nav class="nav">
-  <div class="nav-brand">SystemFlow</div>
-  <a href="#cta" class="nav-btn">Спробувати безкоштовно</a>
+  <div class="nav-logo">SystemFlow</div>
+  <a href="https://t.me/ilya_vasylchenko" class="nav-cta">
+    Написати →
+  </a>
 </nav>
- 
+
+<!-- TOGGLE -->
+<div class="toggle">
+  <span class="toggle-label">Оберіть:</span>
+  <div class="toggle-pills">
+    <button class="t-pill on" onclick="setMode('solo')">👩 Майстер</button>
+    <button class="t-pill" onclick="setMode('studio')">💅 Студія 2+</button>
+  </div>
+  <span class="toggle-hint" id="toggle-hint">1 майстер · $50/міс</span>
+</div>
+
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-grid">
-    <div>
-      <div class="eyebrow">
-        <span class="eyebrow-dot"></span>
-        Цифровий адміністратор · працює прямо зараз
-      </div>
-      <h1 class="hero-h1">
-        Набридло бути<br/>
-        <span class="cross">адміністратором</span><br/>
-        <em>безкоштовно?</em>
-      </h1>
-      <p class="hero-lead">
-        Я впроваджую <b>Цифрового Адміністратора</b> у Telegram —
-        він миттєво відповідає клієнтам 24/7, консультує та самостійно веде
-        до вільного віконця у твоєму календарі.<br/><br/>
-        <b>Запуск за 48 годин. Перший місяць — безкоштовно.</b>
-        Від тебе потрібен лише список послуг і цін.
-      </p>
-      <div class="hero-actions">
-        <a href="#cta" class="btn-main">Хочу спробувати →</a>
-        <span class="hero-micro">Без договорів · Зупиняєш коли захочеш</span>
-      </div>
+  <div class="container">
+    <div class="hero-kicker">
+      <span class="hero-kicker-dot"></span>
+      Цифровий адміністратор · Telegram
     </div>
- 
-    <div class="proof-card">
-      <div class="proof-header">
-        <span>Що змінюється</span>
-        <span class="proof-live">Система активна</span>
-      </div>
-      <div class="proof-row">
-        <div><div class="pr-label">Нічні запити</div><div class="pr-before">губляться</div></div>
-        <div class="pr-after">✓ 100% оброблено</div>
-      </div>
-      <div class="proof-row">
-        <div><div class="pr-label">Клієнти що не прийшли</div><div class="pr-before">1–3 на тиждень</div></div>
-        <div class="pr-after">✓ −70%</div>
-      </div>
-      <div class="proof-row">
-        <div><div class="pr-label">Переписка вручну</div><div class="pr-before">1–2 год/день</div></div>
-        <div class="pr-after">✓ ≈ 0 хвилин</div>
-      </div>
-      <div class="proof-row">
-        <div><div class="pr-label">Час відповіді</div><div class="pr-before">години / ніколи</div></div>
-        <div class="pr-after">✓ 30 секунд</div>
-      </div>
-      <div class="proof-row">
-        <div><div class="pr-label">Твій вечір</div><div class="pr-before">у телефоні</div></div>
-        <div class="pr-after">✓ вільний</div>
-      </div>
+    <h1>
+      Більше жодного<br/>
+      <s>пропущеного</s><br/>
+      <em>клієнта</em>
+    </h1>
+    <p class="hero-sub">
+      Я налаштовую цифрового адміністратора який відповідає клієнтам,
+      записує у твій календар та нагадує — <strong>цілодобово, без тебе.</strong>
+      Від тебе потрібен лише список послуг і цін.
+    </p>
+    <div class="hero-btns">
+      <a href="https://t.me/ilya_vasylchenko" class="btn btn-primary" style="min-width:220px">
+        Спробувати безкоштовно →
+      </a>
+      <a href="#cta" class="btn btn-ghost" style="min-width:160px">
+        Дивитись умови
+      </a>
     </div>
+    <div class="hero-trust">Перший місяць $0 · Запуск за 48 годин · Без договорів</div>
   </div>
 </section>
- 
-<!-- NUMBERS -->
-<div class="numbers">
-  <div class="num-block">
-    <div class="num-big">30с</div>
-    <div class="num-label">час відповіді замість годин очікування</div>
+
+<!-- METRICS -->
+<div class="metrics">
+  <div class="metric">
+    <div class="metric-num">30с</div>
+    <div class="metric-label">час відповіді замість годин</div>
   </div>
-  <div class="num-block">
-    <div class="num-big">−70%</div>
-    <div class="num-label">no-show після підключення нагадувань</div>
+  <div class="metric">
+    <div class="metric-num">−70%</div>
+    <div class="metric-label">клієнтів що не прийшли</div>
   </div>
-  <div class="num-block">
-    <div class="num-big">48г</div>
-    <div class="num-label">і система вже працює замість тебе</div>
+  <div class="metric">
+    <div class="metric-num">48г</div>
+    <div class="metric-label">і система вже працює</div>
   </div>
-  <div class="num-block">
-    <div class="num-big">$0</div>
-    <div class="num-label">перший місяць — без будь-яких зобов'язань</div>
+  <div class="metric">
+    <div class="metric-num">$0</div>
+    <div class="metric-label">перший місяць роботи</div>
   </div>
 </div>
- 
+
 <!-- PAIN -->
 <section class="sec">
-  <div class="sec-inner">
-    <div class="sec-eyebrow">Реальна проблема</div>
-    <h2 class="sec-h">Ти щодня<br/><em>платиш невидиму ціну</em></h2>
-    <div class="pain-grid">
+  <div class="container">
+    <div class="sec-kicker">Проблема</div>
+    <h2 class="sec-title">Ти щодня<br/><em>платиш невидиму ціну</em></h2>
+
+    <div class="pain-list">
       <div class="pain-card">
-        <div class="pain-ico">🌙</div>
-        <div class="pain-t">Клієнт пише о 22:00 — ти спиш</div>
-        <div class="pain-b">Instagram директ не відповідає. Зранку вона вже записалась до іншої майстрині. Ти навіть не знаєш що це сталось.</div>
-        <div class="pain-cost">⚡ 8–15 нових клієнтів губиться на місяць = 3,200–10,500 грн</div>
+        <div class="pain-card-top">
+          <div class="pain-ico">🌙</div>
+          <div class="pain-title">Клієнт пише о 22:00 — ти спиш</div>
+        </div>
+        <div class="pain-desc">Зранку вона вже записалась до іншої майстрині. Ти навіть не знаєш що це сталось.</div>
+        <div class="pain-tag">8–15 клієнтів / місяць = 3,200–10,500 грн</div>
       </div>
       <div class="pain-card">
-        <div class="pain-ico">😤</div>
-        <div class="pain-t">Клієнт не прийшов без попередження</div>
-        <div class="pain-b">Час зайнятий. Матеріали підготовлені. Інший клієнт міг бути на цьому місці. 1–3 рази на тиждень — це норма без системи нагадувань.</div>
-        <div class="pain-cost">⚡ до 8,400 грн на місяць втрат</div>
+        <div class="pain-card-top">
+          <div class="pain-ico">😤</div>
+          <div class="pain-title">Клієнт не прийшов без попередження</div>
+        </div>
+        <div class="pain-desc">Час зайнятий. Матеріали підготовлені. Інший клієнт міг бути на цьому місці.</div>
+        <div class="pain-tag">до 8,400 грн на місяць</div>
       </div>
       <div class="pain-card">
-        <div class="pain-ico">💬</div>
-        <div class="pain-t">Переписка між сеансами</div>
-        <div class="pain-b">Між клієнтами — директ. Після роботи — директ. Погодження часу, питання про ціну, нагадування вручну. Це не твоя робота.</div>
-        <div class="pain-cost">⚡ 40+ годин уваги на місяць</div>
+        <div class="pain-card-top">
+          <div class="pain-ico">💬</div>
+          <div class="pain-title">Переписка між сеансами</div>
+        </div>
+        <div class="pain-desc">Між клієнтами — погодження часу, питання про ціну, нагадування. Це не твоя робота.</div>
+        <div class="pain-tag">40+ годин на місяць</div>
       </div>
       <div class="pain-card">
-        <div class="pain-ico">📓</div>
-        <div class="pain-t">Записи в голові або блокноті</div>
-        <div class="pain-b">Накладки, подвійний запис, забуті клієнти. Без системи — без контролю. Репутація і нерви під ризиком.</div>
-        <div class="pain-cost">⚡ Помилки + стрес + репутація</div>
+        <div class="pain-card-top">
+          <div class="pain-ico">📓</div>
+          <div class="pain-title">Записи в блокноті або голові</div>
+        </div>
+        <div class="pain-desc">Накладки, забуті клієнти, подвійний запис — без системи немає контролю.</div>
+        <div class="pain-tag">Помилки + стрес + репутація</div>
       </div>
     </div>
-    <div class="bq">
-      <div class="bq-text">
-        Один клієнт що не прийшов — це <b>400–700 грн.</b> За місяць на пропущених записах та нічних запитах ти губиш <b>більше ніж коштує рішення за весь рік.</b>
-      </div>
+
+    <div class="pullquote">
+      <p>Один клієнт що не прийшов — це <strong>400–700 грн.</strong> За місяць ти губиш більше ніж коштує рішення <strong>за весь рік.</strong></p>
     </div>
   </div>
 </section>
- 
-<!-- HORMOZI FORMULA -->
-<section class="sec" style="background:var(--surface)">
-  <div class="sec-inner">
-    <div class="sec-eyebrow">Формула цінності</div>
-    <h2 class="sec-h">Чому від цього<br/><em>неможливо відмовитись</em></h2>
+
+<!-- TESTIMONIAL -->
+<section class="sec" style="background:var(--s1)">
+  <div class="container">
+    <div class="sec-kicker">Перший відгук</div>
+    <div class="testi">
+      <div class="testi-quote">"Я перестала боятись пропущених дзвінків. Зранку відкриваю телефон — а там вже 2 нових записи. Навіть не знаю хто писав і коли."</div>
+      <div class="testi-author">Майстер манікюру · Київ · після першого місяця</div>
+    </div>
+    <a href="https://t.me/ilya_vasylchenko" class="btn btn-primary" style="max-width:280px">Хочу так само →</a>
+  </div>
+</section>
+
+<!-- FORMULA (Hormozi) -->
+<section class="sec">
+  <div class="container">
+    <div class="sec-kicker">Чому це працює</div>
+    <h2 class="sec-title">Чому від цього<br/><em>важко відмовитись</em></h2>
     <div class="formula-grid">
       <div class="formula-card">
-        <div class="formula-num">01 · ОМРІЯНИЙ РЕЗУЛЬТАТ</div>
-        <div class="formula-title">Спокійні вечори без телефону</div>
-        <div class="formula-desc">Повний запис, статус <span class="formula-highlight">«преміум-майстра»</span> з крутим сервісом — без жодної додаткової хвилини переписки.</div>
+        <div class="formula-n">1</div>
+        <div class="formula-body">
+          <div class="formula-title">Омріяний результат</div>
+          <div class="formula-desc">Спокійні вечори без телефону. Повний запис. Статус <span class="formula-highlight">майстра з крутим сервісом</span> — без жодної хвилини переписки.</div>
+        </div>
       </div>
       <div class="formula-card">
-        <div class="formula-num">02 · ВПЕВНЕНІСТЬ В РЕЗУЛЬТАТІ</div>
-        <div class="formula-title">Я роблю все під ключ</div>
-        <div class="formula-desc">Не треба розбиратися в технічних налаштуваннях. <span class="formula-highlight">Від тебе — тільки список послуг і розклад.</span> Решту я беру на себе.</div>
+        <div class="formula-n">2</div>
+        <div class="formula-body">
+          <div class="formula-title">Все під ключ — ти нічого не робиш</div>
+          <div class="formula-desc">Не треба розбиратись в технологіях. <span class="formula-highlight">Один дзвінок 30 хвилин</span> — решту я беру на себе.</div>
+        </div>
       </div>
       <div class="formula-card">
-        <div class="formula-num">03 · ШВИДКІСТЬ РЕЗУЛЬТАТУ</div>
-        <div class="formula-title">Запуск за 48 годин</div>
-        <div class="formula-desc">Перший звільнений вечір — <span class="formula-highlight">вже завтра.</span> Зранку відкриваєш календар і бачиш нові записи.</div>
+        <div class="formula-n">3</div>
+        <div class="formula-body">
+          <div class="formula-title">Результат вже завтра</div>
+          <div class="formula-desc">Запуск за 48 годин. <span class="formula-highlight">Перший звільнений вечір — вже завтра.</span> Зранку відкриваєш — бачиш нові записи.</div>
+        </div>
       </div>
       <div class="formula-card">
-        <div class="formula-num">04 · МІНІМУМ ЗУСИЛЬ</div>
-        <div class="formula-title">Ти взагалі нічого не робиш</div>
-        <div class="formula-desc">Жодних нових додатків. Жодного навчання. <span class="formula-highlight">Один дзвінок 30 хвилин</span> — і система працює замість тебе.</div>
+        <div class="formula-n">4</div>
+        <div class="formula-body">
+          <div class="formula-title">Нульовий ризик</div>
+          <div class="formula-desc">Перший місяць безкоштовно. <span class="formula-highlight">Якщо не сподобається — просто виходиш.</span> Жодних договорів.</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
- 
-<!-- WHAT BOT DOES -->
-<section class="sec">
-  <div class="sec-inner">
-    <div class="sec-eyebrow">Що робить Цифровий Адміністратор</div>
-    <h2 class="sec-h">100% рутини —<br/><em>без твоєї участі</em></h2>
-    <div class="bot-grid">
-      <div class="bot-card">
-        <div class="bot-ico">💬</div>
-        <div class="bot-t">Відповідає на питання 24/7</div>
-        <div class="bot-b">Ціна послуг, тривалість, адреса, як знайти, паркування — миттєво і в твоєму стилі.</div>
+
+<!-- WHAT IT DOES -->
+<section class="sec" style="background:var(--s1)">
+  <div class="container">
+    <div class="sec-kicker">Що робить адміністратор</div>
+    <h2 class="sec-title">100% рутини —<br/><em>без твоєї участі</em></h2>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-ico">💬</div>
+        <div class="feature-body">
+          <div class="feature-title">Відповідає на питання цілодобово</div>
+          <div class="feature-desc">Ціна послуг, тривалість, адреса, паркування — миттєво і в твоєму стилі.</div>
+        </div>
       </div>
-      <div class="bot-card">
-        <div class="bot-ico">📅</div>
-        <div class="bot-t">Записує у твій календар</div>
-        <div class="bot-b">Клієнт сам обирає вільний час. Ніяких накладок. Ти отримуєш підтвердження.</div>
+      <div class="feature">
+        <div class="feature-ico">📅</div>
+        <div class="feature-body">
+          <div class="feature-title">Записує у твій календар</div>
+          <div class="feature-desc">Клієнт сам обирає вільний час. Ніяких накладок. Ти отримуєш підтвердження.</div>
+        </div>
       </div>
-      <div class="bot-card">
-        <div class="bot-ico">🔔</div>
-        <div class="bot-t">Нагадування за добу і за 2 години</div>
-        <div class="bot-b">Клієнт підтверджує або сам переносить. Кількість тих хто не прийшов падає на 60–80%.</div>
+      <div class="feature">
+        <div class="feature-ico">🔔</div>
+        <div class="feature-body">
+          <div class="feature-title">Нагадування за добу і за 2 години</div>
+          <div class="feature-desc">Клієнт підтверджує або сам переносить. Кількість тих хто не прийшов падає на 60–80%.</div>
+        </div>
       </div>
-      <div class="bot-card">
-        <div class="bot-ico">✨</div>
-        <div class="bot-t">Консультує по процедурах</div>
-        <div class="bot-b">Як підготуватись, протипоказання, що взяти з собою — без тебе.</div>
+      <div class="feature">
+        <div class="feature-ico">✨</div>
+        <div class="feature-body">
+          <div class="feature-title">Консультує по процедурах</div>
+          <div class="feature-desc">Як підготуватись, протипоказання, догляд після — без тебе.</div>
+        </div>
       </div>
-      <div class="bot-card">
-        <div class="bot-ico">🌙</div>
-        <div class="bot-t">Догляд після процедури</div>
-        <div class="bot-b">Автоматично надсилає рекомендації після сеансу. Клієнт задоволений — ти не витратила хвилини.</div>
+      <div class="feature">
+        <div class="feature-ico">🔄</div>
+        <div class="feature-body">
+          <div class="feature-title">Перенос і скасування</div>
+          <div class="feature-desc">Клієнт сам переносить через адміністратора. Ти отримуєш сповіщення одразу.</div>
+        </div>
       </div>
-      <div class="bot-card">
-        <div class="bot-ico">🔄</div>
-        <div class="bot-t">Перенос і скасування</div>
-        <div class="bot-b">Клієнт сам переносить запис через Адміністратора. Ти отримуєш сповіщення — і вільний час одразу.</div>
-      </div>
-      <div class="bot-card">
-        <div class="bot-ico">💰</div>
-        <div class="bot-t">Відповідає про акції та ціни</div>
-        <div class="bot-b">Актуальний перелік цін, знижки, пакети — Адміністратор знає і відповідає правильно.</div>
-      </div>
-      <div class="bot-card">
-        <div class="bot-ico">🆘</div>
-        <div class="bot-t">Складне питання — передає тобі</div>
-        <div class="bot-b">Нестандартна ситуація → Адміністратор одразу передає тобі з повним текстом розмови.</div>
-      </div>
-      <div class="bot-card">
-        <div class="bot-ico">📍</div>
-        <div class="bot-t">Адреса і навігація</div>
-        <div class="bot-b">Як доїхати, де вхід, де паркування — надсилає автоматично при підтвердженні запису.</div>
+      <div class="feature">
+        <div class="feature-ico">🆘</div>
+        <div class="feature-body">
+          <div class="feature-title">Складне питання — передає тобі</div>
+          <div class="feature-desc">Нестандартна ситуація → адміністратор передає тобі з повним текстом розмови.</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
- 
+
 <!-- VALUE STACK -->
-<section class="sec" style="background:var(--surface)">
-  <div class="sec-inner">
-    <div class="sec-eyebrow">Що ти отримуєш</div>
-    <h2 class="sec-h">Повний пакет —<br/><em>дешевше одного пропущеного запису</em></h2>
- 
-    <div class="stack-wrap">
-      <div class="stack-thead">
-        <span>Що входить</span>
-        <span style="text-align:right">Ринок</span>
-        <span style="text-align:right">Місяць 1</span>
+<section class="sec">
+  <div class="container">
+    <div class="sec-kicker">Що ти отримуєш</div>
+    <h2 class="sec-title">Повний пакет —<br/><em>дешевше одного пропущеного запису</em></h2>
+
+    <div class="stack">
+      <div class="stack-row">
+        <div class="stack-n">01</div>
+        <div class="stack-text">
+          <div class="stack-title">Цифровий адміністратор у Telegram</div>
+          <div class="stack-desc">Відповідає за 30 секунд, цілодобово. Твій тон і стиль.</div>
+        </div>
+        <div class="stack-price">
+          <div class="stack-original">8,500 грн</div>
+          <div class="stack-you">Безкоштовно</div>
+        </div>
       </div>
-      <div class="stack-tr">
-        <div><div class="st-n">01</div><div class="st-title">Цифровий Адміністратор у Telegram</div><div class="st-desc">Відповідає за 30 секунд, цілодобово. Твій тон, твої слова, твій перелік послуг.</div></div>
-        <div class="st-market"><div class="st-mprice">8,500 грн</div><div class="st-mlabel">ринок/міс</div></div>
-        <div class="st-yours"><div class="st-free">$0</div></div>
+      <div class="stack-row">
+        <div class="stack-n">02</div>
+        <div class="stack-text">
+          <div class="stack-title">Онлайн-запис у твій календар</div>
+          <div class="stack-desc">Клієнт обирає час сам. Жодних накладок.</div>
+        </div>
+        <div class="stack-price">
+          <div class="stack-original">1,500 грн</div>
+          <div class="stack-you">Безкоштовно</div>
+        </div>
       </div>
-      <div class="stack-tr">
-        <div><div class="st-n">02</div><div class="st-title">Онлайн-запис у твій календар</div><div class="st-desc">Клієнт сам обирає вільний час. Ніяких накладок і подвійних записів.</div></div>
-        <div class="st-market"><div class="st-mprice">1,500 грн</div><div class="st-mlabel">ринок/міс</div></div>
-        <div class="st-yours"><div class="st-free">$0</div></div>
+      <div class="stack-row">
+        <div class="stack-n">03</div>
+        <div class="stack-text">
+          <div class="stack-title">Автоматичні нагадування</div>
+          <div class="stack-desc">За добу і за 2 години до запису.</div>
+        </div>
+        <div class="stack-price">
+          <div class="stack-original">800 грн</div>
+          <div class="stack-you">Безкоштовно</div>
+        </div>
       </div>
-      <div class="stack-tr">
-        <div><div class="st-n">03</div><div class="st-title">Автоматичні нагадування за добу і 2 години</div><div class="st-desc">Кількість тих хто не прийшов падає на 60–80%. Клієнт підтверджує або сам переносить.</div></div>
-        <div class="st-market"><div class="st-mprice">800 грн</div><div class="st-mlabel">ринок/міс</div></div>
-        <div class="st-yours"><div class="st-free">$0</div></div>
+      <div class="stack-row">
+        <div class="stack-n">04</div>
+        <div class="stack-text">
+          <div class="stack-title">База відповідей по послугах</div>
+          <div class="stack-desc">Ціна, підготовка, протипоказання, догляд.</div>
+        </div>
+        <div class="stack-price">
+          <div class="stack-original">600 грн</div>
+          <div class="stack-you">Безкоштовно</div>
+        </div>
       </div>
-      <div class="stack-tr">
-        <div><div class="st-n">04</div><div class="st-title">База відповідей по всіх послугах</div><div class="st-desc">Ціна, підготовка, протипоказання, догляд — Адміністратор відповідає без тебе.</div></div>
-        <div class="st-market"><div class="st-mprice">600 грн</div><div class="st-mlabel">ринок/міс</div></div>
-        <div class="st-yours"><div class="st-free">$0</div></div>
+      <div class="stack-row">
+        <div class="stack-n">05</div>
+        <div class="stack-text">
+          <div class="stack-title">Налаштування під ключ за 48 годин</div>
+          <div class="stack-desc">Один дзвінок 30 хвилин — решта за мне.</div>
+        </div>
+        <div class="stack-price">
+          <div class="stack-original">12,000 грн</div>
+          <div class="stack-you">Безкоштовно</div>
+        </div>
       </div>
-      <div class="stack-tr">
-        <div><div class="st-n">05</div><div class="st-title">Налаштування під ключ за 48 годин</div><div class="st-desc">Один дзвінок 30 хвилин — і завтра система вже працює. Ти нічого не робиш технічно.</div></div>
-        <div class="st-market"><div class="st-mprice">12,000 грн</div><div class="st-mlabel">разово</div></div>
-        <div class="st-yours"><div class="st-free">0 грн</div></div>
-      </div>
-      <div class="stack-tr">
-        <div><div class="st-n">06</div><div class="st-title">Власне технічне забезпечення</div><div class="st-desc">Система працює на моєму обладнанні. Тобі не треба нічого встановлювати чи купувати.</div></div>
-        <div class="st-market"><div class="st-mprice">3,000 грн</div><div class="st-mlabel">ринок/міс</div></div>
-        <div class="st-yours"><div class="st-free">$0</div></div>
+      <div class="stack-row">
+        <div class="stack-n">06</div>
+        <div class="stack-text">
+          <div class="stack-title">Власне технічне забезпечення</div>
+          <div class="stack-desc">Система на моєму обладнанні — нічого не встановлюєш.</div>
+        </div>
+        <div class="stack-price">
+          <div class="stack-original">3,000 грн</div>
+          <div class="stack-you">Безкоштовно</div>
+        </div>
       </div>
       <div class="stack-foot">
-        <div class="sf-label">Загальна ринкова вартість</div>
-        <div class="sf-market">26,400 грн</div>
-        <div class="sf-yours">$0</div>
+        <div class="stack-foot-label">Ринкова вартість пакету</div>
+        <div class="stack-foot-prices">
+          <div class="stack-foot-old">26,400 грн</div>
+          <div class="stack-foot-new">$0</div>
+        </div>
       </div>
     </div>
- 
-    <!-- MATH BOX -->
-    <div class="math-box">
+
+    <!-- MATH -->
+    <div class="math">
       <div class="math-title">Математика яка розриває мозок</div>
       <div class="math-row">
-        <div class="math-label">Середній чек на процедуру</div>
-        <div class="math-val">500–700 грн</div>
+        <div class="math-row-label">Середній чек на процедуру</div>
+        <div class="math-row-val">500–700 грн</div>
       </div>
       <div class="math-row">
-        <div class="math-label">Вартість підписки на місяць</div>
-        <div class="math-val">~2,000 грн ($50)</div>
+        <div class="math-row-label">Щомісячна оплата</div>
+        <div class="math-row-val solo-show">$50 (~2,000 грн)</div>
+        <div class="math-row-val studio-show" id="math-studio">$130 (~5,200 грн)</div>
       </div>
       <div class="math-row">
-        <div class="math-label">Окупається після</div>
-        <div class="math-val">2–3 записи</div>
+        <div class="math-row-label">Окупається після</div>
+        <div class="math-row-val">2–3 записи</div>
       </div>
-      <div class="math-row highlight">
-        <div class="math-label">Решта місяця — твій чистий прибуток</div>
-        <div class="math-val">✓ Очевидна вигода</div>
+      <div class="math-row">
+        <div class="math-row-label">Решта місяця</div>
+        <div class="math-row-val">→ чистий прибуток</div>
       </div>
     </div>
- 
+
     <!-- BONUSES -->
-    <div class="sec-eyebrow" style="margin-top:48px">Бонуси зверху</div>
-    <h2 class="sec-h" style="font-size:clamp(26px,2.8vw,40px)">Ще три подарунки —<br/><em>просто тому що можу</em></h2>
-    <div class="bonus-grid">
-      <div class="bonus-card">
-        <div class="bonus-ribbon">Бонус 1</div>
+    <div class="sec-kicker" style="margin-bottom:16px">Бонуси зверху</div>
+    <div class="bonuses">
+      <div class="bonus">
         <div class="bonus-ico">✍️</div>
-        <div class="bonus-t">Відповіді в твоєму стилі</div>
-        <div class="bonus-b">Налаштую тон і подачу під тебе — клієнти не відчують що пишуть не тобі особисто.</div>
-        <div class="bonus-v">800 грн → безкоштовно</div>
+        <div class="bonus-body">
+          <div class="bonus-title">Відповіді в твоєму стилі</div>
+          <div class="bonus-desc">Налаштую тон під тебе — клієнти не відчують що пишуть не тобі.</div>
+          <div class="bonus-val">800 грн → безкоштовно</div>
+        </div>
       </div>
-      <div class="bonus-card">
-        <div class="bonus-ribbon">Бонус 2</div>
+      <div class="bonus">
         <div class="bonus-ico">📊</div>
-        <div class="bonus-t">Звіт після першого місяця</div>
-        <div class="bonus-b">Скільки нових клієнтів оброблено, скільки пропущених записів попереджено, скільки годин зекономлено — у цифрах.</div>
-        <div class="bonus-v">500 грн → безкоштовно</div>
+        <div class="bonus-body">
+          <div class="bonus-title">Звіт після першого місяця</div>
+          <div class="bonus-desc">Скільки клієнтів оброблено, скільки пропущених записів попереджено — у цифрах.</div>
+          <div class="bonus-val">500 грн → безкоштовно</div>
+        </div>
       </div>
-      <div class="bonus-card">
-        <div class="bonus-ribbon">Бонус 3</div>
+      <div class="bonus">
         <div class="bonus-ico">🔄</div>
-        <div class="bonus-t">Оновлення цін і розкладу</div>
-        <div class="bonus-b">Змінила ціну або розклад — пишеш мені, я оновлюю за 24 години. Завжди актуально.</div>
-        <div class="bonus-v">Включено завжди</div>
+        <div class="bonus-body">
+          <div class="bonus-title">Оновлення цін і розкладу</div>
+          <div class="bonus-desc">Змінила ціну або розклад — пишеш мені, оновлюю за 24 години.</div>
+          <div class="bonus-val">Включено завжди</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
- 
+
 <!-- PRICE -->
-<section class="sec" id="cta">
-  <div class="sec-inner">
-    <div class="sec-eyebrow">Ціна і умови</div>
-    <h2 class="sec-h">Пропозиція яку<br/><em>складно відхилити</em></h2>
- 
-    <div class="price-grid">
-      <div class="price-side">
-        <div class="ps-badge">Місяць 1 — стартовий</div>
-        <div class="ps-amount">$0</div>
-        <div class="ps-per">повністю безкоштовно</div>
-        <div class="ps-items">
-          <div class="ps-item">Цифровий Адміністратор 24/7</div>
-          <div class="ps-item">Онлайн-запис підключено</div>
-          <div class="ps-item">Нагадування налаштовано</div>
-          <div class="ps-item">Звіт після місяця</div>
-          <div class="ps-item">Вихід в будь-який момент</div>
+<section class="sec" id="cta" style="background:var(--s1)">
+  <div class="container">
+    <div class="sec-kicker">Ціна і умови</div>
+    <h2 class="sec-title">Пропозиція яку<br/><em>важко відхилити</em></h2>
+
+    <div class="price-cards">
+      <div class="price-card">
+        <div class="pc-badge">Місяць 1 — стартовий</div>
+        <div class="pc-price">$0</div>
+        <div class="pc-period">повністю безкоштовно</div>
+        <div class="pc-list">
+          <div class="pc-item">Цифровий адміністратор 24/7</div>
+          <div class="pc-item">Онлайн-запис підключено</div>
+          <div class="pc-item">Нагадування налаштовано</div>
+          <div class="pc-item">Звіт після місяця</div>
+          <div class="pc-item">Вихід в будь-який момент</div>
         </div>
       </div>
-      <div class="price-side hot">
-        <div class="ps-badge">Місяці 2+ — щомісячна оплата</div>
-        <div class="ps-amount">$50</div>
-        <div class="ps-per">на місяць · ~2,000 грн</div>
-        <div class="ps-items">
-          <div class="ps-item">Все те саме що в місяці 1</div>
-          <div class="ps-item">Підтримка і оновлення</div>
-          <div class="ps-item">Зміна цін або розкладу</div>
-          <div class="ps-item">= вартість однієї процедури</div>
-          <div class="ps-item">Зупиняєш коли захочеш</div>
+
+      <!-- SOLO -->
+      <div class="price-card featured solo-show" id="price-solo">
+        <div class="pc-badge">Місяці 2+ — оплата</div>
+        <div class="pc-old">$129/міс</div>
+        <div class="pc-price">$50</div>
+        <div class="pc-period">на місяць · ~2,000 грн</div>
+        <div class="pc-list">
+          <div class="pc-item">Все що в місяці 1</div>
+          <div class="pc-item">Підтримка і оновлення</div>
+          <div class="pc-item">Зміна цін або розкладу</div>
+          <div class="pc-item">= вартість однієї процедури</div>
+          <div class="pc-item">Зупиняєш коли захочеш</div>
+        </div>
+      </div>
+
+      <!-- STUDIO -->
+      <div class="price-card featured studio-show" id="price-studio">
+        <div class="pc-badge">Місяці 2+ — оплата за студію</div>
+        <div class="pc-old">$199/міс</div>
+        <div class="pc-price" id="studio-price">$130</div>
+        <div class="pc-period">$65 × <span id="studio-n">2</span> майстри</div>
+        <div class="pc-list">
+          <div class="pc-item">Окремий календар для кожного майстра</div>
+          <div class="pc-item">Адміністратор розподіляє клієнтів</div>
+          <div class="pc-item">Щотижневий звіт власнику</div>
+          <div class="pc-item">Підтримка і оновлення</div>
+          <div class="pc-item">Зупиняєш коли захочеш</div>
+        </div>
+        <div class="studio-calc-wrap">
+          <div class="calc-label">КІЛЬКІСТЬ МАЙСТРІВ:</div>
+          <div class="calc-row">
+            <button class="calc-btn" onclick="chM(-1)">−</button>
+            <div class="calc-count" id="calc-count">2</div>
+            <button class="calc-btn" onclick="chM(1)">+</button>
+            <div class="calc-total">
+              <div class="calc-total-price" id="calc-price">$130</div>
+              <div class="calc-total-note">на місяць</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
- 
+
+    <!-- STUDIO PREMIUM -->
+    <div class="studio-premium studio-show" id="studio-premium">
+      <div class="sp-header">Чому студія платить більше</div>
+      <div class="sp-grid">
+        <div class="sp-item">
+          <div class="sp-ico">📊</div>
+          <div>
+            <div class="sp-title">Щотижневий звіт власнику</div>
+            <div class="sp-desc">Кожного понеділка — хто завантажений, скільки записів, скільки переносів. Керуєш з цифрами а не на відчуттях.</div>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div class="sp-ico">👥</div>
+          <div>
+            <div class="sp-title">Розподіл між майстрами</div>
+            <div class="sp-desc">Клієнт обирає майстра або система записує до вільного — залежно від налаштувань.</div>
+          </div>
+        </div>
+        <div class="sp-item">
+          <div class="sp-ico">💰</div>
+          <div>
+            <div class="sp-title">Захищає більший дохід</div>
+            <div class="sp-desc">Студія з 3 майстрами робить 300–600к грн/міс. $195 — це менше 0.1% доходу.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GUARANTEE -->
     <div class="guarantee">
-      <div class="g-tag">Гарантія</div>
-      <div class="g-h">Нульовий ризик з твого боку</div>
-      <div class="g-t">
-        Оскільки я зараз збираю перші реальні результати роботи — <b>прибираю плату за розробку і налаштування</b> (яка стандартно коштує $300). Ти платиш лише щомісячну оплату — $50 на місяць. <b>І якщо за перший тиждень вирішиш що тобі комфортніше писати вручну — ми просто вимикаємо систему без жодних зобов'язань.</b>
-      </div>
+      <div class="guarantee-badge">Гарантія</div>
+      <h3>Нульовий ризик з твого боку</h3>
+      <p>Я зараз збираю перші реальні результати — тому <strong>прибираю плату за розробку і налаштування</strong> (яка стандартно коштує $300). Ти платиш лише щомісячну оплату. <strong>Якщо за перший тиждень вирішиш що не підходить — вимикаємо без жодних зобов'язань.</strong></p>
     </div>
- 
+
+    <!-- SCARCITY -->
     <div class="scarcity">
-      <div class="sc-num">1</div>
+      <div class="sc-number">1</div>
       <div class="sc-dots">
-        <div class="sc-dot gone"></div>
-        <div class="sc-dot gone"></div>
+        <div class="sc-dot taken"></div>
+        <div class="sc-dot taken"></div>
         <div class="sc-dot open"></div>
       </div>
-      <div class="sc-text">3 місця на старті · 2 вже зайнято · залишилось <b>1 місце цього місяця</b></div>
+      <div class="sc-text">3 місця на старті · 2 вже зайнято · залишилось <strong>1 місце цього місяця</strong></div>
     </div>
   </div>
 </section>
- 
-<!-- FINAL CTA -->
-<section class="final">
-  <h2 class="final-h">Спробуй <em>безкоштовно</em><br/>цього місяця</h2>
-  <div class="final-sub">Один дзвінок 30 хвилин → завтра зранку бачиш нові записи в календарі</div>
-  <a href="https://t.me/ilya_vasylchenko" class="btn-final">Написати в Telegram →</a>
-  <div class="final-note">@ilya_vasylchenko · відповідаю протягом години</div>
-</section>
- 
+
 <!-- FAQ -->
-<section class="faq-sec">
-  <div class="faq-wrap">
-    <div class="sec-eyebrow">Питання</div>
-    <h2 class="sec-h" style="font-size:clamp(26px,2.8vw,40px);margin-bottom:32px">Що тебе може<br/><em>зупиняти</em></h2>
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        Якщо адміністратор відповість щось не те клієнту?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-ans">Бот відповідає тільки на те що ти йому задала — твої послуги, ціни, графік. На нестандартні питання він одразу перемикає на тебе. Ти завжди бачиш всю переписку і можеш втрутитись.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        Мої клієнти звикли писати в месенджери — чи це зміниться?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-ans">Ні. Система підключається прямо до Telegram. Клієнт пише туди де звик — Цифровий Адміністратор відповідає замість тебе. Нічого нового вчити нікому не треба.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        Чому налаштування безкоштовне — в чому підвох?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-ans">Я зараз збираю перші реальні результати роботи з цифрами — скільки нових клієнтів збережено, наскільки менше людей не приходить без попередження. Для цього мені потрібні перші клієнти з реальними результатами. Тому я прибираю вартість розробки ($300) і беру лише щомісячну оплату. Чесна угода.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        Що якщо мені не сподобається?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-ans">Якщо за перший тиждень вирішиш що тобі комфортніше вести все вручну — просто кажеш. Ми вимикаємо систему без жодних зобов'язань, штрафів і неприємних розмов. Весь ризик на мені.</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        Скільки часу займе налаштування з мого боку?
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-ans">Один дзвінок 30 хвилин. Ти розповідаєш про послуги, ціни та графік — я записую. Далі все роблю сам. Через 48 годин система вже відповідає твоїм клієнтам.</div>
+<section class="sec">
+  <div class="container">
+    <div class="sec-kicker">Питання</div>
+    <h2 class="sec-title" style="margin-bottom:24px">Що тебе може<br/><em>зупиняти</em></h2>
+    <div class="faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="faq(this)">
+          А якщо адміністратор відповість щось не те?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Відповідає тільки на те що ти задала — твої послуги, ціни, розклад. На нестандартні питання одразу перемикає на тебе. Ти завжди бачиш всю переписку.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="faq(this)">
+          Мої клієнти звикли писати в месенджери — чи це зміниться?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Ні. Система підключається прямо до Telegram. Клієнт пише туди де звик — адміністратор відповідає замість тебе. Нічого нового вчити нікому.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="faq(this)">
+          Чому налаштування безкоштовне — в чому підвох?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Я збираю перші реальні результати з цифрами. Для цього потрібні перші клієнти. Тому прибираю вартість розробки ($300) і беру лише щомісячну оплату. Чесна угода.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="faq(this)">
+          Що якщо мені не сподобається?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Якщо за перший тиждень вирішиш що не підходить — просто кажеш. Вимикаємо без зобов'язань, штрафів і неприємних розмов. Весь ризик на мені.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="faq(this)">
+          Скільки часу займе налаштування з мого боку?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">Один дзвінок 30 хвилин. Ти розповідаєш про послуги, ціни та розклад. Далі все роблю сам. Через 48 годин система вже відповідає твоїм клієнтам.</div>
+      </div>
     </div>
   </div>
 </section>
- 
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <h2>Спробуй <em>безкоштовно</em><br/>цього місяця</h2>
+    <p>Один дзвінок 30 хвилин → завтра зранку бачиш нові записи в календарі</p>
+    <a href="https://t.me/ilya_vasylchenko" class="btn btn-primary">Написати в Telegram →</a>
+    <div class="final-note">@ilya_vasylchenko · відповідаю протягом години</div>
+  </div>
+</section>
+
 <!-- FOOTER -->
-<footer class="foot">
-  <div class="foot-brand">SystemFlow</div>
-  <div class="foot-copy">AI-автоматизація для малого бізнесу · Україна 2025</div>
+<footer class="footer container">
+  <div class="footer-brand">SystemFlow</div>
+  <div class="footer-copy">AI-автоматизація · Україна 2025</div>
 </footer>
- 
+
 <script>
-function toggleFaq(btn){
-  const ans = btn.nextElementSibling;
-  const icon = btn.querySelector('.faq-icon');
-  const isOpen = ans.classList.contains('open');
-  document.querySelectorAll('.faq-ans').forEach(a=>a.classList.remove('open'));
-  document.querySelectorAll('.faq-icon').forEach(i=>i.style.transform='');
-  if(!isOpen){
-    ans.classList.add('open');
-    icon.style.transform='rotate(45deg)';
+var masters = 2;
+
+function setMode(m) {
+  var pills = document.querySelectorAll('.t-pill');
+  var soloEls = document.querySelectorAll('.solo-show');
+  var studioEls = document.querySelectorAll('.studio-show');
+  var hint = document.getElementById('toggle-hint');
+
+  if (m === 'solo') {
+    pills[0].classList.add('on'); pills[1].classList.remove('on');
+    soloEls.forEach(function(e){e.style.display='block'});
+    studioEls.forEach(function(e){e.style.display='none'});
+    hint.textContent = '1 майстер · $50/міс';
+  } else {
+    pills[1].classList.add('on'); pills[0].classList.remove('on');
+    soloEls.forEach(function(e){e.style.display='none'});
+    studioEls.forEach(function(e){e.style.display='block'});
+    updStudio();
   }
+}
+
+function chM(d) {
+  masters = Math.max(2, Math.min(10, masters + d));
+  updStudio();
+}
+
+function updStudio() {
+  var t = masters * 65;
+  document.getElementById('studio-price').textContent = '$' + t;
+  document.getElementById('studio-n').textContent = masters;
+  document.getElementById('calc-count').textContent = masters;
+  document.getElementById('calc-price').textContent = '$' + t;
+  document.getElementById('math-studio').textContent = '$' + t + ' (~' + Math.round(t * 40) + ' грн)';
+  document.getElementById('toggle-hint').textContent = masters + ' майстри · $' + t + '/міс';
+}
+
+function faq(btn) {
+  var ans = btn.nextElementSibling;
+  var ico = btn.querySelector('.faq-icon');
+  var isOpen = ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(function(a){a.classList.remove('open')});
+  document.querySelectorAll('.faq-icon').forEach(function(i){i.classList.remove('open')});
+  if (!isOpen) { ans.classList.add('open'); ico.classList.add('open'); }
 }
 </script>
 </body>
