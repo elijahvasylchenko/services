@@ -12,27 +12,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name='freelancehunt' content='a5253916e90d67e'>
-    
-    <title>AI-Асистенти для Агентств Нерухомості | SystemFlow Україна</title>
-    <meta name="description" content="Автономні AI-менеджери для агентств нерухомості. Кваліфікація лідів 24/7, миттєві відповіді та інтеграція з CRM. Припиніть втрачати клієнтів.">
-    <meta name="keywords" content="AI для нерухомості, автоматизація агентства нерухомості, бот для рієлторів, генерація лідів нерухомість, KeyCRM інтеграція, SystemFlow">
-    <meta name="author" content="SystemFlow" />
 
-    <meta property="og:title" content="AI-Асистенти для Агентств Нерухомості | SystemFlow" />
-    <meta property="og:description" content="Замінюємо рутину на продажі. Миттєва відповідь лідам 24/7 та передача гарячих клієнтів прямо у вашу CRM." />
+    <title>SystemFlow — AI-автоматизація для бізнесу в Україні</title>
+    <meta name="description" content="Впроваджуємо автономні AI-системи для ніш нерухомості, б'юті та авто-сервісу. Ваш бізнес обробляє ліди 24/7 без менеджера.">
+    <meta name="keywords" content="AI автоматизація бізнес, AI для нерухомості, AI для б'юті, AI для СТО, Telegram бот автозапис, SystemFlow Україна">
+    <meta name="author" content="SystemFlow">
+
+    <meta property="og:title" content="SystemFlow — Ваш бізнес продає, поки ви відпочиваєте" />
+    <meta property="og:description" content="AI-системи, що захоплюють і кваліфікують лідів 24/7. Для нерухомості, б'юті та авто-сервісу." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://via.placeholder.com/1200x630/0f172a/ffffff?text=SystemFlow+Real+Estate+AI" />
-    
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="AI-Асистенти для Агентств Нерухомості" />
-    <meta name="twitter:description" content="Миттєва відповідь лідам 24/7 та передача гарячих клієнтів у CRM." />
-    <meta name="twitter:image" content="https://via.placeholder.com/1200x630/0f172a/ffffff?text=SystemFlow+Real+Estate+AI" />
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --primary: #2563eb;
             --primary-hover: #1d4ed8;
+            --primary-light: #eff6ff;
             --secondary: #0f172a;
             --bg-light: #f8fafc;
             --white: #ffffff;
@@ -40,342 +37,1140 @@
             --text-light: #64748b;
             --accent: #10b981;
             --danger: #ef4444;
-            --radius: 12px;
-            --shadow: 0 10px 25px rgba(0,0,0,0.05);
+            --radius: 14px;
+            --shadow: 0 10px 30px rgba(0,0,0,0.07);
+            --shadow-lg: 0 25px 50px rgba(0,0,0,0.12);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; color: var(--text-main); background: var(--bg-light); line-height: 1.6; scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            background: var(--bg-light);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
 
-        header { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000; }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--secondary); text-decoration: none; letter-spacing: -0.5px;}
+        /* ── NAV ─────────────────────────────── */
+        header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 1px 0 #e2e8f0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-family: 'Sora', sans-serif; font-size: 1.45rem; font-weight: 800; color: var(--secondary); text-decoration: none; letter-spacing: -0.5px; }
         .logo span { color: var(--primary); }
-        .nav-links { display: flex; align-items: center; }
-        .nav-links a { margin-left: 25px; text-decoration: none; color: var(--text-main); font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
-        .nav-links a:hover { color: var(--primary); }
-        .nav-btn { background: var(--primary); color: var(--white) !important; padding: 10px 20px; border-radius: 8px; margin-left: 30px !important; }
+        .nav-links { display: flex; align-items: center; gap: 6px; }
+        .nav-links a { padding: 8px 14px; text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.9rem; border-radius: 8px; transition: all 0.2s; }
+        .nav-links a:hover { color: var(--primary); background: var(--primary-light); }
+        .nav-btn {
+            background: var(--primary) !important;
+            color: var(--white) !important;
+            padding: 10px 22px !important;
+            border-radius: 8px !important;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+        }
+        .nav-btn:hover { background: var(--primary-hover) !important; transform: translateY(-1px); }
 
-        /* Hero Section */
-        .hero { margin-top: 80px; padding: 140px 20px 100px; text-align: center; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
-        .pre-headline { font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; margin-bottom: 20px; }
-        .hero h1 { font-size: 3.5rem; color: var(--secondary); margin-bottom: 25px; max-width: 1000px; margin-left: auto; margin-right: auto; line-height: 1.1; font-weight: 800; letter-spacing: -1px;}
-        .hero p { font-size: 1.25rem; color: var(--text-main); margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto; }
-        .btn-large { display: inline-block; background: var(--primary); color: var(--white); padding: 18px 45px; font-size: 1.2rem; font-weight: 700; text-decoration: none; border-radius: 8px; transition: all 0.3s; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2); }
-        .btn-large:hover { background: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 15px 25px rgba(37, 99, 235, 0.3); }
-        .social-proof { font-size: 0.95rem; color: var(--text-light); font-weight: 600; margin-top: 25px; display: flex; justify-content: center; align-items: center; gap: 8px;}
-        
-        .section-wrapper { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 2.8rem; margin-bottom: 20px; color: var(--secondary); font-weight: 800; letter-spacing: -1px; line-height: 1.2;}
-        .section-subtitle { text-align: center; color: var(--text-light); margin-bottom: 60px; font-size: 1.2rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+        /* ── HERO ────────────────────────────── */
+        .hero {
+            margin-top: 70px;
+            padding: 120px 24px 100px;
+            text-align: center;
+            background: var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% -10%, rgba(37,99,235,0.35) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 80% 100%, rgba(16,185,129,0.12) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(37,99,235,0.2);
+            border: 1px solid rgba(37,99,235,0.4);
+            color: #93c5fd;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 8px 18px;
+            border-radius: 50px;
+            margin-bottom: 28px;
+        }
+        .hero-tag::before { content: '⚡'; }
+        .hero h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            color: #ffffff;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+        }
+        .hero h1 em {
+            font-style: normal;
+            color: #93c5fd;
+        }
+        .hero-sub {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            margin-bottom: 48px;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.25s;
+            box-shadow: 0 8px 25px rgba(37,99,235,0.4);
+        }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(37,99,235,0.5); }
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #e2e8f0;
+            padding: 18px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.25s;
+        }
+        .btn-ghost:hover { background: rgba(255,255,255,0.12); color: #ffffff; }
+        .hero-proof {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            margin-top: 56px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            flex-wrap: wrap;
+        }
+        .proof-item { text-align: center; }
+        .proof-num { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: #ffffff; line-height: 1; }
+        .proof-num span { color: var(--accent); }
+        .proof-label { font-size: 0.8rem; color: #64748b; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .proof-divider { width: 1px; height: 48px; background: rgba(255,255,255,0.08); }
 
-        /* Diagnostic Section */
-        .diagnostic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .diag-card { padding: 40px; border-radius: var(--radius); position: relative; overflow: hidden; }
-        .diag-pain { background: #fef2f2; border: 1px solid #fecaca; border-top: 5px solid var(--danger); }
-        .diag-dream { background: #ecfdf5; border: 1px solid #a7f3d0; border-top: 5px solid var(--accent); }
-        .diag-card h3 { font-size: 1.8rem; margin-bottom: 25px; display: flex; align-items: center; gap: 15px;}
-        .diag-pain h3 { color: #991b1b; }
-        .diag-dream h3 { color: #065f46; }
-        .diag-list { list-style: none; }
-        .diag-list li { margin-bottom: 20px; font-size: 1.1rem; padding-left: 35px; position: relative; color: var(--secondary); font-weight: 500;}
-        .diag-pain .diag-list li::before { content: '❌'; position: absolute; left: 0; top: 2px; }
-        .diag-dream .diag-list li::before { content: '✅'; position: absolute; left: 0; top: 2px; }
+        /* ── SECTION BOILERPLATE ─────────────── */
+        .section { padding: 100px 24px; }
+        .section-inner { max-width: 1200px; margin: 0 auto; }
+        .s-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+        .s-title {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 800;
+            color: var(--secondary);
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 18px;
+        }
+        .s-sub {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 680px;
+        }
+        .section-head { margin-bottom: 64px; }
+        .section-head.center { text-align: center; }
+        .section-head.center .s-label,
+        .section-head.center .s-sub { margin-left: auto; margin-right: auto; }
 
-        /* Ignorance Tax Section */
-        .tax-section { background: var(--secondary); color: var(--white); padding: 120px 20px; text-align: center; }
-        .tax-section .section-title { color: var(--white); }
-        .tax-math { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 50px; border-radius: var(--radius); max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px;}
-        .tax-stat { font-size: 1.3rem; color: #cbd5e1; }
-        .tax-highlight { font-size: 4rem; font-weight: 800; color: #f87171; line-height: 1; margin: 10px 0;}
-        .tax-conclusion { font-size: 1.2rem; font-weight: 600; color: var(--accent); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 10px;}
+        /* ── PAIN SECTION ────────────────────── */
+        .pain-section { background: var(--white); }
+        .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        .pain-card {
+            padding: 40px;
+            border-radius: var(--radius);
+            position: relative;
+        }
+        .pain-card.bad {
+            background: #fff5f5;
+            border: 1px solid #fecaca;
+            border-top: 4px solid var(--danger);
+        }
+        .pain-card.good {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-top: 4px solid var(--accent);
+        }
+        .pain-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        .pain-card.bad h3 { color: #991b1b; }
+        .pain-card.good h3 { color: #14532d; }
+        .pain-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+        .pain-list li {
+            padding-left: 32px;
+            position: relative;
+            font-size: 1rem;
+            color: var(--secondary);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        .pain-card.bad .pain-list li::before { content: '✗'; position: absolute; left: 0; color: var(--danger); font-weight: 800; font-size: 1rem; }
+        .pain-card.good .pain-list li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: 800; font-size: 1rem; }
 
-        /* Solutions */
-        .grid-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .service-card { background: var(--white); padding: 40px 30px; border-radius: var(--radius); box-shadow: var(--shadow); transition: transform 0.3s; border: 1px solid #e2e8f0; }
-        .service-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .icon-wrap { font-size: 2.5rem; margin-bottom: 20px; display: inline-block; padding: 15px; background: #eff6ff; border-radius: 12px; }
-        .service-card h3 { font-size: 1.4rem; margin-bottom: 15px; color: var(--secondary); font-weight: 700;}
-        .service-card p { color: var(--text-main); font-size: 1rem;}
+        /* ── TAX SECTION ─────────────────────── */
+        .tax-section {
+            background: var(--secondary);
+            padding: 100px 24px;
+            text-align: center;
+        }
+        .tax-box {
+            max-width: 820px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 56px;
+        }
+        .tax-box .s-title { color: var(--white); margin-bottom: 32px; }
+        .tax-calc {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            align-items: center;
+            gap: 16px;
+            margin: 40px 0;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 32px 24px;
+        }
+        .tax-item { text-align: center; }
+        .tax-item-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #64748b; margin-bottom: 8px; font-weight: 600; }
+        .tax-item-val { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: #ffffff; }
+        .tax-item-val.red { color: #f87171; }
+        .tax-op { font-size: 2rem; color: #334155; font-weight: 300; }
+        .tax-conclusion {
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.2);
+            border-radius: 10px;
+            padding: 20px 28px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #fca5a5;
+        }
+        .tax-conclusion strong { color: #f87171; }
+        .tax-answer {
+            margin-top: 24px;
+            font-size: 1.05rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
 
-        /* Main Case Study */
-        .hero-case { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #e2e8f0; margin-bottom: 60px;}
-        .hero-case-content { padding: 60px; display: flex; flex-direction: column; justify-content: center;}
-        .hero-case-visual { background: var(--secondary); color: var(--white); padding: 60px; display: flex; flex-direction: column; justify-content: center; border-left: 5px solid var(--primary);}
-        .hero-case-tag { display: inline-block; background: #dbeafe; color: var(--primary); font-weight: 700; padding: 8px 16px; border-radius: 30px; font-size: 0.9rem; margin-bottom: 20px; align-self: flex-start;}
-        
-        /* About Founder */
-        .founder-card { background: var(--white); padding: 50px; border-radius: var(--radius); box-shadow: var(--shadow); display: flex; gap: 50px; align-items: center; border: 1px solid #e2e8f0;}
-        .founder-photo { width: 200px; height: 200px; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 5rem; flex-shrink: 0;}
-        .founder-text h3 { font-size: 1.8rem; margin-bottom: 15px; color: var(--secondary);}
-        .founder-text p { font-size: 1.1rem; color: var(--text-main); margin-bottom: 15px;}
+        /* ── SERVICES ────────────────────────── */
+        .services-section { background: var(--bg-light); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .service-card {
+            background: var(--white);
+            border-radius: 18px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+        .service-card-top {
+            padding: 36px 32px 28px;
+            flex: 1;
+        }
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+        .service-niche {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .service-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 14px;
+            line-height: 1.3;
+        }
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .service-results {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .result-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #14532d;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 6px 12px;
+            border-radius: 6px;
+            width: fit-content;
+        }
+        .result-pill::before { content: '↑'; font-weight: 800; }
+        .service-card-footer {
+            padding: 20px 32px;
+            border-top: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .service-link-text {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .service-arrow {
+            width: 32px;
+            height: 32px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s;
+        }
+        .service-card:hover .service-arrow {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .service-arrow svg { width: 14px; height: 14px; stroke: var(--primary); }
+        .service-card:hover .service-arrow svg { stroke: var(--white); }
 
-        /* Form */
-        .contact-section { background: var(--bg-light); padding: 100px 20px; border-top: 1px solid #e2e8f0;}
-        .form-container { max-width: 600px; margin: 0 auto; background: var(--white); padding: 50px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid #e2e8f0;}
-        form { display: flex; flex-direction: column; gap: 25px; }
-        label { font-size: 1rem; font-weight: 700; color: var(--secondary); margin-bottom: -15px; }
-        input, textarea, select { padding: 16px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem; font-family: inherit; background: var(--bg-light); color: var(--secondary); transition: all 0.3s; }
-        input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); background: var(--white); }
-        button[type="submit"] { background: var(--primary); color: var(--white); border: none; padding: 20px; border-radius: 8px; cursor: pointer; font-weight: 800; font-size: 1.2rem; transition: all 0.3s; margin-top: 10px; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);}
-        button[type="submit"]:hover { background: var(--secondary); transform: translateY(-2px);}
-        button[type="submit"]:disabled { background: #94a3b8; cursor: not-allowed; transform: none;}
+        /* Niche color themes */
+        .theme-estate .service-icon { background: #eff6ff; }
+        .theme-estate .service-niche { color: #2563eb; }
+        .theme-beauty .service-icon { background: #fff1f2; }
+        .theme-beauty .service-niche { color: #e11d48; }
+        .theme-auto .service-icon { background: #fff7ed; }
+        .theme-auto .service-niche { color: #ea580c; }
 
-        footer { text-align: center; padding: 40px; background: #020617; color: #64748b; font-size: 0.95rem;}
+        /* ── HOW IT WORKS ────────────────────── */
+        .how-section { background: var(--white); }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            position: relative;
+        }
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 36px;
+            left: 12.5%;
+            right: 12.5%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary), var(--primary-light));
+            z-index: 0;
+        }
+        .step {
+            text-align: center;
+            padding: 0 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+        .step-num {
+            width: 72px;
+            height: 72px;
+            background: var(--white);
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Sora', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0 auto 24px;
+        }
+        .step h4 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        .step p { font-size: 0.9rem; color: var(--text-light); }
 
-        /* Floating TG */
-        .floating-tg-btn { position: fixed; bottom: 24px; right: 24px; background-color: #2AABEE; color: #ffffff; padding: 14px 24px; border-radius: 50px; display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; font-size: 1rem; box-shadow: 0 4px 20px rgba(42, 171, 238, 0.5); z-index: 9999; transition: all 0.3s; }
-        .floating-tg-btn:hover { transform: translateY(-3px) scale(1.05); color: #ffffff; }
-        .floating-tg-btn svg { width: 22px; height: 22px; fill: currentColor; }
+        /* ── OFFER STACK ─────────────────────── */
+        .offer-section { background: var(--secondary); padding: 100px 24px; }
+        .offer-inner { max-width: 1000px; margin: 0 auto; }
+        .offer-inner .s-title { color: var(--white); }
+        .offer-inner .s-sub { color: #94a3b8; }
+        .offer-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 48px;
+        }
+        .offer-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 12px;
+            padding: 24px 28px;
+            transition: all 0.2s;
+        }
+        .offer-item:hover { background: rgba(255,255,255,0.07); border-color: rgba(37,99,235,0.4); }
+        .offer-check {
+            width: 32px;
+            height: 32px;
+            background: rgba(16,185,129,0.15);
+            border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .offer-text h4 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+        .offer-text p { font-size: 0.9rem; color: #94a3b8; }
+        .offer-value-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding: 32px 36px;
+            background: rgba(37,99,235,0.1);
+            border: 1px solid rgba(37,99,235,0.25);
+            border-radius: 14px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .offer-value-text .top { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: #64748b; margin-bottom: 6px; font-weight: 600; }
+        .offer-value-text .val { font-family: 'Sora', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--white); }
+        .offer-value-text .val .del { color: #475569; text-decoration: line-through; font-size: 1.2rem; margin-right: 8px; }
+        .offer-value-text .footnote { font-size: 0.85rem; color: #64748b; margin-top: 4px; }
+        .offer-cta-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 18px 40px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.25s;
+            box-shadow: 0 8px 25px rgba(37,99,235,0.4);
+            white-space: nowrap;
+        }
+        .offer-cta-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
 
-        @media (max-width: 960px) {
-            .diagnostic-grid, .hero-case, .founder-card { grid-template-columns: 1fr; flex-direction: column; }
-            .hero h1 { font-size: 2.8rem; }
-            .tax-highlight { font-size: 3rem; }
-            .nav-links a:not(.nav-btn) { display: none; }
+        /* ── GUARANTEE ───────────────────────── */
+        .guarantee-section { background: var(--bg-light); }
+        .guarantee-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .guarantee-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px solid #e2e8f0;
+            padding: 36px 28px;
+            text-align: center;
+            transition: all 0.25s;
+        }
+        .guarantee-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .guarantee-card.highlight {
+            background: #fff5f5;
+            border-color: #fecaca;
+            border-top: 4px solid var(--danger);
+        }
+        .g-icon { font-size: 2.4rem; margin-bottom: 16px; display: block; }
+        .guarantee-card h3 { font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--secondary); margin-bottom: 10px; }
+        .guarantee-card p { font-size: 0.9rem; color: var(--text-light); line-height: 1.6; }
+        .guarantee-card.highlight h3 { color: #991b1b; }
+
+        /* ── ABOUT ───────────────────────────── */
+        .about-section { background: var(--white); }
+        .about-card {
+            background: var(--bg-light);
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            padding: 60px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 56px;
+            align-items: center;
+        }
+        .about-avatar {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border-radius: 50%;
+            border: 4px solid #bfdbfe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            flex-shrink: 0;
+        }
+        .about-text h3 { font-family: 'Sora', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--secondary); margin-bottom: 16px; }
+        .about-text p { font-size: 1rem; color: var(--text-main); line-height: 1.7; margin-bottom: 14px; }
+        .about-text p:last-of-type { margin-bottom: 0; }
+        .about-text strong { color: var(--primary); }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+        .tag {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--primary-light);
+            border: 1px solid #bfdbfe;
+            padding: 6px 14px;
+            border-radius: 50px;
+        }
+
+        /* ── CONTACT FORM ────────────────────── */
+        .contact-section { background: var(--secondary); padding: 100px 24px; }
+        .contact-inner { max-width: 640px; margin: 0 auto; }
+        .contact-inner .s-title { color: var(--white); }
+        .contact-inner .s-sub { color: #94a3b8; }
+        .contact-form {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 48px 40px;
+            margin-top: 48px;
+        }
+        .form-row { display: flex; flex-direction: column; gap: 6px; }
+        .contact-form { display: flex; flex-direction: column; gap: 22px; }
+        label { font-size: 0.9rem; font-weight: 600; color: #e2e8f0; }
+        input, select {
+            padding: 15px 18px;
+            border: 1.5px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: rgba(255,255,255,0.06);
+            color: #f1f5f9;
+            transition: all 0.25s;
+        }
+        input::placeholder { color: #64748b; }
+        select { color: #64748b; }
+        select option { background: #1e293b; color: #f1f5f9; }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255,255,255,0.09);
+        }
+        .form-submit {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 1.1rem;
+            font-family: inherit;
+            transition: all 0.25s;
+            box-shadow: 0 8px 25px rgba(37,99,235,0.4);
+            margin-top: 8px;
+        }
+        .form-submit:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        .form-submit:disabled { background: #475569; cursor: not-allowed; transform: none; box-shadow: none; }
+        .form-disclaimer { font-size: 0.8rem; color: #475569; text-align: center; }
+
+        /* ── FOOTER ──────────────────────────── */
+        footer {
+            background: #020617;
+            padding: 32px 24px;
+            text-align: center;
+            color: #475569;
+            font-size: 0.9rem;
+        }
+        footer a { color: #64748b; text-decoration: none; }
+        footer a:hover { color: #94a3b8; }
+
+        /* ── FLOATING TG ─────────────────────── */
+        .floating-tg-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #2AABEE;
+            color: #ffffff;
+            padding: 14px 22px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 20px rgba(42,171,238,0.45);
+            z-index: 9999;
+            transition: all 0.3s;
+        }
+        .floating-tg-btn:hover { transform: translateY(-3px) scale(1.04); color: #ffffff; }
+        .floating-tg-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
+
+        /* ── RESPONSIVE ──────────────────────── */
+        @media (max-width: 1024px) {
+            .services-grid { grid-template-columns: 1fr 1fr; }
+            .steps-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .steps-grid::before { display: none; }
         }
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .section-title { font-size: 2.2rem; }
-            .diag-card, .tax-math, .hero-case-content, .hero-case-visual, .founder-card, .form-container { padding: 30px 20px; }
-            .floating-tg-btn { bottom: 15px; right: 15px; padding: 12px 18px; font-size: 0.9rem;}
+            .hero { padding: 80px 24px 70px; }
+            .hero-proof { gap: 20px; }
+            .proof-divider { display: none; }
+            .pain-grid { grid-template-columns: 1fr; }
+            .tax-calc { grid-template-columns: 1fr; gap: 12px; }
+            .tax-op { display: none; }
+            .services-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr 1fr; }
+            .guarantee-grid { grid-template-columns: 1fr; }
+            .about-card { grid-template-columns: 1fr; gap: 28px; padding: 32px 24px; text-align: center; }
+            .about-avatar { margin: 0 auto; }
+            .tag-row { justify-content: center; }
+            .offer-value-row { flex-direction: column; text-align: center; }
+            .contact-form { padding: 32px 24px; }
+            .tax-box { padding: 36px 24px; }
+            .nav-links a:not(.nav-btn) { display: none; }
+            .floating-tg-btn span { display: none; }
+            .floating-tg-btn { padding: 14px; border-radius: 50%; }
         }
+        @media (max-width: 480px) {
+            .steps-grid { grid-template-columns: 1fr; }
+            .hero-cta-row { flex-direction: column; align-items: center; }
+        }
+
+        /* ── ANIMATIONS ──────────────────────── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero-inner > * {
+            animation: fadeUp 0.6s ease both;
+        }
+        .hero-inner > *:nth-child(1) { animation-delay: 0.05s; }
+        .hero-inner > *:nth-child(2) { animation-delay: 0.15s; }
+        .hero-inner > *:nth-child(3) { animation-delay: 0.25s; }
+        .hero-inner > *:nth-child(4) { animation-delay: 0.35s; }
+        .hero-inner > *:nth-child(5) { animation-delay: 0.45s; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
-            <a href="#" class="logo">System<span>Flow</span></a>
-            <div class="nav-links">
-                <a href="#diagnostic">Проблема</a>
-                <a href="#solutions">Рішення</a>
-                <a href="#case">Кейс</a>
-                <a href="#guarantee">Гарантії</a>
-                <a href="#contact" class="nav-btn">Отримати аудит</a>
+<!-- ── HEADER ─────────────────────────────────── -->
+<header>
+    <div class="nav-container">
+        <a href="https://elijahvasylchenko.github.io/services/" class="logo">System<span>Flow</span></a>
+        <nav class="nav-links">
+            <a href="#pain">Проблема</a>
+            <a href="#services">Послуги</a>
+            <a href="#offer">Умови</a>
+            <a href="#contact" class="nav-btn">Отримати аудит →</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ── HERO ───────────────────────────────────── -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-tag">AI-автоматизація для бізнесу в Україні</div>
+        <h1>
+            Ваш бізнес продає ліди<br>
+            <em>поки ви спите</em>
+        </h1>
+        <p class="hero-sub">
+            Впроваджуємо автономні AI-системи, які відповідають клієнтам за 1 секунду, 
+            кваліфікують їх і закривають на запис — 24/7, без менеджера.
+        </p>
+        <div class="hero-cta-row">
+            <a href="#contact" class="btn-primary">Розрахувати ROI для мого бізнесу</a>
+            <a href="#services" class="btn-ghost">
+                Обрати свою нішу
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </a>
+        </div>
+        <div class="hero-proof">
+            <div class="proof-item">
+                <div class="proof-num">+<span>30%</span></div>
+                <div class="proof-label">показів для нерухомості</div>
+            </div>
+            <div class="proof-divider"></div>
+            <div class="proof-item">
+                <div class="proof-num"><span>1</span> сек</div>
+                <div class="proof-label">час відповіді лідам</div>
+            </div>
+            <div class="proof-divider"></div>
+            <div class="proof-item">
+                <div class="proof-num"><span>24/7</span></div>
+                <div class="proof-label">без вихідних і ночей</div>
+            </div>
+            <div class="proof-divider"></div>
+            <div class="proof-item">
+                <div class="proof-num"><span>3</span> ніші</div>
+                <div class="proof-label">перевірені вертикалі</div>
             </div>
         </div>
-    </header>
+    </div>
+</section>
 
-    <section class="hero">
-        <div class="pre-headline">Для власників агентств нерухомості по всій Україні</div>
-        <h1>Припиніть дарувати комісійні конкурентам, поки ваші брокери сплять</h1>
-        <p>Ми впроваджуємо автономних AI-менеджерів, які за 1 секунду відповідають на запити 24/7, кваліфікують клієнтів за бюджетом і передають у вашу CRM тільки готових до угоди покупців.</p>
-        <a href="#contact" class="btn-large">Розрахувати ROI для мого агентства</a>
-        <div class="social-proof">
-            <span>⚡ Вже збільшили кількість заброньованих показів на 20-30% для наших клієнтів</span>
+<!-- ── PAIN / DREAM ────────────────────────────── -->
+<section id="pain" class="section pain-section">
+    <div class="section-inner">
+        <div class="section-head">
+            <div class="s-label">Чому клієнти йдуть до конкурентів</div>
+            <h2 class="s-title">Кожна невідповідь — це чужий продаж</h2>
+            <p class="s-sub">Клієнт написав о 22:30. Якщо відповідь надійде вранці — він вже купив у того, хто відповів за 5 хвилин.</p>
         </div>
-    </section>
-
-    <section id="diagnostic" class="section-wrapper">
-        <h2 class="section-title">Чому ваш маркетинговий бюджет зливається в трубу?</h2>
-        <p class="section-subtitle">У сфері нерухомості діє жорстке правило 5 хвилин. Шанс конвертувати ліда падає на 400%, якщо йому не відповіли миттєво.</p>
-
-        <div class="diagnostic-grid">
-            <div class="diag-card diag-pain">
-                <h3>Як це працює зараз</h3>
-                <ul class="diag-list">
-                    <li>Клієнт бачить об'єкт і пише о 22:30 або у вихідний.</li>
-                    <li>Ваш брокер відповідає в кращому разі вранці (або через кілька годин, бо він на показі).</li>
-                    <li>За цей час клієнт вже залишив заявки 5 конкурентам, де йому відповіли швидше.</li>
-                    <li>Брокери вигорають, витрачаючи 60% часу на порожні переписки з "туристами", які просто питають ціну.</li>
+        <div class="pain-grid">
+            <div class="pain-card bad">
+                <h3>😓 Як це виглядає зараз</h3>
+                <ul class="pain-list">
+                    <li>Запит приходить ввечері або у вихідний — ніхто не відповідає.</li>
+                    <li>Менеджер повертається до клієнта через 3–8 годин — він вже "подумав і вирішив інакше".</li>
+                    <li>Команда витрачає 60% часу на порожні переписки з людьми без бюджету.</li>
+                    <li>Ліди з реклами є, а угод немає — бюджет зливається в трубу.</li>
+                    <li>Власник змушений сам сидіти в месенджерах, щоб не втратити клієнта.</li>
                 </ul>
             </div>
-            
-            <div class="diag-card diag-dream">
-                <h3>Як це має працювати</h3>
-                <ul class="diag-list">
-                    <li>Лід пише о 23:45.</li>
-                    <li>О 23:46 AI-асистент дізнається його бюджет, тип об'єкта, терміни та закриває базові заперечення.</li>
-                    <li>О 23:50 у вашій CRM створюється картка з позначкою "Гарячий" і всією історією діалогу.</li>
-                    <li>О 9:00 брокер просто телефонує і призначає показ. Жодної рутини.</li>
+            <div class="pain-card good">
+                <h3>🚀 Як це має працювати</h3>
+                <ul class="pain-list">
+                    <li>Клієнт пише о 23:45 — відповідь надходить через 1 секунду.</li>
+                    <li>AI з'ясовує бюджет, потребу й час прийняття рішення — без участі людини.</li>
+                    <li>Нецільові відсіюються автоматично. До вас доходять тільки "гарячі".</li>
+                    <li>Запис, нагадування, follow-up — все автоматично в вашій CRM або календарі.</li>
+                    <li>Власник бачить аналітику в реальному часі й фокусується на зростанні.</li>
                 </ul>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="tax-section">
-        <div class="section-wrapper" style="padding: 0;">
-            <h2 class="section-title">Вартість повільних відповідей — це ваш найбільший податок</h2>
-            <div class="tax-math">
-                <div class="tax-stat">
-                    Припустімо, ваша середня комісія з об'єкта — $3,000.<br>
-                    Якщо через "зайнятість" брокерів або нічний час ви втрачаєте хоча б <strong>2 цільових клієнтів</strong> на місяць...
+<!-- ── TAX SECTION ─────────────────────────────── -->
+<section class="tax-section">
+    <div class="tax-box">
+        <div class="s-label" style="color: #64748b;">Математика вашого бізнесу</div>
+        <h2 class="s-title">Скільки коштує одна невідповідь?</h2>
+        <div class="tax-calc">
+            <div class="tax-item">
+                <div class="tax-item-label">Ваш середній чек</div>
+                <div class="tax-item-val">₴3 000</div>
+            </div>
+            <div class="tax-op">×</div>
+            <div class="tax-item">
+                <div class="tax-item-label">Втрачених лідів на місяць</div>
+                <div class="tax-item-val">5–10</div>
+            </div>
+            <div class="tax-op">=</div>
+            <div class="tax-item">
+                <div class="tax-item-label">Втрачено за рік</div>
+                <div class="tax-item-val red">₴180 000+</div>
+            </div>
+        </div>
+        <div class="tax-conclusion">
+            Це <strong>не витрати на автоматизацію</strong> — це ціна бездії. Система окупається з першого врятованого клієнта.
+        </div>
+        <p class="tax-answer">Впровадження коштує як частина одного втраченого продажу.</p>
+    </div>
+</section>
+
+<!-- ── SERVICES ────────────────────────────────── -->
+<section id="services" class="section services-section">
+    <div class="section-inner">
+        <div class="section-head center">
+            <div class="s-label">Наші рішення</div>
+            <h2 class="s-title">Обрати своє рішення</h2>
+            <p class="s-sub">Ми не робимо "ботів для всіх". Кожна система заточена під конкретну нішу — з урахуванням її болей, воронки та метрик ROI.</p>
+        </div>
+
+        <div class="services-grid">
+
+            <!-- Нерухомість -->
+            <a href="https://elijahvasylchenko.github.io/services/real_estate_ai" class="service-card theme-estate">
+                <div class="service-card-top">
+                    <div class="service-icon">🏡</div>
+                    <span class="service-niche">Нерухомість</span>
+                    <h3>AI-менеджер для агентств нерухомості</h3>
+                    <p>Кваліфікує лідів за бюджетом і терміновістю 24/7. Передає гарячі заявки прямо в CRM. Брокери отримують тільки готових клієнтів.</p>
+                    <div class="service-results">
+                        <span class="result-pill">30% більше заброньованих показів</span>
+                        <span class="result-pill">Інтеграція з KeyCRM / HubSpot</span>
+                    </div>
                 </div>
-                <div>
-                    <div style="font-size: 1.2rem; font-weight: 700; text-transform: uppercase; color: #fca5a5;">Ви втрачаєте щороку</div>
-                    <div class="tax-highlight">$72,000</div>
+                <div class="service-card-footer">
+                    <span class="service-link-text">Детальніше про рішення</span>
+                    <span class="service-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
                 </div>
-                <div class="tax-conclusion">
-                    Інвестиція у власну автономну систему коштує як частина однієї втраченої комісії. Вона окупається з першої ж врятованої угоди.
+            </a>
+
+            <!-- Б'юті -->
+            <a href="https://elijahvasylchenko.github.io/services/beauty" class="service-card theme-beauty">
+                <div class="service-card-top">
+                    <div class="service-icon">💅</div>
+                    <span class="service-niche">Б'юті-ніша</span>
+                    <h3>Цифровий адміністратор для майстрів і салонів</h3>
+                    <p>Автоматично записує клієнтів, надсилає нагадування і закриває на повторний візит. Без єдиного повідомлення від вас.</p>
+                    <div class="service-results">
+                        <span class="result-pill">Нуль пропущених записів</span>
+                        <span class="result-pill">Автоматичні нагадування</span>
+                    </div>
+                </div>
+                <div class="service-card-footer">
+                    <span class="service-link-text">Детальніше про рішення</span>
+                    <span class="service-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                </div>
+            </a>
+
+            <!-- СТО / Детейлінг -->
+            <a href="https://elijahvasylchenko.github.io/services/automanager" class="service-card theme-auto">
+                <div class="service-card-top">
+                    <div class="service-icon">🚗</div>
+                    <span class="service-niche">СТО / Детейлінг</span>
+                    <h3>AI-менеджер для авто-сервісу та детейлінгу</h3>
+                    <p>Обробляє нічні ліди, відповідає на питання щодо послуг і записує на ремонт. Жодна заявка не губиться.</p>
+                    <div class="service-results">
+                        <span class="result-pill">Авто-обробка нічних заявок</span>
+                        <span class="result-pill">Follow-up без ручної роботи</span>
+                    </div>
+                </div>
+                <div class="service-card-footer">
+                    <span class="service-link-text">Детальніше про рішення</span>
+                    <span class="service-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</section>
+
+<!-- ── HOW IT WORKS ─────────────────────────────── -->
+<section class="section how-section">
+    <div class="section-inner">
+        <div class="section-head center">
+            <div class="s-label">Процес роботи</div>
+            <h2 class="s-title">Від підписання до результату — 7 днів</h2>
+            <p class="s-sub">Ми не "ставимо бота і йдемо". Ми будуємо систему, яка масштабується разом з вашим бізнесом.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h4>Аудит воронки</h4>
+                <p>15-хв дзвінок — знаходимо, де саме ваш бізнес втрачає гроші прямо зараз.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h4>Розробка системи</h4>
+                <p>Налаштовуємо AI під вашу нішу: скрипти, кваліфікація, логіка роботи з вашою базою.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h4>Тест на реальних лідах</h4>
+                <p>Система запускається на живому трафіку. Ви бачите результат ще до фінального платежу.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <h4>Запуск і супровід</h4>
+                <p>Онбординг команди за 15 хвилин. Підтримка і оптимізація після запуску.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── OFFER STACK ──────────────────────────────── -->
+<section id="offer" class="offer-section">
+    <div class="offer-inner">
+        <div class="section-head">
+            <div class="s-label" style="color: #64748b;">Що входить у вашу систему</div>
+            <h2 class="s-title">Ви купуєте не "бота" — ви купуєте повноцінний відділ продажів</h2>
+            <p class="s-sub" style="color: #94a3b8;">Все, що потрібно для автономної роботи бізнесу — в одному пакеті.</p>
+        </div>
+        <div class="offer-stack">
+            <div class="offer-item">
+                <div class="offer-check">⚡</div>
+                <div class="offer-text">
+                    <h4>AI-асистент 24/7 у Telegram / Instagram / сайті</h4>
+                    <p>Відповідає в першу секунду, веде клієнта по скрипту, не спить і не бере вихідних.</p>
+                </div>
+            </div>
+            <div class="offer-item">
+                <div class="offer-check">🎯</div>
+                <div class="offer-text">
+                    <h4>Автоматична кваліфікація лідів</h4>
+                    <p>Визначає бюджет, потребу і готовність до угоди. Нецільові не доходять до вашої команди.</p>
+                </div>
+            </div>
+            <div class="offer-item">
+                <div class="offer-check">🔄</div>
+                <div class="offer-text">
+                    <h4>Інтеграція з CRM або Calendar</h4>
+                    <p>Готові ліди автоматично потрапляють у KeyCRM, HubSpot або Cal.com — без копіювання вручну.</p>
+                </div>
+            </div>
+            <div class="offer-item">
+                <div class="offer-check">📊</div>
+                <div class="offer-text">
+                    <h4>Дашборд і аналітика для власника</h4>
+                    <p>Ви бачите скільки лідів прийшло, скільки відсіялось і скільки конвертувалось — у реальному часі.</p>
+                </div>
+            </div>
+            <div class="offer-item">
+                <div class="offer-check">🛡️</div>
+                <div class="offer-text">
+                    <h4>Ваш власний сервер — ніяких абонплат</h4>
+                    <p>Система на вашій інфраструктурі. Жодної залежності від сторонніх SaaS за ₴5000/міс.</p>
+                </div>
+            </div>
+            <div class="offer-item">
+                <div class="offer-check">🎓</div>
+                <div class="offer-text">
+                    <h4>Онбординг команди за 15 хвилин</h4>
+                    <p>Ваші менеджери не "програмують" — вони просто отримують готові заявки і дзвонять.</p>
                 </div>
             </div>
         </div>
-    </section>
-
-    <section id="solutions" class="section-wrapper">
-        <h2 class="section-title">Система, яка масштабується разом з вами</h2>
-        <p class="section-subtitle">Жодного мікроменеджменту. Ви купуєте машину, яка генерує вам теплі зустрічі.</p>
-
-        <div class="grid-services">
-            <div class="service-card">
-                <div class="icon-wrap">⚡</div>
-                <h3>Миттєве захоплення</h3>
-                <p>Інтеграція з Telegram, Instagram та вашим сайтом. Система відповідає в першу секунду, імітуючи живу професійну розмову. Лід не встигає піти до конкурентів.</p>
+        <div class="offer-value-row">
+            <div class="offer-value-text">
+                <div class="top">Вартість впровадження</div>
+                <div class="val">
+                    <span class="del">₴30 000</span>від ₴12 000
+                </div>
+                <div class="footnote">Основна частина — лише після того, як ви побачили систему в дії</div>
             </div>
-            <div class="service-card">
-                <div class="icon-wrap">🎯</div>
-                <h3>Безжальна кваліфікація</h3>
-                <p>AI самостійно ставить правильні запитання, відсіює нецільових клієнтів без бюджету і підігріває тих, хто готовий купувати просто зараз.</p>
-            </div>
-            <div class="service-card">
-                <div class="icon-wrap">🔄</div>
-                <h3>Жорстка синхронізація</h3>
-                <p>Усі кваліфіковані ліди автоматично лягають у вашу CRM (KeyCRM, HubSpot тощо). Ви як власник бачите абсолютно прозору аналітику в реальному часі.</p>
-            </div>
-            <div class="service-card">
-                <div class="icon-wrap">🛡️</div>
-                <h3>Незалежність від SaaS</h3>
-                <p>Система працює на вашому власному сервері. Ви не платите тисячі доларів абонплати за кількість повідомлень стороннім сервісам.</p>
-            </div>
+            <a href="#contact" class="offer-cta-btn">Хочу свій аудит →</a>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="case" class="section-wrapper" style="padding-top: 40px;">
-        <div class="hero-case">
-            <div class="hero-case-content">
-                <span class="hero-case-tag">Кейс: Нерухомість</span>
-                <h3 style="font-size: 2rem; color: var(--secondary); margin-bottom: 20px; font-weight: 800; line-height: 1.2;">Автономний брокер для обробки трафіку</h3>
-                <p style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 20px;"><strong>Задача:</strong> Зупинити злив бюджету через повільні відповіді в Instagram у вечірній час та на вихідних.</p>
-                <p style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 30px;"><strong>Рішення:</strong> Впроваджено AI-систему (Conversion Engine), яка відсіює "туристів", миттєво кваліфікує лідів 24/7 за психологічним профілем, спирається на актуальну базу об'єктів та передає досьє готового клієнта прямо в CRM брокеру.</p>
-                <a href="https://elijahvasylchenko.github.io/services/real_estate_ai" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; color: var(--primary); font-weight: 700; text-decoration: none; font-size: 1.1rem;">
-                    Дивитися інтерактивний демо-кейс 
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </a>
-            </div>
-            <div class="hero-case-visual">
-                <div style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 10px;">Результат впровадження:</div>
-                <div style="font-size: 3rem; font-weight: 800; color: var(--accent); margin-bottom: 20px; line-height: 1;">+ 30%</div>
-                <div style="font-size: 1.3rem; font-weight: 600;">до кількості заброньованих показів з того ж об'єму рекламного трафіку.</div>
-            </div>
+<!-- ── GUARANTEE ────────────────────────────────── -->
+<section class="section guarantee-section">
+    <div class="section-inner">
+        <div class="section-head center">
+            <div class="s-label">Наші гарантії</div>
+            <h2 class="s-title">Ви купуєте результат. Ризики — на нас.</h2>
         </div>
-    </section>
-
-    <section id="guarantee" class="section-wrapper" style="background-color: var(--white); border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
-        <h2 class="section-title">Ви купуєте результат. Ризики ми беремо на себе.</h2>
-        
-        <div class="grid-services" style="margin-top: 50px;">
-            <div class="service-card" style="border: none; box-shadow: none; background: var(--bg-light);">
-                <div class="icon-wrap" style="background: var(--white);">💳</div>
+        <div class="guarantee-grid">
+            <div class="guarantee-card">
+                <span class="g-icon">💳</span>
                 <h3>Поетапна оплата</h3>
-                <p>Основна частина суми сплачується виключно після того, як система налаштована і ви бачите її в дії на ваших реальних лідах.</p>
+                <p>Основна сума сплачується тільки після того, як система запущена і ви бачите її роботу на реальних лідах вашого бізнесу.</p>
             </div>
-            <div class="service-card" style="border: none; box-shadow: none; background: var(--bg-light);">
-                <div class="icon-wrap" style="background: var(--white);">🎓</div>
-                <h3>Легкий Onboarding</h3>
-                <p>Ми навчимо ваших брокерів користуватися системою за 15 хвилин. Їм не треба нічого програмувати — вони просто отримуватимуть готові заявки.</p>
+            <div class="guarantee-card highlight">
+                <span class="g-icon">🛡️</span>
+                <h3>Гарантія результату 30 днів</h3>
+                <p>Якщо за 30 днів після запуску швидкість обробки лідів не зросте — ми переналаштовуємо все безкоштовно або повертаємо 100% коштів.</p>
             </div>
-            <div class="service-card" style="border: none; box-shadow: none; background: #fff1f2;">
-                <div class="icon-wrap" style="background: var(--white); color: var(--danger);">🛡️</div>
-                <h3 style="color: #991b1b;">Гарантія результату</h3>
-                <p>Якщо за 30 днів після запуску швидкість обробки лідів не зросте, ми переналаштуємо все безкоштовно, або повернемо 100% грошей за розробку.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="section-wrapper">
-        <div class="founder-card">
-            <div class="founder-photo">👨‍💼</div>
-            <div class="founder-text">
-                <h3>Давайте подивимося на математику вашої воронки</h3>
-                <p>Я — Ілля, засновник агентства <strong>SystemFlow</strong>. Ми розробляємо та впроваджуємо бізнес-автоматизації для компаній по всій Україні.</p>
-                <p>Наша відмінність у тому, що ми маємо економічний бекграунд. Ми не пишемо код заради коду. Ми шукаємо "вузькі місця", де ваш бізнес втрачає гроші, і закриваємо їх надійними системами.</p>
-                <p>Я не пропоную вам нічого купувати зараз. Натисніть кнопку нижче і забронюйте 15-хвилинний дзвінок. Ми розберемо ваш поточний процес. Якщо я побачу, що система принесе вам ROI — обговоримо співпрацю. Якщо ні — ви просто отримаєте безкоштовний аудит.</p>
+            <div class="guarantee-card">
+                <span class="g-icon">🔧</span>
+                <h3>Технічна підтримка після запуску</h3>
+                <p>Ми не "здаємо" систему і зникаємо. Супровід, оновлення логіки та оптимізація включені в перший місяць роботи.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="contact" class="contact-section">
-        <h2 class="section-title">Готові масштабувати продажі?</h2>
-        <p class="section-subtitle">Забронюйте стратегічну сесію. Без зобов'язань. Тільки цифри та факти.</p>
-        
-        <div class="form-container">
-            <form id="webhookForm">
-                <label for="name">Ваше ім'я та назва агентства</label>
-                <input type="text" id="name" name="name" placeholder="Наприклад: Олександр, АН 'Capital Real Estate'" required>
-                
-                <label for="tg_user_id">Ваш Telegram (username) або телефон</label>
-                <input type="text" id="tg_user_id" name="tg_user_id" placeholder="@username або +380..." required>
-                
-                <label for="lead_volume">Орієнтовна кількість лідів на місяць</label>
-                <select id="lead_volume" name="lead_volume" required>
-                    <option value="" disabled selected>Оберіть об'єм...</option>
-                    <option value="До 100 лідів">До 100 лідів</option>
-                    <option value="100 - 500 лідів">100 - 500 лідів</option>
-                    <option value="Більше 500 лідів">Більше 500 лідів</option>
-                </select>
+<!-- ── ABOUT ─────────────────────────────────────── -->
+<section id="about" class="section about-section">
+    <div class="section-inner">
+        <div class="about-card">
+            <div class="about-avatar">👨‍💻</div>
+            <div class="about-text">
+                <h3>Ілля Васильченко, засновник SystemFlow</h3>
+                <p>Я не продаю "технології" — я закриваю конкретні дірки у вашій воронці, де бізнес щодня втрачає гроші. Маю економічний бекграунд: спочатку рахую ROI, потім пишу код.</p>
+                <p>SystemFlow — це агенція AI-автоматизації для бізнесів по всій Україні. Ми не беремо всіх підряд: якщо я не бачу ROI для вашого кейсу — скажу про це чесно на першому дзвінку.</p>
+                <p>Натисніть нижче і отримайте <strong>безкоштовний 15-хвилинний аудит вашої воронки</strong>. Ви отримаєте конкретні цифри — скільки лідів губите і скільки це коштує.</p>
+                <div class="tag-row">
+                    <span class="tag">n8n</span>
+                    <span class="tag">OpenAI / Claude API</span>
+                    <span class="tag">Telegram Bot API</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">Docker / Proxmox</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-                <label for="crm">Яку CRM використовуєте зараз?</label>
-                <input type="text" id="crm" name="crm" placeholder="Наприклад: KeyCRM, Бітрікс24, Excel..." required>
-                
-                <button type="submit" id="submitBtn">Забронювати стратегічну сесію</button>
+<!-- ── CONTACT ─────────────────────────────────── -->
+<section id="contact" class="contact-section">
+    <div class="contact-inner">
+        <div class="section-head center">
+            <div class="s-label" style="color: #64748b;">Безкоштовний аудит</div>
+            <h2 class="s-title">Покажіть мені вашу воронку</h2>
+            <p class="s-sub">15-хв дзвінок. Без продажів і тиску. Тільки цифри — скільки зараз губите і що можна виправити.</p>
+        </div>
+        <div class="contact-form">
+            <form id="webhookForm" style="display:contents;">
+                <div class="form-row">
+                    <label for="name">Ваше ім'я та назва бізнесу</label>
+                    <input type="text" id="name" name="name" placeholder="Олександр, 'Авто-Ленд'" required>
+                </div>
+                <div class="form-row">
+                    <label for="tg_user_id">Telegram або телефон</label>
+                    <input type="text" id="tg_user_id" name="tg_user_id" placeholder="@username або +380..." required>
+                </div>
+                <div class="form-row">
+                    <label for="niche">Ваша ніша</label>
+                    <select id="niche" name="niche" required>
+                        <option value="" disabled selected>Оберіть нішу...</option>
+                        <option value="Нерухомість">🏡 Нерухомість / Агентство</option>
+                        <option value="Б'юті">💅 Б'юті: майстер або салон</option>
+                        <option value="СТО / Детейлінг">🚗 СТО / Детейлінг</option>
+                        <option value="Інше">📦 Інша ніша</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="lead_volume">Приблизна кількість лідів на місяць</label>
+                    <select id="lead_volume" name="lead_volume" required>
+                        <option value="" disabled selected>Оберіть об'єм...</option>
+                        <option value="До 50 лідів">До 50 лідів</option>
+                        <option value="50–200 лідів">50–200 лідів</option>
+                        <option value="Більше 200 лідів">Більше 200 лідів</option>
+                    </select>
+                </div>
+                <button type="submit" id="submitBtn" class="form-submit">
+                    Забронювати безкоштовний аудит →
+                </button>
+                <p class="form-disclaimer">Без зобов'язань. Я зв'яжуся протягом кількох годин.</p>
             </form>
         </div>
-    </section>
+    </div>
+</section>
 
-    <footer>
-        <p>&copy; 2026 SystemFlow. Автономні AI-системи для масштабування бізнесу.</p>
-    </footer>
+<!-- ── FOOTER ───────────────────────────────────── -->
+<footer>
+    <p>&copy; 2026 SystemFlow. AI-автоматизація для бізнесу в Україні. &nbsp;|&nbsp; <a href="https://t.me/ilya_vasylchenko">Telegram</a></p>
+</footer>
 
-    <a href="https://t.me/ilya_vasylchenko" target="_blank" class="floating-tg-btn" aria-label="Написати в Telegram">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.26-5.61 3.71-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.48-.83-.27-1.49-.41-1.43-.87.03-.24.35-.49.96-.75 3.78-1.65 6.3-2.73 7.55-3.26 3.59-1.5 4.33-1.76 4.81-1.77.11 0 .35.03.5.15.13.1.17.24.19.37.01.07.02.22.01.37z"/>
-        </svg>
-        <span>Зв'язок напряму</span>
-    </a>
-    
-    <script>
-        const form = document.getElementById('webhookForm');
-        const btn = document.getElementById('submitBtn');
-        
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const WEBHOOK_URL = 'https://elijah.thebeststore.website/webhook/leadtestform_mainsite';
+<!-- ── FLOATING TG ─────────────────────────────── -->
+<a href="https://t.me/ilya_vasylchenko" target="_blank" class="floating-tg-btn" aria-label="Написати в Telegram">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.26-5.61 3.71-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.48-.83-.27-1.49-.41-1.43-.87.03-.24.35-.49.96-.75 3.78-1.65 6.3-2.73 7.55-3.26 3.59-1.5 4.33-1.76 4.81-1.77.11 0 .35.03.5.15.13.1.17.24.19.37.01.07.02.22.01.37z"/>
+    </svg>
+    <span>Зв'язок напряму</span>
+</a>
 
-            btn.disabled = true;
-            btn.innerText = 'Бронювання часу...';
+<script>
+    const form = document.getElementById('webhookForm');
+    const btn = document.getElementById('submitBtn');
 
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-            if (data.tg_user_id) {
-                data.tg_user_id = data.tg_user_id.trim();
-            }
+        const WEBHOOK_URL = 'https://elijah.thebeststore.website/webhook/leadtestform_mainsite';
 
-            try {
-                const response = await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json'                        
-                    },
-                    body: JSON.stringify(data)
-                });
+        btn.disabled = true;
+        btn.innerText = 'Бронюємо час...';
 
-                if (response.ok) {
-                    alert('Запит успішно відправлено! Я зв\'яжуся з вами найближчим часом для погодження часу дзвінка.');
-                    form.reset();
-                } else {
-                    alert('Вибачте, сталася помилка сервера. Спробуйте пізніше або напишіть в Telegram.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Не вдалося з’єднатися з сервером. Перевірте підключення до інтернету.');
-            } finally {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        if (data.tg_user_id) data.tg_user_id = data.tg_user_id.trim();
+
+        try {
+            const response = await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                btn.innerText = '✓ Запит надіслано!';
+                btn.style.background = '#10b981';
+                form.reset();
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.innerText = 'Забронювати безкоштовний аудит →';
+                    btn.style.background = '';
+                }, 4000);
+            } else {
+                alert('Помилка сервера. Напишіть напряму в Telegram: @ilya_vasylchenko');
                 btn.disabled = false;
-                btn.innerText = 'Забронювати стратегічну сесію';
+                btn.innerText = 'Забронювати безкоштовний аудит →';
             }
-        });
-    </script>
+        } catch (error) {
+            alert('Немає зв\'язку з сервером. Напишіть напряму: @ilya_vasylchenko');
+            btn.disabled = false;
+            btn.innerText = 'Забронювати безкоштовний аудит →';
+        }
+    });
+</script>
+
 </body>
 </html>
