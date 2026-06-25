@@ -15,10 +15,10 @@
   "name": "SystemFlow",
   "description": "Агенція AI-автоматизації для бізнесу в Україні. Впроваджуємо автономні AI-системи, які відповідають клієнтам за 1 секунду, кваліфікують їх і закривають на запис 24/7.",
   "url": "https://systemflow.com.ua",
-  "logo": "https://systemflow.com.ua/services/logo.png",
-  "image": "https://systemflow.com.ua/services/og-image.jpg",
+  "logo": "https://systemflow.com.ua/logo.png",
+  "image": "https://systemflow.com.ua/og-image.jpg",
   "email": "elijah.vasylchenko@gmail.com",
-  "priceRange": "від ₴12 000",
+  "priceRange": "від ₴8 000",
   "areaServed": "UA",
   "address": {
     "@type": "PostalAddress",
@@ -48,6 +48,14 @@
     "@type": "OfferCatalog",
     "name": "AI-рішення для бізнесу",
     "itemListElement": [
+    {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Сайт-візитка що знаходять і Google, і ChatGPT",
+          "description": "Сайт з повним SEO + GEO: Schema.org розмітка LocalBusiness, AI-friendly контент. Ваш бізнес з'являється у відповідях Gemini, ChatGPT, Claude. А не тільки в пошуковій видачі."
+        }
+      },
       {
         "@type": "Offer",
         "itemOffered": {
@@ -488,6 +496,82 @@
         .theme-beauty .service-niche { color: #e11d48; }
         .theme-auto .service-icon { background: #fff7ed; }
         .theme-auto .service-niche { color: #ea580c; }
+        .theme-web .service-icon { background: #f5f3ff; }
+        .theme-web .service-niche { color: #7c3aed; }
+
+        /* Featured (full-width) service card */
+        .service-card.featured {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0;
+            align-items: stretch;
+        }
+        .service-card.featured .service-card-top {
+            padding: 40px 48px;
+        }
+        .service-card.featured .service-card-footer {
+            padding: 0 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-top: none;
+            border-left: 1px solid #e2e8f0;
+            min-width: 220px;
+            gap: 12px;
+            text-align: center;
+        }
+        .service-card.featured .service-card-footer .service-price {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--secondary);
+            display: block;
+        }
+        .service-card.featured .service-card-footer .service-price small {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-light);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .service-card.featured .service-results {
+            margin-top: 18px;
+        }
+        .service-card.featured .service-link-text {
+            font-size: 0.9rem;
+        }
+        .geo-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: linear-gradient(135deg, #7c3aed, #2563eb);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+        @media (max-width: 768px) {
+            .service-card.featured {
+                grid-template-columns: 1fr;
+            }
+            .service-card.featured .service-card-footer {
+                border-left: none;
+                border-top: 1px solid #e2e8f0;
+                padding: 24px 32px;
+                flex-direction: row;
+                justify-content: space-between;
+                min-width: unset;
+            }
+            .service-card.featured .service-card-top {
+                padding: 32px;
+            }
+        }
 
         /* ── HOW IT WORKS ────────────────────── */
         .how-section { background: var(--white); }
@@ -755,6 +839,156 @@
             .steps-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
             .steps-grid::before { display: none; }
         }
+        /* ── LOGOS STRIP ─────────────────────────── */
+        .logos-strip-section {
+            background: var(--secondary);
+            padding: 0 24px 48px;
+        }
+        .logos-strip-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .logos-strip-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #475569;
+            display: block;
+            margin-bottom: 20px;
+        }
+        .logos-strip {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .logo-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+        .logo-item:hover { opacity: 1; }
+        .logo-item span {
+            font-size: 0.7rem;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .logos-strip-trust {
+            display: block;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #475569;
+        }
+
+        /* ── ROI CALCULATOR ─────────────────────── */
+        .roi-calc-wrap { margin-top: 32px; }
+        .roi-inputs {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+        .roi-input-group { display: flex; flex-direction: column; gap: 6px; }
+        .roi-input-group label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+        }
+        .roi-input-row {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 8px;
+            padding: 2px 12px;
+        }
+        .roi-input-row input {
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: 'Sora', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #ffffff;
+            width: 110px;
+            text-align: center;
+            padding: 8px 4px;
+        }
+        .roi-input-row input::-webkit-inner-spin-button { opacity: 0.4; }
+        .roi-currency { color: #64748b; font-weight: 700; font-size: 1rem; }
+        .roi-results {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .roi-result-item {
+            text-align: center;
+            padding: 20px 24px;
+            border-radius: 12px;
+            min-width: 120px;
+        }
+        .roi-result-item.bad { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); }
+        .roi-result-item.good { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); }
+        .roi-result-label { font-size: 0.7rem; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+        .roi-result-val { font-family: 'Sora', sans-serif; font-size: 1.6rem; font-weight: 800; color: #ffffff; }
+        .roi-result-val.red { color: #f87171; }
+        .roi-result-val.green { color: var(--accent); }
+        .roi-result-arrow { font-size: 1.2rem; color: #475569; font-weight: 700; }
+        .roi-conclusion {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 16px 24px;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+        .roi-conclusion strong { color: #e2e8f0; }
+
+        /* ── ABOUT PHOTO ─────────────────────────── */
+        .about-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .about-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .about-avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), #7c3aed);
+            align-items: center;
+            justify-content: center;
+            font-family: 'Sora', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
         @media (max-width: 768px) {
             .hero { padding: 80px 24px 70px; }
             .hero-proof { gap: 20px; }
@@ -805,7 +1039,7 @@
             <a href="#pain">Проблема</a>
             <a href="#services">Послуги</a>
             <a href="#offer">Умови</a>
-            <a href="#contact" class="nav-btn">Отримати аудит →</a>
+            <a href="#contact" class="nav-btn">Безкоштовне демо →</a>
         </nav>
     </div>
 </header>
@@ -819,11 +1053,11 @@
             <em>поки ви спите</em>
         </h1>
         <p class="hero-sub">
-            Впроваджуємо автономні AI-системи, які відповідають клієнтам за 1 секунду, 
+            Впроваджуємо автономні AI-системи, які відповідають клієнтам за 1 секунду,
             кваліфікують їх і закривають на запис — 24/7, без менеджера.
         </p>
         <div class="hero-cta-row">
-            <a href="#contact" class="btn-primary">Розрахувати ROI для мого бізнесу</a>
+            <a href="#contact" class="btn-primary">📅 Отримати безкоштовне демо</a>
             <a href="#services" class="btn-ghost">
                 Обрати свою нішу
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -850,6 +1084,44 @@
                 <div class="proof-label">перевірені вертикалі</div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- ── LOGOS STRIP ──────────────────────────────── -->
+<section class="logos-strip-section">
+    <div class="logos-strip-inner">
+        <span class="logos-strip-label">Працює на базі</span>
+        <div class="logos-strip">
+            <div class="logo-item">
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#F25A2B"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">n8n</text></svg>
+                <span>n8n</span>
+            </div>
+            <div class="logo-item">
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#229ED9"/><path d="M20 8L8 20l5 2 2 10 5-6 6 4 4-16-10-6z" fill="#fff"/></svg>
+                <span>Telegram</span>
+            </div>
+            <div class="logo-item">
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#10a37f"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">GPT</text></svg>
+                <span>OpenAI</span>
+            </div>
+            <div class="logo-item">
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#cc785c"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">ANT</text></svg>
+                <span>Claude AI</span>
+            </div>
+            <div class="logo-item">
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#0069FF"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">Cal</text></svg>
+                <span>Cal.com</span>
+            </div>
+            <div class="logo-item">
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#2d6ef0"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold" font-family="sans-serif">CRM</text></svg>
+                <span>KeyCRM</span>
+            </div>
+            <div class="logo-item">
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#003087"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="7" font-weight="bold" font-family="sans-serif">HubSpot</text></svg>
+                <span>HubSpot</span>
+            </div>
+        </div>
+        <span class="logos-strip-trust">Використовується у 12+ бізнесах України</span>
     </div>
 </section>
 
@@ -891,26 +1163,56 @@
     <div class="tax-box">
         <div class="s-label" style="color: #64748b;">Математика вашого бізнесу</div>
         <h2 class="s-title">Скільки коштує одна невідповідь?</h2>
-        <div class="tax-calc">
-            <div class="tax-item">
-                <div class="tax-item-label">Ваш середній чек</div>
-                <div class="tax-item-val">₴3 000</div>
+        <!-- Інтерактивний ROI калькулятор -->
+        <div class="roi-calc-wrap">
+            <div class="roi-inputs">
+                <div class="roi-input-group">
+                    <label>Ваш середній чек</label>
+                    <div class="roi-input-row">
+                        <span class="roi-currency">₴</span>
+                        <input type="number" id="roi_check" value="3000" min="500" max="100000" step="500">
+                    </div>
+                </div>
+                <div class="roi-input-group">
+                    <label>Лідів на місяць</label>
+                    <div class="roi-input-row">
+                        <input type="number" id="roi_leads" value="30" min="5" max="500" step="5">
+                    </div>
+                </div>
+                <div class="roi-input-group">
+                    <label>% нічних/вихідних</label>
+                    <div class="roi-input-row">
+                        <input type="number" id="roi_pct" value="30" min="5" max="70" step="5">
+                        <span class="roi-currency">%</span>
+                    </div>
+                </div>
             </div>
-            <div class="tax-op">×</div>
-            <div class="tax-item">
-                <div class="tax-item-label">Втрачених лідів на місяць</div>
-                <div class="tax-item-val">5–10</div>
+            <div class="roi-results">
+                <div class="roi-result-item bad">
+                    <div class="roi-result-label">Губите лідів/місяць</div>
+                    <div class="roi-result-val" id="res_lost_leads">9</div>
+                </div>
+                <div class="roi-result-arrow">→</div>
+                <div class="roi-result-item bad">
+                    <div class="roi-result-label">Втрати за рік</div>
+                    <div class="roi-result-val red" id="res_lost_year">₴324 000</div>
+                </div>
+                <div class="roi-result-arrow">vs</div>
+                <div class="roi-result-item good">
+                    <div class="roi-result-label">Вартість системи</div>
+                    <div class="roi-result-val green">від ₴12 000</div>
+                </div>
+                <div class="roi-result-arrow">→</div>
+                <div class="roi-result-item good">
+                    <div class="roi-result-label">ROI за рік</div>
+                    <div class="roi-result-val green" id="res_roi">27x</div>
+                </div>
             </div>
-            <div class="tax-op">=</div>
-            <div class="tax-item">
-                <div class="tax-item-label">Втрачено за рік</div>
-                <div class="tax-item-val red">₴180 000+</div>
+            <div class="roi-conclusion">
+                Система повертає інвестицію з <strong id="res_payback">першого ж</strong> збереженого клієнта.
+                Це <strong>не витрата</strong> — це страховка вашої воронки.
             </div>
         </div>
-        <div class="tax-conclusion">
-            Це <strong>не витрати на автоматизацію</strong> — це ціна бездії. Система окупається з першого врятованого клієнта.
-        </div>
-        <p class="tax-answer">Впровадження коштує як частина одного втраченого продажу.</p>
     </div>
 </section>
 
@@ -924,6 +1226,35 @@
         </div>
 
         <div class="services-grid">
+
+            <!-- Веб + SEO + GEO (featured — перша послуга) -->
+            <a href="https://elijahvasylchenko.github.io/services/website" class="service-card theme-web featured">
+                <div class="service-card-top">
+                    <div class="geo-badge">✦ Нова послуга</div>
+                    <div class="service-icon">🌐</div>
+                    <span class="service-niche">Будь-яка ніша</span>
+                    <h3>Сайт-візитка що знаходять і Google, і ChatGPT</h3>
+                    <p>Більшість клієнтів вже питають AI: "яке СТО / салон / агентство в моєму місті?" — і отримують відповідь без Google. Ми будуємо сайт з <strong>повним SEO + GEO</strong>: Schema.org розмітка, LocalBusiness, AI-friendly контент. Ваш бізнес з'являється у відповідях ChatGPT, Perplexity та Bing AI, а не тільки в пошуковій видачі.</p>
+                    <div class="service-results">
+                        <span class="result-pill">🔍 SEO: Google / Bing</span>
+                        <span class="result-pill">🤖 GEO: ChatGPT / Perplexity</span>
+                        <span class="result-pill">Schema.org + LocalBusiness</span>
+                        <span class="result-pill">Мобільна версія</span>
+                        <span class="result-pill">Форма + Telegram кнопка</span>
+                        <span class="result-pill">Термін: 7–10 днів</span>
+                    </div>
+                </div>
+                <div class="service-card-footer">
+                    <div class="service-price">
+                        <small>Вартість від</small>
+                        ₴8 000
+                    </div>
+                    <span class="service-link-text">Замовити сайт</span>
+                    <span class="service-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                </div>
+            </a>
 
             <!-- Нерухомість -->
             <a href="https://elijahvasylchenko.github.io/services/real_estate_ai" class="service-card theme-estate">
@@ -1082,7 +1413,7 @@
                 </div>
                 <div class="footnote">Основна частина — лише після того, як ви побачили систему в дії</div>
             </div>
-            <a href="#contact" class="offer-cta-btn">Хочу свій аудит →</a>
+            <a href="#contact" class="offer-cta-btn">Забронювати демо →</a>
         </div>
     </div>
 </section>
@@ -1118,7 +1449,13 @@
 <section id="about" class="section about-section">
     <div class="section-inner">
         <div class="about-card">
-            <div class="about-avatar">👨‍💻</div>
+            <div class="about-avatar">
+                <!-- TODO: замінити src на реальне фото -->
+                <img src="https://elijahvasylchenko.github.io/services/illia-photo.jpg"
+                     alt="Ілля Васильченко, засновник SystemFlow"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div class="about-avatar-placeholder" style="display:none;">ІВ</div>
+            </div>
             <div class="about-text">
                 <h3>Ілля Васильченко, засновник SystemFlow</h3>
                 <p>Я не продаю "технології" — я закриваю конкретні дірки у вашій воронці, де бізнес щодня втрачає гроші. Маю економічний бекграунд: спочатку рахую ROI, потім пишу код.</p>
@@ -1238,6 +1575,52 @@
             btn.innerText = 'Забронювати безкоштовний аудит →';
         }
     });
+</script>
+
+<!-- ROI Calculator JS -->
+<script>
+(function() {
+    const checkEl   = document.getElementById('roi_check');
+    const leadsEl   = document.getElementById('roi_leads');
+    const pctEl     = document.getElementById('roi_pct');
+    const lostLeads = document.getElementById('res_lost_leads');
+    const lostYear  = document.getElementById('res_lost_year');
+    const roiEl     = document.getElementById('res_roi');
+    const paybackEl = document.getElementById('res_payback');
+
+    if (!checkEl) return;
+
+    function fmt(n) {
+        return '₴' + Math.round(n).toLocaleString('uk-UA');
+    }
+
+    function calc() {
+        const check   = parseFloat(checkEl.value)  || 3000;
+        const leads   = parseFloat(leadsEl.value)   || 30;
+        const pct     = parseFloat(pctEl.value)     || 30;
+
+        const lostPerMonth = Math.round(leads * (pct / 100) * 0.6); // ~60% не відповідаємо
+        const lostPerYear  = lostPerMonth * 12 * check;
+        const systemCost   = 12000;
+        const roi          = Math.round(lostPerYear / systemCost);
+        const paybackMonths = Math.ceil(systemCost / (lostPerMonth * check));
+
+        lostLeads.textContent = lostPerMonth;
+        lostYear.textContent  = fmt(lostPerYear) + '+';
+        roiEl.textContent     = roi + 'x';
+
+        if (paybackMonths <= 1) {
+            paybackEl.textContent = 'першого ж';
+        } else if (paybackMonths <= 2) {
+            paybackEl.textContent = 'перших двох';
+        } else {
+            paybackEl.textContent = paybackMonths + ' збережених';
+        }
+    }
+
+    [checkEl, leadsEl, pctEl].forEach(el => el.addEventListener('input', calc));
+    calc();
+})();
 </script>
 
 </body>
