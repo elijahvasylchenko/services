@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0EV8TPJ615"></script>
     <script>
      window.dataLayer = window.dataLayer || [];
@@ -84,23 +86,19 @@
   }
 }
   </script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name='freelancehunt' content='a5253916e90d67e'>
-
     <title>SystemFlow — AI-автоматизація для бізнесу в Україні</title>
     <meta name="description" content="Впроваджуємо автономні AI-системи для ніш нерухомості, б'юті та авто-сервісу. Ваш бізнес обробляє ліди 24/7 без менеджера.">
     <meta name="keywords" content="AI автоматизація бізнес, AI для нерухомості, AI для б'юті, AI для СТО, Telegram бот автозапис, SystemFlow Україна">
     <meta name="author" content="SystemFlow">
-
     <meta property="og:title" content="SystemFlow — Ваш бізнес продає, поки ви відпочиваєте" />
     <meta property="og:description" content="AI-системи, що захоплюють і кваліфікують лідів 24/7. Для нерухомості, б'юті та авто-сервісу." />
     <meta property="og:type" content="website" />
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Шрифти більше не блокують рендер: вантажаться з низьким пріоритетом і перемикаються на 'all' після завантаження -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;700;800&display=swap" rel="stylesheet"></noscript>
     <style>
         :root {
             --primary: #2563eb;
@@ -111,13 +109,13 @@
             --white: #ffffff;
             --text-main: #334155;
             --text-light: #64748b;
+            --text-muted-dark: #94a3b8;
             --accent: #10b981;
             --danger: #ef4444;
             --radius: 14px;
             --shadow: 0 10px 30px rgba(0,0,0,0.07);
             --shadow-lg: 0 25px 50px rgba(0,0,0,0.12);
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
@@ -127,7 +125,6 @@
             line-height: 1.65;
             -webkit-font-smoothing: antialiased;
         }
-
         /* ── NAV ─────────────────────────────── */
         header {
             background: rgba(255,255,255,0.92);
@@ -162,7 +159,6 @@
             box-shadow: 0 4px 12px rgba(37,99,235,0.25);
         }
         .nav-btn:hover { background: var(--primary-hover) !important; transform: translateY(-1px); }
-
         /* ── HERO ────────────────────────────── */
         .hero {
             margin-top: 70px;
@@ -261,9 +257,8 @@
         .proof-item { text-align: center; }
         .proof-num { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: #ffffff; line-height: 1; }
         .proof-num span { color: var(--accent); }
-        .proof-label { font-size: 0.8rem; color: #64748b; font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .proof-label { font-size: 0.8rem; color: var(--text-muted-dark); font-weight: 500; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
         .proof-divider { width: 1px; height: 48px; background: rgba(255,255,255,0.08); }
-
         /* ── SECTION BOILERPLATE ─────────────── */
         .section { padding: 100px 24px; }
         .section-inner { max-width: 1200px; margin: 0 auto; }
@@ -293,7 +288,6 @@
         .section-head.center { text-align: center; }
         .section-head.center .s-label,
         .section-head.center .s-sub { margin-left: auto; margin-right: auto; }
-
         /* ── PAIN SECTION ────────────────────── */
         .pain-section { background: var(--white); }
         .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -304,7 +298,7 @@
         }
         .pain-card.bad {
             background: #fff5f5;
-            border: 1px solid #fecaca;Update
+            border: 1px solid #fecaca;
             border-top: 4px solid var(--danger);
         }
         .pain-card.good {
@@ -331,7 +325,6 @@
         }
         .pain-card.bad .pain-list li::before { content: '✗'; position: absolute; left: 0; color: var(--danger); font-weight: 800; font-size: 1rem; }
         .pain-card.good .pain-list li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: 800; font-size: 1rem; }
-
         /* ── TAX SECTION ─────────────────────── */
         .tax-section {
             background: var(--secondary);
@@ -359,15 +352,15 @@
             padding: 32px 24px;
         }
         .tax-item { text-align: center; }
-        .tax-item-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #64748b; margin-bottom: 8px; font-weight: 600; }
+        .tax-item-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted-dark); margin-bottom: 8px; font-weight: 600; }
         .tax-item-val { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: #ffffff; }
         .tax-item-val.red { color: #f87171; }
-        .tax-op { font-size: 2rem; color: #334155; font-weight: 300; }
+        .tax-op { font-size: 2rem; color: var(--text-muted-dark); font-weight: 300; }
         .tax-conclusion {
             background: rgba(239,68,68,0.1);
             border: 1px solid rgba(239,68,68,0.2);
             border-radius: 10px;
-            padding: 20px 28px;Update
+            padding: 20px 28px;
             font-size: 1.05rem;
             font-weight: 600;
             color: #fca5a5;
@@ -379,7 +372,6 @@
             color: var(--accent);
             font-weight: 600;
         }
-
         /* ── SERVICES ────────────────────────── */
         .services-section { background: var(--bg-light); }
         .services-grid {
@@ -419,7 +411,7 @@
             margin-bottom: 20px;
         }
         .service-niche {
-            font-size: 0.7rem;Update
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -488,7 +480,6 @@
         }
         .service-arrow svg { width: 14px; height: 14px; stroke: var(--primary); }
         .service-card:hover .service-arrow svg { stroke: var(--white); }
-
         /* Niche color themes */
         .theme-estate .service-icon { background: #eff6ff; }
         .theme-estate .service-niche { color: #2563eb; }
@@ -498,7 +489,6 @@
         .theme-auto .service-niche { color: #ea580c; }
         .theme-web .service-icon { background: #f5f3ff; }
         .theme-web .service-niche { color: #7c3aed; }
-
         /* Featured (full-width) service card */
         .service-card.featured {
             grid-column: 1 / -1;
@@ -572,7 +562,6 @@
                 padding: 32px;
             }
         }
-
         /* ── HOW IT WORKS ────────────────────── */
         .how-section { background: var(--white); }
         .steps-grid {
@@ -612,7 +601,8 @@
             color: var(--primary);
             margin: 0 auto 24px;
         }
-        .step h4 {
+        /* h3 замість h4 — щоб не пропускати рівень заголовків (було h2 → h4) */
+        .step h3 {
             font-family: 'Sora', sans-serif;
             font-size: 1.05rem;
             font-weight: 700;
@@ -620,7 +610,6 @@
             margin-bottom: 10px;
         }
         .step p { font-size: 0.9rem; color: var(--text-light); }
-
         /* ── OFFER STACK ─────────────────────── */
         .offer-section { background: var(--secondary); padding: 100px 24px; }
         .offer-inner { max-width: 1000px; margin: 0 auto; }
@@ -655,7 +644,8 @@
             font-size: 0.9rem;
             flex-shrink: 0;
         }
-        .offer-text h4 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+        /* h3 замість h4 — той самий фікс порядку заголовків, що і в .step */
+        .offer-text h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
         .offer-text p { font-size: 0.9rem; color: #94a3b8; }
         .offer-value-row {
             display: flex;
@@ -669,10 +659,10 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-        .offer-value-text .top { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: #64748b; margin-bottom: 6px; font-weight: 600; }
+        .offer-value-text .top { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted-dark); margin-bottom: 6px; font-weight: 600; }
         .offer-value-text .val { font-family: 'Sora', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--white); }
-        .offer-value-text .val .del { color: #475569; text-decoration: line-through; font-size: 1.2rem; margin-right: 8px; }
-        .offer-value-text .footnote { font-size: 0.85rem; color: #64748b; margin-top: 4px; }
+        .offer-value-text .val .del { color: var(--text-muted-dark); text-decoration: line-through; font-size: 1.2rem; margin-right: 8px; }
+        .offer-value-text .footnote { font-size: 0.85rem; color: var(--text-muted-dark); margin-top: 4px; }
         .offer-cta-btn {
             display: inline-block;
             background: var(--primary);
@@ -687,7 +677,6 @@
             white-space: nowrap;
         }
         .offer-cta-btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
-
         /* ── GUARANTEE ───────────────────────── */
         .guarantee-section { background: var(--bg-light); }
         .guarantee-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -709,7 +698,6 @@
         .guarantee-card h3 { font-family: 'Sora', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--secondary); margin-bottom: 10px; }
         .guarantee-card p { font-size: 0.9rem; color: var(--text-light); line-height: 1.6; }
         .guarantee-card.highlight h3 { color: #991b1b; }
-
         /* ── ABOUT ───────────────────────────── */
         .about-section { background: var(--white); }
         .about-card {
@@ -721,18 +709,6 @@
             grid-template-columns: auto 1fr;
             gap: 56px;
             align-items: center;
-        }
-        .about-avatar {
-            width: 140px;
-            height: 140px;
-            background: linear-gradient(135deg, #eff6ff, #dbeafe);
-            border-radius: 50%;
-            border: 4px solid #bfdbfe;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-            flex-shrink: 0;
         }
         .about-text h3 { font-family: 'Sora', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--secondary); margin-bottom: 16px; }
         .about-text p { font-size: 1rem; color: var(--text-main); line-height: 1.7; margin-bottom: 14px; }
@@ -748,7 +724,6 @@
             padding: 6px 14px;
             border-radius: 50px;
         }
-
         /* ── CONTACT FORM ────────────────────── */
         .contact-section { background: var(--secondary); padding: 100px 24px; }
         .contact-inner { max-width: 640px; margin: 0 auto; }
@@ -774,8 +749,8 @@
             color: #f1f5f9;
             transition: all 0.25s;
         }
-        input::placeholder { color: #64748b; }
-        select { color: #64748b; }
+        input::placeholder { color: var(--text-muted-dark); }
+        select { color: var(--text-muted-dark); }
         select option { background: #1e293b; color: #f1f5f9; }
         input:focus, select:focus {
             outline: none;
@@ -798,19 +773,18 @@
         }
         .form-submit:hover { background: var(--primary-hover); transform: translateY(-2px); }
         .form-submit:disabled { background: #475569; cursor: not-allowed; transform: none; box-shadow: none; }
-        .form-disclaimer { font-size: 0.8rem; color: #475569; text-align: center; }
-
+        .form-disclaimer { font-size: 0.8rem; color: var(--text-muted-dark); text-align: center; }
         /* ── FOOTER ──────────────────────────── */
         footer {
             background: #020617;
             padding: 32px 24px;
             text-align: center;
-            color: #475569;
+            color: var(--text-muted-dark);
             font-size: 0.9rem;
         }
-        footer a { color: #64748b; text-decoration: none; }
-        footer a:hover { color: #94a3b8; }
-
+        /* underline — щоб посилання не розрізнялись тільки кольором */
+        footer a { color: var(--text-muted-dark); text-decoration: underline; }
+        footer a:hover { color: #ffffff; }
         /* ── FLOATING TG ─────────────────────── */
         .floating-tg-btn {
             position: fixed;
@@ -832,7 +806,6 @@
         }
         .floating-tg-btn:hover { transform: translateY(-3px) scale(1.04); color: #ffffff; }
         .floating-tg-btn svg { width: 20px; height: 20px; fill: currentColor; flex-shrink: 0; }
-
         /* ── RESPONSIVE ──────────────────────── */
         @media (max-width: 1024px) {
             .services-grid { grid-template-columns: 1fr 1fr; }
@@ -854,7 +827,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: #475569;
+            color: var(--text-muted-dark);
             display: block;
             margin-bottom: 20px;
         }
@@ -876,7 +849,7 @@
         .logo-item:hover { opacity: 1; }
         .logo-item span {
             font-size: 0.7rem;
-            color: #64748b;
+            color: var(--text-muted-dark);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -885,9 +858,8 @@
             display: block;
             margin-top: 20px;
             font-size: 0.8rem;
-            color: #475569;
+            color: var(--text-muted-dark);
         }
-
         /* ── ROI CALCULATOR ─────────────────────── */
         .roi-calc-wrap { margin-top: 32px; }
         .roi-inputs {
@@ -903,7 +875,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #64748b;
+            color: var(--text-muted-dark);
         }
         .roi-input-row {
             display: flex;
@@ -926,7 +898,7 @@
             padding: 8px 4px;
         }
         .roi-input-row input::-webkit-inner-spin-button { opacity: 0.4; }
-        .roi-currency { color: #64748b; font-weight: 700; font-size: 1rem; }
+        .roi-currency { color: var(--text-muted-dark); font-weight: 700; font-size: 1rem; }
         .roi-results {
             display: flex;
             align-items: center;
@@ -947,7 +919,7 @@
         .roi-result-val { font-family: 'Sora', sans-serif; font-size: 1.6rem; font-weight: 800; color: #ffffff; }
         .roi-result-val.red { color: #f87171; }
         .roi-result-val.green { color: var(--accent); }
-        .roi-result-arrow { font-size: 1.2rem; color: #475569; font-weight: 700; }
+        .roi-result-arrow { font-size: 1.2rem; color: var(--text-muted-dark); font-weight: 700; }
         .roi-conclusion {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.08);
@@ -958,7 +930,6 @@
             text-align: center;
         }
         .roi-conclusion strong { color: #e2e8f0; }
-
         /* ── ABOUT PHOTO ─────────────────────────── */
         .about-avatar {
             width: 140px;
@@ -988,7 +959,6 @@
             font-weight: 800;
             color: #fff;
         }
-
         @media (max-width: 768px) {
             .hero { padding: 80px 24px 70px; }
             .hero-proof { gap: 20px; }
@@ -1013,7 +983,6 @@
             .steps-grid { grid-template-columns: 1fr; }
             .hero-cta-row { flex-direction: column; align-items: center; }
         }
-
         /* ── ANIMATIONS ──────────────────────── */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(24px); }
@@ -1030,11 +999,10 @@
     </style>
 </head>
 <body>
-
 <!-- ── HEADER ─────────────────────────────────── -->
 <header>
     <div class="nav-container">
-        <a href="https://elijahvasylchenko.github.io/services/" class="logo">System<span>Flow</span></a>
+        <a href="/" class="logo">System<span>Flow</span></a>
         <nav class="nav-links">
             <a href="#pain">Проблема</a>
             <a href="#services">Послуги</a>
@@ -1043,7 +1011,7 @@
         </nav>
     </div>
 </header>
-
+<main>
 <!-- ── HERO ───────────────────────────────────── -->
 <section class="hero">
     <div class="hero-inner">
@@ -1060,7 +1028,7 @@
             <a href="#contact" class="btn-primary">📅 Отримати безкоштовне демо</a>
             <a href="#services" class="btn-ghost">
                 Обрати свою нішу
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </a>
         </div>
         <div class="hero-proof">
@@ -1086,45 +1054,43 @@
         </div>
     </div>
 </section>
-
 <!-- ── LOGOS STRIP ──────────────────────────────── -->
 <section class="logos-strip-section">
     <div class="logos-strip-inner">
         <span class="logos-strip-label">Працює на базі</span>
         <div class="logos-strip">
             <div class="logo-item">
-                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#F25A2B"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">n8n</text></svg>
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#F25A2B"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" font-family="sans-serif">n8n</text></svg>
                 <span>n8n</span>
             </div>
             <div class="logo-item">
-                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#229ED9"/><path d="M20 8L8 20l5 2 2 10 5-6 6 4 4-16-10-6z" fill="#fff"/></svg>
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#229ED9"/><path d="M20 8L8 20l5 2 2 10 5-6 6 4 4-16-10-6z" fill="#fff"/></svg>
                 <span>Telegram</span>
             </div>
             <div class="logo-item">
-                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#10a37f"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">GPT</text></svg>
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#10a37f"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">GPT</text></svg>
                 <span>OpenAI</span>
             </div>
             <div class="logo-item">
-                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#cc785c"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">ANT</text></svg>
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#cc785c"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">ANT</text></svg>
                 <span>Claude AI</span>
             </div>
             <div class="logo-item">
-                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#0069FF"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">Cal</text></svg>
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#0069FF"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="9" font-weight="bold" font-family="sans-serif">Cal</text></svg>
                 <span>Cal.com</span>
             </div>
             <div class="logo-item">
-                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#2d6ef0"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold" font-family="sans-serif">CRM</text></svg>
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#2d6ef0"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold" font-family="sans-serif">CRM</text></svg>
                 <span>KeyCRM</span>
             </div>
             <div class="logo-item">
-                <svg width="28" height="28" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#003087"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="7" font-weight="bold" font-family="sans-serif">HubSpot</text></svg>
+                <svg width="28" height="28" viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#003087"/><text x="50%" y="57%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-size="7" font-weight="bold" font-family="sans-serif">HubSpot</text></svg>
                 <span>HubSpot</span>
             </div>
         </div>
         <span class="logos-strip-trust">Використовується у 12+ бізнесах України</span>
     </div>
 </section>
-
 <!-- ── PAIN / DREAM ────────────────────────────── -->
 <section id="pain" class="section pain-section">
     <div class="section-inner">
@@ -1157,7 +1123,6 @@
         </div>
     </div>
 </section>
-
 <!-- ── TAX SECTION ─────────────────────────────── -->
 <section class="tax-section">
     <div class="tax-box">
@@ -1167,20 +1132,20 @@
         <div class="roi-calc-wrap">
             <div class="roi-inputs">
                 <div class="roi-input-group">
-                    <label>Ваш середній чек</label>
+                    <label for="roi_check">Ваш середній чек</label>
                     <div class="roi-input-row">
                         <span class="roi-currency">₴</span>
                         <input type="number" id="roi_check" value="3000" min="500" max="100000" step="500">
                     </div>
                 </div>
                 <div class="roi-input-group">
-                    <label>Лідів на місяць</label>
+                    <label for="roi_leads">Лідів на місяць</label>
                     <div class="roi-input-row">
                         <input type="number" id="roi_leads" value="30" min="5" max="500" step="5">
                     </div>
                 </div>
                 <div class="roi-input-group">
-                    <label>% нічних/вихідних</label>
+                    <label for="roi_pct">% нічних/вихідних</label>
                     <div class="roi-input-row">
                         <input type="number" id="roi_pct" value="30" min="5" max="70" step="5">
                         <span class="roi-currency">%</span>
@@ -1215,7 +1180,6 @@
         </div>
     </div>
 </section>
-
 <!-- ── SERVICES ────────────────────────────────── -->
 <section id="services" class="section services-section">
     <div class="section-inner">
@@ -1224,11 +1188,13 @@
             <h2 class="s-title">Обрати своє рішення</h2>
             <p class="s-sub">Ми не робимо "ботів для всіх". Кожна система заточена під конкретну нішу — з урахуванням її болей, воронки та метрик ROI.</p>
         </div>
-
         <div class="services-grid">
-
             <!-- Веб + SEO + GEO (featured — перша послуга) -->
-            <a href="https://elijahvasylchenko.github.io/services/website-seo-geo" class="service-card theme-web featured">
+            <!-- ВАЖЛИВО: посилання переведені на канонічний домен systemflow.com.ua.
+                 Спрацює тільки якщо сторінки послуг фізично доступні за цими шляхами
+                 на цьому ж домені (перенеси їх з elijahvasylchenko.github.io/services/
+                 або постав туди canonical на systemflow.com.ua) -->
+            <a href="/services/website-seo-geo" class="service-card theme-web featured">
                 <div class="service-card-top">
                     <div class="geo-badge">✦ Нова послуга</div>
                     <div class="service-icon">🌐</div>
@@ -1251,13 +1217,12 @@
                     </div>
                     <span class="service-link-text">Замовити сайт</span>
                     <span class="service-arrow">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </span>
                 </div>
             </a>
-
             <!-- Нерухомість -->
-            <a href="https://elijahvasylchenko.github.io/services/real_estate_ai" class="service-card theme-estate">
+            <a href="/services/real_estate_ai" class="service-card theme-estate">
                 <div class="service-card-top">
                     <div class="service-icon">🏡</div>
                     <span class="service-niche">Нерухомість</span>
@@ -1271,13 +1236,12 @@
                 <div class="service-card-footer">
                     <span class="service-link-text">Детальніше про рішення</span>
                     <span class="service-arrow">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </span>
                 </div>
             </a>
-
             <!-- Б'юті -->
-            <a href="https://elijahvasylchenko.github.io/services/beauty" class="service-card theme-beauty">
+            <a href="/services/beauty" class="service-card theme-beauty">
                 <div class="service-card-top">
                     <div class="service-icon">💅</div>
                     <span class="service-niche">Б'юті-ніша</span>
@@ -1291,13 +1255,12 @@
                 <div class="service-card-footer">
                     <span class="service-link-text">Детальніше про рішення</span>
                     <span class="service-arrow">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </span>
                 </div>
             </a>
-
             <!-- СТО / Детейлінг -->
-            <a href="https://elijahvasylchenko.github.io/services/automanager" class="service-card theme-auto">
+            <a href="/services/automanager" class="service-card theme-auto">
                 <div class="service-card-top">
                     <div class="service-icon">🚗</div>
                     <span class="service-niche">СТО / Детейлінг</span>
@@ -1311,15 +1274,13 @@
                 <div class="service-card-footer">
                     <span class="service-link-text">Детальніше про рішення</span>
                     <span class="service-arrow">
-                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </span>
                 </div>
             </a>
-
         </div>
     </div>
 </section>
-
 <!-- ── HOW IT WORKS ─────────────────────────────── -->
 <section class="section how-section">
     <div class="section-inner">
@@ -1331,28 +1292,27 @@
         <div class="steps-grid">
             <div class="step">
                 <div class="step-num">1</div>
-                <h4>Аудит воронки</h4>
+                <h3>Аудит воронки</h3>
                 <p>15-хв дзвінок — знаходимо, де саме ваш бізнес втрачає гроші прямо зараз.</p>
             </div>
             <div class="step">
                 <div class="step-num">2</div>
-                <h4>Розробка системи</h4>
+                <h3>Розробка системи</h3>
                 <p>Налаштовуємо AI під вашу нішу: скрипти, кваліфікація, логіка роботи з вашою базою.</p>
             </div>
             <div class="step">
                 <div class="step-num">3</div>
-                <h4>Тест на реальних лідах</h4>
+                <h3>Тест на реальних лідах</h3>
                 <p>Система запускається на живому трафіку. Ви бачите результат ще до фінального платежу.</p>
             </div>
             <div class="step">
                 <div class="step-num">4</div>
-                <h4>Запуск і супровід</h4>
+                <h3>Запуск і супровід</h3>
                 <p>Онбординг команди за 15 хвилин. Підтримка і оптимізація після запуску.</p>
             </div>
         </div>
     </div>
 </section>
-
 <!-- ── OFFER STACK ──────────────────────────────── -->
 <section id="offer" class="offer-section">
     <div class="offer-inner">
@@ -1365,42 +1325,42 @@
             <div class="offer-item">
                 <div class="offer-check">⚡</div>
                 <div class="offer-text">
-                    <h4>AI-асистент 24/7 у Telegram / Instagram / сайті</h4>
+                    <h3>AI-асистент 24/7 у Telegram / Instagram / сайті</h3>
                     <p>Відповідає в першу секунду, веде клієнта по скрипту, не спить і не бере вихідних.</p>
                 </div>
             </div>
             <div class="offer-item">
                 <div class="offer-check">🎯</div>
                 <div class="offer-text">
-                    <h4>Автоматична кваліфікація лідів</h4>
+                    <h3>Автоматична кваліфікація лідів</h3>
                     <p>Визначає бюджет, потребу і готовність до угоди. Нецільові не доходять до вашої команди.</p>
                 </div>
             </div>
             <div class="offer-item">
                 <div class="offer-check">🔄</div>
                 <div class="offer-text">
-                    <h4>Інтеграція з CRM або Calendar</h4>
+                    <h3>Інтеграція з CRM або Calendar</h3>
                     <p>Готові ліди автоматично потрапляють у KeyCRM, HubSpot або Cal.com — без копіювання вручну.</p>
                 </div>
             </div>
             <div class="offer-item">
                 <div class="offer-check">📊</div>
                 <div class="offer-text">
-                    <h4>Дашборд і аналітика для власника</h4>
+                    <h3>Дашборд і аналітика для власника</h3>
                     <p>Ви бачите скільки лідів прийшло, скільки відсіялось і скільки конвертувалось — у реальному часі.</p>
                 </div>
             </div>
             <div class="offer-item">
                 <div class="offer-check">🛡️</div>
                 <div class="offer-text">
-                    <h4>Ваш власний сервер — ніяких абонплат</h4>
+                    <h3>Ваш власний сервер — ніяких абонплат</h3>
                     <p>Система на вашій інфраструктурі. Жодної залежності від сторонніх SaaS за ₴5000/міс.</p>
                 </div>
             </div>
             <div class="offer-item">
                 <div class="offer-check">🎓</div>
                 <div class="offer-text">
-                    <h4>Онбординг команди за 15 хвилин</h4>
+                    <h3>Онбординг команди за 15 хвилин</h3>
                     <p>Ваші менеджери не "програмують" — вони просто отримують готові заявки і дзвонять.</p>
                 </div>
             </div>
@@ -1417,7 +1377,6 @@
         </div>
     </div>
 </section>
-
 <!-- ── GUARANTEE ────────────────────────────────── -->
 <section class="section guarantee-section">
     <div class="section-inner">
@@ -1444,13 +1403,12 @@
         </div>
     </div>
 </section>
-
 <!-- ── ABOUT ─────────────────────────────────────── -->
 <section id="about" class="section about-section">
     <div class="section-inner">
         <div class="about-card">
             <div class="about-avatar">
-                <!-- TODO: замінити src на реальне фото -->
+                <!-- TODO: замінити src на реальне фото на власному домені -->
                 <img src="https://elijahvasylchenko.github.io/services/illia-photo.jpg"
                      alt="Ілля Васильченко, засновник SystemFlow"
                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -1472,7 +1430,6 @@
         </div>
     </div>
 </section>
-
 <!-- ── CONTACT ─────────────────────────────────── -->
 <section id="contact" class="contact-section">
     <div class="contact-inner">
@@ -1518,43 +1475,35 @@
         </div>
     </div>
 </section>
-
+</main>
 <!-- ── FOOTER ───────────────────────────────────── -->
 <footer>
     <p>&copy; 2026 SystemFlow. AI-автоматизація для бізнесу в Україні. &nbsp;|&nbsp; <a href="https://t.me/ilya_vasylchenko">Telegram</a></p>
 </footer>
-
 <!-- ── FLOATING TG ─────────────────────────────── -->
 <a href="https://t.me/ilya_vasylchenko" target="_blank" class="floating-tg-btn" aria-label="Написати в Telegram">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.26-5.61 3.71-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.05-.48-.83-.27-1.49-.41-1.43-.87.03-.24.35-.49.96-.75 3.78-1.65 6.3-2.73 7.55-3.26 3.59-1.5 4.33-1.76 4.81-1.77.11 0 .35.03.5.15.13.1.17.24.19.37.01.07.02.22.01.37z"/>
     </svg>
     <span>Зв'язок напряму</span>
 </a>
-
 <script>
     const form = document.getElementById('webhookForm');
     const btn = document.getElementById('submitBtn');
-
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         const WEBHOOK_URL = 'https://workflow-control-environment.systemflow.com.ua/webhook/66853cc2-7a4e-4fff-a7f8-171a62ea5626';
-
         btn.disabled = true;
         btn.innerText = 'Бронюємо час...';
-
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
         if (data.tg_user_id) data.tg_user_id = data.tg_user_id.trim();
-
         try {
             const response = await fetch(WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
-
             if (response.ok) {
                 btn.innerText = '✓ Запит надіслано!';
                 btn.style.background = '#10b981';
@@ -1576,7 +1525,6 @@
         }
     });
 </script>
-
 <!-- ROI Calculator JS -->
 <script>
 (function() {
@@ -1587,28 +1535,22 @@
     const lostYear  = document.getElementById('res_lost_year');
     const roiEl     = document.getElementById('res_roi');
     const paybackEl = document.getElementById('res_payback');
-
     if (!checkEl) return;
-
     function fmt(n) {
         return '₴' + Math.round(n).toLocaleString('uk-UA');
     }
-
     function calc() {
         const check   = parseFloat(checkEl.value)  || 3000;
         const leads   = parseFloat(leadsEl.value)   || 30;
         const pct     = parseFloat(pctEl.value)     || 30;
-
         const lostPerMonth = Math.round(leads * (pct / 100) * 0.6); // ~60% не відповідаємо
         const lostPerYear  = lostPerMonth * 12 * check;
         const systemCost   = 12000;
         const roi          = Math.round(lostPerYear / systemCost);
         const paybackMonths = Math.ceil(systemCost / (lostPerMonth * check));
-
         lostLeads.textContent = lostPerMonth;
         lostYear.textContent  = fmt(lostPerYear) + '+';
         roiEl.textContent     = roi + 'x';
-
         if (paybackMonths <= 1) {
             paybackEl.textContent = 'першого ж';
         } else if (paybackMonths <= 2) {
@@ -1617,11 +1559,9 @@
             paybackEl.textContent = paybackMonths + ' збережених';
         }
     }
-
     [checkEl, leadsEl, pctEl].forEach(el => el.addEventListener('input', calc));
     calc();
 })();
 </script>
-
 </body>
 </html>
